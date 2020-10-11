@@ -1,18 +1,44 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+    <v-app>
+        <NavBar />
+        <v-main>
+            <v-container fluid>
+                <v-row no-gutters class="mainButtons">
+                    <v-col
+                        cols="12"
+                        sm="4"
+                        v-for="(item, index) in buttons"
+                        :key="index"
+                    >
+                        <v-btn
+                            color="purple darken-1"
+                            x-large
+                            class="ma-9 pa-1"
+                            width="175"
+                            height="175"
+                        >
+                            <v-icon x-large>{{ item.icon }}</v-icon>
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
+<style scoped>
+.mainButtons .v-btn:hover .v-icon {
+    transform: scale(1.2);
+}
+</style>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import NavBar from "@/components/NavBar";
 
 export default {
-  name: "Home",
-  components: {
-    HelloWorld
-  }
+    name: "Home",
+    components: { NavBar },
+    data: () => ({
+        buttons: [{ icon: "add" }, { icon: "create" }, { icon: "people" }]
+    })
 };
 </script>

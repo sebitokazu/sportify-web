@@ -1,0 +1,88 @@
+<template>
+    <v-app-bar app color="secondary" dark>
+        <v-app-bar-nav-icon
+            class=".d-sm-flex .d-md-none"
+            @click.stop="drawer = !drawer"
+        ></v-app-bar-nav-icon>
+        <div class="d-flex align-center">
+            <v-img
+                alt="Vuetify Logo"
+                class="shrink mr-2"
+                contain
+                src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+                transition="scale-transition"
+                width="40"
+            />
+            <v-btn text x-large color="black" class="hidden-sm-and-down"
+                >Sportify</v-btn
+            >
+        </div>
+
+        <v-spacer></v-spacer>
+
+        <div class="hidden-sm-and-down">
+            <v-btn
+                text
+                color="black"
+                v-for="(item, index) in nav_buttons"
+                :key="index"
+                >{{ item.title }}</v-btn
+            >
+        </div>
+
+        <v-spacer></v-spacer>
+        <v-text-field
+            class="rounded-pill mt-6 shrink"
+            prepend-inner-icon="search"
+            label="Search"
+            outlined
+            dense="true"
+        ></v-text-field>
+
+        <v-menu
+            v-model="value"
+            close-on-click="true"
+            close-on-content-click="true"
+            offset-y="true"
+        >
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" text v-on="on">
+                    <v-avatar size="75%">
+                        <v-icon dark>account_circle</v-icon>
+                    </v-avatar>
+                </v-btn>
+            </template>
+            <v-list>
+                <v-list-item
+                    v-for="(item, index) in profile_overflow"
+                    :key="index"
+                >
+                    <v-list-item-icon>
+                        <v-icon>{{ item.element.icon }}</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>{{
+                        item.element.title
+                    }}</v-list-item-title>
+                </v-list-item>
+            </v-list>
+        </v-menu>
+    </v-app-bar>
+</template>
+<script>
+export default {
+    name: "NavBar",
+
+    data: () => ({
+        nav_buttons: [
+            { title: "Home" },
+            { title: "My Routines" },
+            { title: "Workouts" }
+        ],
+        profile_overflow: [
+            { element: { title: "My Profile", icon: "person" } },
+            { element: { title: "Help", icon: "help_outline" } },
+            { element: { title: "Sign Out", icon: "exit_to_app" } }
+        ]
+    })
+};
+</script>
