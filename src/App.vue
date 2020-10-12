@@ -1,8 +1,6 @@
 <template>
     <v-app>
-        <v-main>
-            <Routines />
-        </v-main>
+        <router-view></router-view>
     </v-app>
 </template>
 
@@ -11,7 +9,7 @@
 //import Welcome from "./views/Welcome";
 //import LoginForm from "@/components/FormComponents/LoginForm";
 //import Home from "./views/Home";
-import Routines from "./views/Rutines";
+//import Routines from "./views/Rutines";
 //import RegisterForm from "@/components/FormComponents/RegisterForm";
 
 export default {
@@ -23,7 +21,7 @@ export default {
         //LoginForm
         //RegisterForm
         //Home,
-        Routines
+        //Routines
     },
 
     data: () => ({})

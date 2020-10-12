@@ -5,6 +5,7 @@
         depressed
         :disabled="!valid"
         type="submit"
+        :to="to"
     >
         {{ text }}
     </v-btn>
@@ -19,6 +20,9 @@ export default {
         },
         valid: {
             type: Boolean
+        },
+        to: {
+            type: String
         }
     }
 };

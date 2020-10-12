@@ -1,9 +1,9 @@
 <template>
-    <v-app>
+    <div>
         <NavBar />
         <v-main>
             <v-container fluid>
-                <v-row no-gutters class="mainButtons">
+                <v-row class="mainButtons">
                     <v-col
                         cols="12"
                         sm="4"
@@ -23,7 +23,7 @@
                 </v-row>
             </v-container>
         </v-main>
-    </v-app>
+    </div>
 </template>
 <style scoped>
 .mainButtons .v-btn:hover .v-icon {
@@ -35,7 +35,7 @@
 import NavBar from "@/components/NavBar";
 
 export default {
-    name: "Home",
+    name: "HomeView",
     components: { NavBar },
     data: () => ({
         buttons: [{ icon: "add" }, { icon: "create" }, { icon: "people" }]
