@@ -1,21 +1,22 @@
 <template>
     <v-card
-        max-width="180"
+        max-width="160"
         class="ma-lg-2"
     >
         <v-img
             class="white--text align-end"
-            height="150px"
+            height="130px"
             src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
         >
             <v-btn
                 icon
                 color="white"
+                class="mb-md-8"
             >
                 <v-icon>visibility</v-icon>
             </v-btn>
 
-            <v-card-title>Jumping Jacks</v-card-title>
+            <v-card-title>Estocadas</v-card-title>
         </v-img>
         <v-card-actions>
             <v-btn
