@@ -47,9 +47,8 @@ const routes = [
         path: "/newroutines",
         name: "NewRoutines",
         component: NewRoutines
-    }
-
-    /* {
+    },
+    {
         path: "*",
         name: "404",
         component: NotFound
