@@ -26,6 +26,7 @@
                 color="black"
                 v-for="(item, index) in nav_buttons"
                 :key="index"
+                :to="item.path"
                 >{{ item.title }}</v-btn
             >
         </div>
@@ -52,17 +53,18 @@
                     </v-avatar>
                 </v-btn>
             </template>
-            <v-list>
+            <v-list dense flat>
                 <v-list-item
                     v-for="(item, index) in profile_overflow"
                     :key="index"
+                    :to="item.element.path"
                 >
                     <v-list-item-icon>
-                        <v-icon>{{ item.element.icon }}</v-icon>
+                        <v-icon v-text="item.element.icon"></v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title>{{
-                        item.element.title
-                    }}</v-list-item-title>
+                    <v-list-item-title
+                        v-text="item.element.title"
+                    ></v-list-item-title>
                 </v-list-item>
             </v-list>
         </v-menu>
@@ -74,14 +76,26 @@ export default {
 
     data: () => ({
         nav_buttons: [
-            { title: "Home" },
-            { title: "My Routines" },
-            { title: "Workouts" }
+            { title: "Home", path: "/home" },
+            { title: "My Routines", path: "/myroutines" },
+            { title: "Workouts", path: "/workouts" }
         ],
         profile_overflow: [
-            { element: { title: "My Profile", icon: "person" } },
-            { element: { title: "Help", icon: "help_outline" } },
-            { element: { title: "Sign Out", icon: "exit_to_app" } }
+            {
+                element: {
+                    title: "My Profile",
+                    icon: "person",
+                    path: "/profile"
+                }
+            },
+            { element: { title: "Help", icon: "help_outline", path: "/help" } },
+            {
+                element: {
+                    title: "Sign Out",
+                    icon: "exit_to_app",
+                    path: "/"
+                }
+            }
         ]
     })
 };
