@@ -7,6 +7,8 @@ import Home from "../views/HomeView.vue";
 import Profile from "../views/ProfileView.vue";
 import NotFound from "../views/NotFoundView.vue";
 //import store from "../store";
+import MyRoutines from "../views/MyRoutines.vue";
+import NewRoutines from "../views/NewRoutines.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +29,11 @@ const routes = [
         component: Login
     },
     {
+        path: "/myroutines",
+        name: "MyRoutines",
+        component: MyRoutines
+    },
+    {
         path: "/home",
         name: "HomeView",
         component: Home
@@ -37,6 +44,12 @@ const routes = [
         component: Profile
     },
     {
+        path: "/newroutines",
+        name: "NewRoutines",
+        component: NewRoutines
+    }
+
+    /* {
         path: "*",
         name: "404",
         component: NotFound

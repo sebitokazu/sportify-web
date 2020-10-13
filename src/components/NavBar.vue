@@ -9,13 +9,10 @@
                 alt="Vuetify Logo"
                 class="shrink mr-2"
                 contain
-                src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+                src="/src/assets/sportify.svg"
                 transition="scale-transition"
                 width="40"
             />
-            <v-btn text x-large color="black" class="hidden-sm-and-down"
-                >Sportify</v-btn
-            >
         </div>
 
         <v-spacer></v-spacer>
@@ -78,7 +75,7 @@ export default {
         nav_buttons: [
             { title: "Home", path: "/home" },
             { title: "My Routines", path: "/myroutines" },
-            { title: "Workouts", path: "/workouts" }
+            { title: "Workouts", path: "/newroutines" }
         ],
         profile_overflow: [
             {

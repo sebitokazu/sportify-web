@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <div>
         <NavBar />
         <v-main>
             <v-container fluid>
@@ -68,8 +68,8 @@
                                     <v-card>
                                         <v-card-title>
                                             <span class="headline">{{
-                                                formTitle
-                                            }}</span>
+                                                    formTitle
+                                                }}</span>
                                         </v-card-title>
 
                                         <v-card-text>
@@ -180,14 +180,14 @@
                 </template>
             </v-container>
         </v-main>
-    </v-app>
+    </div>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar";
 
 export default {
-    name: "Routines.vue",
+    name: "MyRoutines",
     components: { NavBar },
     data: () => ({
         selectTime: [],
@@ -343,7 +343,7 @@ export default {
         deleteItem(item) {
             const index = this.myRoutines.indexOf(item);
             confirm("Are you sure you want to delete this item?") &&
-                this.myRoutines.splice(index, 1);
+            this.myRoutines.splice(index, 1);
         },
 
         close() {
