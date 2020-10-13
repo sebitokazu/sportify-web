@@ -9,13 +9,10 @@
                 alt="Vuetify Logo"
                 class="shrink mr-2"
                 contain
-                src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+                src="/src/assets/sportify.svg"
                 transition="scale-transition"
                 width="40"
             />
-            <v-btn text x-large color="black" class="hidden-sm-and-down"
-                >Sportify</v-btn
-            >
         </div>
 
         <v-spacer></v-spacer>
@@ -26,6 +23,7 @@
                 color="black"
                 v-for="(item, index) in nav_buttons"
                 :key="index"
+                :to="item.path"
                 >{{ item.title }}</v-btn
             >
         </div>
@@ -74,9 +72,9 @@ export default {
 
     data: () => ({
         nav_buttons: [
-            { title: "Home" },
-            { title: "My Routines" },
-            { title: "Workouts" }
+            { title: "Home", path: "/home" },
+            { title: "My Routines", path: "/myroutines" },
+            { title: "Workouts", path: "/newroutines" }
         ],
         profile_overflow: [
             { element: { title: "My Profile", icon: "person" } },
