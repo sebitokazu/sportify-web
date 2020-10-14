@@ -9,7 +9,9 @@
                         :items="excercises"
                         sort-by="calories"
                         class="elevation-1"
+                        hide-default-footer
                     >
+                        
                         <template v-slot:top>
                             <v-toolbar flat>
                                 <v-toolbar-title>My Routine</v-toolbar-title>
@@ -30,6 +32,7 @@
                                         >
                                             Cancel
                                         </v-btn>
+
                                         <v-btn
                                             color="accent"
                                             dark
