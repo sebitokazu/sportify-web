@@ -71,7 +71,7 @@ export default {
         nav_buttons: [
             { title: "Home", path: "/home" },
             { title: "My Routines", path: "/myroutines" },
-            { title: "Workouts", path: "/newroutines" }
+            { title: "Create", path: "/newroutines" }
         ],
         profile_overflow: [
             {
