@@ -2,24 +2,51 @@
     <div>
         <NavBar />
         <v-main>
-            <v-card class="mx-auto mt-6" max-width="600">
+            <v-card class="mx-auto mt-6" max-width="250">
                 <v-container>
-                    <v-row align="center" justify="center">
-                        <v-col cols="4">
-                            <v-avatar class="profile" color="grey" size="150">
+                    <v-row justify="center">
+                        <v-col cols="auto">
+                            <v-avatar
+                                id="avatar-img"
+                                class="profile"
+                                color="grey"
+                                size="100"
+                            >
                                 <v-img
                                     v-if="hasProfileImage"
                                     :src="getImage"
                                 ></v-img>
-                                <v-icon dark size="75" v-else
+                                <v-icon dark x-large v-else
                                     >mdi-account-circle</v-icon
                                 >
                             </v-avatar>
                         </v-col>
                     </v-row>
-                    <v-row align="center" justify="center">
-                        <v-col cols="4">
-                            <subtitle-2>User</subtitle-2>
+                    <v-row justify="center" no-gutters>
+                        <v-col cols="auto">
+                            <v-card-title>Username</v-card-title>
+                        </v-col>
+                    </v-row>
+                    <v-row
+                        v-if="hasDescription"
+                        justify="center"
+                        no-gutters
+                        class="my-n3"
+                    >
+                        <v-col cols="auto">
+                            <v-card-subtitle>Description</v-card-subtitle>
+                        </v-col>
+                    </v-row>
+                    <v-row
+                        v-if="hasLocation"
+                        justify="center"
+                        no-gutters
+                        class="my-n3"
+                    >
+                        <v-col cols="auto">
+                            <v-card-text>
+                                <v-icon>place</v-icon>Location
+                            </v-card-text>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -27,6 +54,12 @@
         </v-main>
     </div>
 </template>
+
+<style scoped>
+#avatar-img:hover > * {
+    transform: scale(1.25);
+}
+</style>
 
 <script>
 import NavBar from "@/components/NavBar";
@@ -37,7 +70,9 @@ export default {
         NavBar
     },
     data: () => ({
-        hasProfileImage: false
+        hasProfileImage: false,
+        hasDescription: true,
+        hasLocation: true
     })
 };
 </script>
