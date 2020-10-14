@@ -16,16 +16,23 @@
                 </v-row>
                 <v-row align="center" class="pt-15" style="y:100%;">
                     <v-col cols="8" align="middle">
-                        <h1 class="font-weight-black">
+                        <h1 class="font-weight-black" color="primary">
                             Error 404: Page not found
                         </h1>
-                        <subtitle-1 style="color:white;"
-                            >Take a break and then go back to
-                            <router-link v-if="store.isAuthenticated" to="/home"
-                                >home</router-link
+                        <h3 style="color:white;">
+                            Take a short break!
+                        </h3>
+                        <div class="mt-4">
+                            <v-btn v-if="store.isAuthenticated" to="/home">
+                                Back to home
+                            </v-btn>
+                            <v-btn v-else to="/">
+                                <v-icon left>
+                                    arrow_back
+                                </v-icon>
+                                Back to main</v-btn
                             >
-                            <router-link v-else to="/">main</router-link>
-                        </subtitle-1>
+                        </div>
                     </v-col>
                 </v-row>
             </v-container>
@@ -51,9 +58,5 @@ export default {
     top: 0;
     left: 0;
     background-size: cover;
-}
-.v-application a {
-    color: white;
-    font-weight: 700;
 }
 </style>

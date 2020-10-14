@@ -1,7 +1,14 @@
 <template>
     <v-main>
         <v-container>
-            <v-row justify="center" class="mt-7">
+            <v-row>
+                <v-col cols="12" align-self="start">
+                    <v-btn fab text @click="$router.back()">
+                        <v-icon>arrow_back</v-icon>
+                    </v-btn>
+                </v-col>
+            </v-row>
+            <v-row justify="center">
                 <v-col cols="4">
                     <v-card
                         min-width="250"

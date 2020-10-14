@@ -1,9 +1,5 @@
 <template>
     <v-app-bar app color="secondary" dark>
-        <v-app-bar-nav-icon
-            class=".d-sm-flex .d-md-none"
-            @click.stop="drawer = !drawer"
-        ></v-app-bar-nav-icon>
         <div class="d-flex align-center">
             <v-img
                 alt="Vuetify Logo"
@@ -17,7 +13,7 @@
 
         <v-spacer></v-spacer>
 
-        <div class="hidden-sm-and-down">
+        <div>
             <v-btn
                 text
                 color="black"
