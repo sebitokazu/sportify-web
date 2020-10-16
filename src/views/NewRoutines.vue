@@ -4,7 +4,27 @@
         <v-main>
             <v-row>
                 <v-col>
-                    <v-data-table
+                    <v-card>
+                        <v-toolbar-title>My Routine</v-toolbar-title>
+                        <v-btn
+                            color="error"
+                            dark
+                            class="mb-2 mx-2"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            Cancel
+                        </v-btn>
+                        <v-btn
+                            color="accent"
+                            dark
+                            class="mb-2"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            Save
+                        </v-btn>
+                        <v-data-table
                         :headers="headers"
                         :items="excercises"
                         sort-by="calories"
@@ -13,7 +33,7 @@
                     >
                         <template v-slot:top>
                             <v-toolbar flat>
-                                <v-toolbar-title>My Routine</v-toolbar-title>
+                                <v-toolbar-title>Warm Up</v-toolbar-title>
                                 <v-divider
                                     class="mx-4"
                                     inset
@@ -21,28 +41,6 @@
                                 ></v-divider>
 
                                 <v-dialog v-model="dialog" max-width="500px">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-btn
-                                            color="error"
-                                            dark
-                                            class="mb-2"
-                                            v-bind="attrs"
-                                            v-on="on"
-                                        >
-                                            Cancel
-                                        </v-btn>
-
-                                        <v-btn
-                                            color="accent"
-                                            dark
-                                            class="mb-2"
-                                            v-bind="attrs"
-                                            v-on="on"
-                                        >
-                                            Save
-                                        </v-btn>
-                                    </template>
-
                                     <v-card>
                                         <v-card-title>
                                             <span class="headline">{{
@@ -167,6 +165,7 @@
                             </v-btn>
                         </template>
                     </v-data-table>
+                    </v-card>
                 </v-col>
                 <v-divider vertical></v-divider>
                 <v-col cols="6" md="6">
@@ -182,11 +181,9 @@
                             </v-row>
                             <v-row>
                                 <v-col v-for="n in 4" :key="n" cols="12" sm="3">
-                                    <v-card class="pa-2" tile>
-                                        <v-row v-for="n in 6" :key="n">
-                                            <Excercise />
+                                        <v-row v-for="k in listaEjercicios" :key="k">
+                                            <Excercise excercise-name="Estocadas" />
                                         </v-row>
-                                    </v-card>
                                 </v-col>
                             </v-row>
                         </template>
@@ -207,6 +204,7 @@ export default {
     data: () => ({
         dialog: false,
         dialogDelete: false,
+        listaEjercicios: ['Estocadas', 'Flexiones', 'Abdominales', 'Sentadillas'],
         headers: [
             {
                 text: "Excercise name",

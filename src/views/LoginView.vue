@@ -52,6 +52,7 @@
                                         >
                                             Sign Up
                                         </v-btn>
+
                                     </v-row>
                                 </v-container>
                             </v-card-actions>

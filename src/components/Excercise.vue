@@ -1,5 +1,5 @@
 <template>
-    <v-card max-width="160" class="ma-lg-2">
+    <v-card class="ma-lg-2 pa-lg-2 ma-md-4">
         <v-img
             class="white--text align-end"
             height="130px"
@@ -9,15 +9,17 @@
                 <v-icon>visibility</v-icon>
             </v-btn>
 
-            <v-card-title>Estocadas</v-card-title>
+            <v-card-title>{{excerciseName}}</v-card-title>
         </v-img>
         <v-card-actions>
-            <v-btn color="primary" text>
-                <v-icon small class="mr-2">
-                    add
-                </v-icon>
-                Add
-            </v-btn>
+            <v-row>
+                <v-btn color="primary" text>
+                    <v-icon small class="mr-2">
+                        add
+                    </v-icon>
+                    Add
+                </v-btn>
+            </v-row>
             <v-btn color="primary" text>
                 <v-icon small class="mr-2">
                     mdi-pencil
@@ -30,7 +32,10 @@
 
 <script>
 export default {
-    name: "Excercise"
+    name: "Excercise",
+    props: {
+        excerciseName: String
+    }
 };
 </script>
 

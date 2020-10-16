@@ -15,7 +15,8 @@
                                 <v-img
                                     v-if="hasProfileImage"
                                     :src="getImage"
-                                ></v-img>
+                                >
+                                </v-img>
                                 <v-icon dark x-large v-else
                                     >mdi-account-circle</v-icon
                                 >
@@ -23,9 +24,28 @@
                         </v-col>
                     </v-row>
                     <v-row justify="center" no-gutters>
-                        <v-col cols="auto">
-                            <v-card-title>Username</v-card-title>
-                        </v-col>
+                        <v-text-field
+                            label="Username"
+                            outlined
+                            v-model="userName"
+                        ></v-text-field>
+                        <v-text-field
+                            label="Password"
+                            outlined
+                            v-model="password"
+                            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                            :rules="[rules.required, rules.min]"
+                            :type="show1 ? 'text' : 'password'"
+                            name="input-10-1"
+                            hint="At least 8 characters"
+                            counter
+                            @click:append="show1 = !show1"
+                        ></v-text-field>
+                        <v-text-field
+                            label="E-mail"
+                            outlined
+                            v-model="email"
+                        ></v-text-field>
                     </v-row>
                     <v-row
                         v-if="hasDescription"
@@ -34,19 +54,7 @@
                         class="my-n3"
                     >
                         <v-col cols="auto">
-                            <v-card-subtitle>Description</v-card-subtitle>
-                        </v-col>
-                    </v-row>
-                    <v-row
-                        v-if="hasLocation"
-                        justify="center"
-                        no-gutters
-                        class="my-n3"
-                    >
-                        <v-col cols="auto">
-                            <v-card-text>
-                                <v-icon>place</v-icon>Location
-                            </v-card-text>
+                            <v-card-subtitle>Edit profile</v-card-subtitle>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -70,9 +78,18 @@ export default {
         NavBar
     },
     data: () => ({
+        show1: false,
         hasProfileImage: false,
         hasDescription: true,
-        hasLocation: true
+        hasLocation: true,
+        userName: "Sergio",
+        email: "sergioperez@gmail.com",
+        password: "Password",
+        rules: {
+            required: value => !!value || 'Required.',
+            min: v => v.length >= 8 || 'Min 8 characters',
+            emailMatch: () => ('The email and password you entered don\'t match'),
+        }
     })
 };
 </script>

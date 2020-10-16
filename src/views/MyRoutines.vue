@@ -4,6 +4,7 @@
         <v-main>
             <v-container fluid>
                 <template>
+
                     <v-data-table
                         :headers="headers"
                         :items="myRoutines"
@@ -108,7 +109,7 @@
                                                             v-model="
                                                                 editedItem.difficulty
                                                             "
-                                                            label="difficulty"
+                                                            label = "difficulty"
                                                         ></v-text-field>
                                                     </v-col>
                                                     <v-col
@@ -264,70 +265,70 @@ export default {
                 {
                     name: "Frozen Yogurt",
                     duration: 159,
-                    difficulty: 6.0,
+                    difficulty: 1,
                     places: 24,
                     groups: 4.0
                 },
                 {
                     name: "Ice cream sandwich",
                     duration: 237,
-                    difficulty: 9.0,
+                    difficulty: 2,
                     places: 37,
                     groups: 4.3
                 },
                 {
                     name: "Eclair",
                     duration: 262,
-                    difficulty: 16.0,
+                    difficulty: 2,
                     places: 23,
                     groups: 6.0
                 },
                 {
                     name: "Cupcake",
                     duration: 305,
-                    difficulty: 3.7,
+                    difficulty: 3,
                     places: 67,
                     groups: 4.3
                 },
                 {
                     name: "Gingerbread",
                     duration: 356,
-                    difficulty: 16.0,
+                    difficulty: 1,
                     places: 49,
                     groups: 3.9
                 },
                 {
                     name: "Jelly bean",
                     duration: 375,
-                    difficulty: 0.0,
+                    difficulty: 2,
                     places: 94,
                     groups: 0.0
                 },
                 {
                     name: "Lollipop",
                     duration: 392,
-                    difficulty: 0.2,
+                    difficulty: 3,
                     places: 98,
                     groups: 0
                 },
                 {
                     name: "Honeycomb",
                     duration: 408,
-                    difficulty: 3.2,
+                    difficulty: 0,
                     places: 87,
                     groups: 6.5
                 },
                 {
                     name: "Donut",
                     duration: 452,
-                    difficulty: 25.0,
+                    difficulty: 1,
                     places: 51,
                     groups: 4.9
                 },
                 {
                     name: "KitKat",
                     duration: 518,
-                    difficulty: 26.0,
+                    difficulty: 3,
                     places: 65,
                     groups: 7
                 }

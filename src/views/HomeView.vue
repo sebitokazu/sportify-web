@@ -10,15 +10,26 @@
                         v-for="(item, index) in buttons"
                         :key="index"
                     >
-                        <v-btn
-                            color="purple darken-1"
-                            x-large
-                            class="ma-9 pa-1"
-                            width="175"
-                            height="175"
-                        >
-                            <v-icon x-large>{{ item.icon }}</v-icon>
-                        </v-btn>
+                        <v-card>
+                            <v-row>
+                                <v-col>
+                                    <v-btn
+                                        color="purple darken-1"
+                                        x-large
+                                        class="ma-9 pa-1"
+                                        width="175"
+                                        height="175"
+                                    >
+
+                                        <v-icon x-large>{{ item.icon }}</v-icon>
+
+                                    </v-btn>
+                                </v-col>
+                                <v-col>
+                                    <v-card-text>{{item.text}}</v-card-text>
+                                </v-col>
+                            </v-row>
+                        </v-card>
                     </v-col>
                 </v-row>
             </v-container>
@@ -38,7 +49,9 @@ export default {
     name: "HomeView",
     components: { NavBar },
     data: () => ({
-        buttons: [{ icon: "add" }, { icon: "create" }, { icon: "people" }]
+        buttons: [{ icon: "add", text: "Ingrese para crear una nueva rutina o ejercicios" },
+            { icon: "create", text: "Ingrese para editar tus rutinas o ejercicios" },
+            { icon: "people", text: "Ingrese para poder buscar ..." }]
     })
 };
 </script>
