@@ -54,7 +54,7 @@
                         class="my-n3"
                     >
                         <v-col cols="auto">
-                            <v-card-subtitle>Edit profile</v-card-subtitle>
+                            <v-card-subtitle>Profile</v-card-subtitle>
                         </v-col>
                     </v-row>
                 </v-container>

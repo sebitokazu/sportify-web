@@ -260,7 +260,7 @@ export default {
     },
 
     methods: {
-        initialize() {
+            initialize() {
             this.myRoutines = [
                 {
                     name: "Frozen Yogurt",
