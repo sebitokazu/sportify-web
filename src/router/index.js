@@ -10,6 +10,7 @@ import NotFound from "../views/NotFoundView.vue";
 import MyRoutines from "../views/MyRoutines.vue";
 import NewRoutines from "../views/NewRoutines.vue";
 import SearchView from "../views/SearchView.vue";
+import MyExercises from "../views/MyExercisesView.vue";
 
 Vue.use(VueRouter);
 
@@ -53,6 +54,11 @@ const routes = [
         path: "/search",
         name: "SearchView",
         component: SearchView
+    },
+    {
+        path: "/myexercises",
+        name: "MyExercises",
+        component: MyExercises
     },
     {
         path: "*",

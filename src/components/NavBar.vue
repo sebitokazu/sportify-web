@@ -81,6 +81,7 @@ export default {
         nav_buttons: [
             { title: "Home", path: "/home" },
             { title: "My Routines", path: "/myroutines" },
+            { title: "My Exercises", path: "/myexercises" },
             { title: "Create", path: "/newroutines" },
             { title: "Search", path: "/search" }
         ],
