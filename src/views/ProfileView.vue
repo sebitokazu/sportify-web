@@ -25,26 +25,26 @@
                             <v-text-field
                                 label="Username"
                                 outlined
-                                v-model="username"
+                                v-model="textFieldValues.username"
                                 :readonly="readMode"
                             ></v-text-field>
                             <v-text-field
                                 label="Full name"
                                 outlined
                                 :readonly="readMode"
-                                v-model="fullname"
+                                v-model="textFieldValues.fullName"
                             ></v-text-field>
                             <v-text-field
                                 label="E-mail"
                                 outlined
                                 readonly
-                                v-model="email"
+                                v-model="textFieldValues.email"
                                 :hint="readMode ? '' : 'Email cant be changed'"
                             ></v-text-field>
                             <v-text-field
                                 label="Password"
                                 outlined
-                                v-model="password"
+                                v-model="textFieldValues.password"
                                 :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                                 :rules="[rules.required, rules.min]"
                                 :type="show1 ? 'text' : 'password'"
@@ -57,7 +57,7 @@
                                 label="Gender"
                                 outlined
                                 :readonly="readMode"
-                                v-model="gender"
+                                v-model="textFieldValues.gender"
                             ></v-text-field>
                             <v-menu
                                 ref="menu"
@@ -73,7 +73,7 @@
                                     v-slot:activator="{ on, attrs }"
                                 >
                                     <v-text-field
-                                        v-model="date"
+                                        v-model="textFieldValues.birthdate"
                                         label="Birthday date"
                                         outlined
                                         v-bind="attrs"
@@ -83,7 +83,7 @@
                                 </template>
                                 <v-date-picker
                                     ref="picker"
-                                    v-model="date"
+                                    v-model="textFieldValues.birthdate"
                                     :max="
                                         new Date().toISOString().substr(0, 10)
                                     "
@@ -164,6 +164,12 @@
                     </v-row>
                 </v-container>
             </v-card>
+            <v-overlay :value="postLoader">
+                <v-progress-circular
+                    indeterminate
+                    size="64"
+                ></v-progress-circular>
+            </v-overlay>
         </v-main>
     </div>
 </template>
@@ -188,63 +194,77 @@ export default {
         show1: false,
         dialog: false,
         dialogTitle: "",
-        hasProfileImage: false,
-        hasDescription: true,
-        hasLocation: true,
-        readMode: true,
-        username: "Sergio",
-        email: "sergioperez@gmail.com",
-        password: "Password",
-        fullname: "Full name",
         action: "",
-        gender: "",
-        currentValues: {
-            username: "",
-            fullname: "",
-            password: "",
-            date: "",
-            gender: ""
+        hasProfileImage: false,
+        readMode: true,
+        postLoader: false,
+        textFieldValues: {
+            username: "Sergio",
+            email: "sergioperez@gmail.com",
+            password: "Password",
+            fullName: "Full name",
+            gender: "",
+            birthdate: "",
+            phone: "",
+            avatarUrl: ""
         },
         menu: false,
         minYear: "1900-01-01",
-        date: "",
         rules: {
             required: value => !!value || "Required.",
             min: v => v.length >= 8 || "Min 8 characters",
             emailMatch: () => "The email and password you entered don't match"
         }
     }),
-    mounted() {
-        //user = fetch...
-        const user = {
-            username: "Sergio",
-            email: "sergioperez@gmail.com",
-            password: "Password",
-            fullname: "Full name",
-
-            gender: ""
-        };
-        this.currentValues = user;
-        console.log(user);
-    },
+    mounted() {},
     watch: {
         menu(val) {
             val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
         }
     },
     methods: {
+        async getUserData() {
+            this.textFieldValues = {
+                username: "Sergio",
+                email: "sergioperez@gmail.com",
+                password: "Password",
+                fullName: "Full name",
+                gender: "",
+                birthdate: "284007600000",
+                phone: "",
+                avatarUrl: ""
+            };
+            this.textFieldValues.birthdate = this.formatDate(
+                this.textFieldValues.birthdate
+            );
+        },
         performAction() {
             if (this.action === "save") this.save();
             else this.discard();
         },
-        save() {
+        async save() {
+            this.dialog = false;
+            this.postLoader = true;
             //post...
-            this.dialog = false;
+            await new Promise(resolve =>
+                setTimeout(() => resolve((this.postLoader = false)), 2000)
+            );
             this.readMode = true;
+            console.log(
+                this.textFieldValues.username,
+                this.textFieldValues.password,
+                this.textFieldValues.fullName,
+                this.textFieldValues.gender,
+                this.textFieldValues.birthdate,
+                this.textFieldValues.phone,
+                this.textFieldValues.avatarUrl
+            );
+            await this.getUserData();
         },
-        discard() {
+        async discard() {
             this.dialog = false;
             this.readMode = true;
+            await this.getUserData();
         },
         cancel() {
             this.dialog = false;
@@ -256,6 +276,20 @@ export default {
         cancelPreCheck() {
             this.action = "cancel";
             this.dialogTitle = "Discard changes?";
+        },
+        getImage() {
+            return this.avatarUrl;
+        },
+        formatDate(date) {
+            var d = new Date(parseInt(date)),
+                month = "" + (d.getMonth() + 1),
+                day = "" + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = "0" + month;
+            if (day.length < 2) day = "0" + day;
+
+            return [year, month, day].join("-");
         }
     }
 };
