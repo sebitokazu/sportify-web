@@ -3,37 +3,27 @@
         <NavBar />
         <v-main>
             <v-container>
-                <v-row class="mt-3 px-3" justify="center">
-                    <v-col cols="10">
-                        <v-text-field
-                            v-model="searchText"
-                            class="rounded-pill "
-                            prepend-inner-icon="search"
-                            label="Search"
-                            outlined
-                            clearable
-                            @keydown.enter="search"
-                            dense
-                        ></v-text-field>
-                    </v-col>
-                    <v-col>
-                        <v-btn rounded color="accent" @click="search"
-                            >Search</v-btn
-                        >
-                    </v-col>
-                </v-row>
-                <v-divider></v-divider>
                 <v-row justify="start" class="py-5">
                     <v-col>
-                        <v-text-area solo class="text-h6"
-                            >Search results for '{{ this.resultText }}'
+                        <v-text-area solo class="text-h4">
+                            Check all the routines
                         </v-text-area>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col>
                         <v-responsive class="overflow-y-auto" max-height="800">
-                            <template>
+                            <template v-if="loading">
+                                <v-row>
+                                    <v-col cols="3" v-for="i in 4" :key="i">
+                                        <v-skeleton-loader
+                                            type="article,actions"
+                                            max-height="200"
+                                        ></v-skeleton-loader>
+                                    </v-col>
+                                </v-row>
+                            </template>
+                            <template v-else>
                                 <v-row>
                                     <v-col
                                         v-for="rutina in listaRutinas"
@@ -64,34 +54,39 @@
 import NavBar from "@/components/NavBar.vue";
 import RoutineCard from "@/components/RoutineCard.vue";
 export default {
-    name: "SearchView",
+    name: "ExploreView",
     data: () => ({
         searchText: "",
         resultText: "",
+        loading: "",
         listaRutinas: [
             {
                 name: "Rutinas",
                 author: "Tommy",
-                description: "Compliqueti",
-                difficulty: 4
+                detail: "Compliqueti",
+                difficulty: 4,
+                datecreated: 1602646871112
             },
             {
                 name: "Rutinas",
                 author: "Tommy",
-                description: "Compliqueti",
-                difficulty: 5
+                destail: "Compliqueti",
+                difficulty: 5,
+                datecreated: 1602646871112
             },
             {
                 name: "Rutinas",
                 author: "Tommy",
-                description: "Compliqueti",
-                difficulty: 2
+                detail: "Compliqueti",
+                difficulty: 2,
+                datecreated: 1602646871112
             },
             {
                 name: "Rutinas",
                 author: "Tommy",
-                description: "Compliqueti",
-                difficulty: 4
+                detail: "Compliqueti",
+                difficulty: 4,
+                datecreated: 1602646871112
             }
         ],
         searchResult: undefined
@@ -100,11 +95,20 @@ export default {
         NavBar,
         RoutineCard
     },
+    async created() {
+        this.getAllRoutines();
+    },
     methods: {
         search() {
             console.log(this.searchText);
             this.resultText = this.searchText;
             //this.searchResult=fetchblabl
+        },
+        async getAllRoutines() {
+            this.loading = true;
+            await new Promise(resolve =>
+                setTimeout(() => resolve((this.loading = false)), 2000)
+            );
         }
     },
     computed: {}
