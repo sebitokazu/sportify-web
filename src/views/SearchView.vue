@@ -26,7 +26,7 @@
                 <v-row justify="start" class="py-5">
                     <v-col>
                         <v-text-area solo class="text-h6"
-                            >Search results for '{{ this.searchText }}'
+                            >Search results for '{{ this.resultText }}'
                         </v-text-area>
                     </v-col>
                 </v-row>
@@ -36,24 +36,19 @@
                             <template>
                                 <v-row>
                                     <v-col
-                                        v-for="n in 4"
-                                        :key="n"
-                                        cols="12"
-                                        sm="3"
+                                        v-for="rutina in listaRutinas"
+                                        :key="rutina.id"
+                                        cols="3"
                                     >
-                                        <v-row
-                                            v-for="k in listaEjercicios"
-                                            :key="k"
-                                        >
-                                            <v-col>
-                                                <RoutineCard
-                                                    :title="k.name"
-                                                    :author="k.author"
-                                                    :description="k.description"
-                                                    :difficulty="k.difficulty"
-                                                />
-                                            </v-col>
-                                        </v-row>
+                                        <!-- Aca en realidad es mejor hacer un binding del json rutina-->
+                                        <RoutineCard
+                                            :title="rutina.name"
+                                            :author="rutina.author"
+                                            :description="rutina.description"
+                                            :detail="rutina.detail"
+                                            :difficulty="rutina.difficulty"
+                                            :id="rutina.id"
+                                        />
                                     </v-col>
                                 </v-row>
                             </template>
@@ -72,7 +67,8 @@ export default {
     name: "SearchView",
     data: () => ({
         searchText: "",
-        listaEjercicios: [
+        resultText: "",
+        listaRutinas: [
             {
                 name: "Rutinas",
                 author: "Tommy",
@@ -107,6 +103,7 @@ export default {
     methods: {
         search() {
             console.log(this.searchText);
+            this.resultText = this.searchText;
             //this.searchResult=fetchblabl
         }
     },

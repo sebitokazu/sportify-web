@@ -7,7 +7,6 @@
         </v-card-subtitle>
 
         <v-card-text class="text--primary">
-            <div>{{ description }}</div>
             <v-rating
                 small
                 length="5"
@@ -26,7 +25,12 @@
                         See more
                     </v-btn>
                 </template>
-                <RoutineCardDetailed :title="title" @dialog="dialog = false" />
+                <RoutineCardDetailed
+                    :title="title"
+                    :detail="detail"
+                    :description="description"
+                    @dialog="dialog = false"
+                />
             </v-dialog>
         </v-card-actions>
     </v-card>
@@ -48,6 +52,9 @@ export default {
         },
         difficulty: {
             type: Number
+        },
+        detail: {
+            type: String
         }
     },
     components: {
