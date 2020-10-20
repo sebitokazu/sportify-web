@@ -4,7 +4,6 @@
         <v-main>
             <v-container fluid>
                 <template>
-
                     <v-data-table
                         :headers="headers"
                         :items="myRoutines"
@@ -109,7 +108,7 @@
                                                             v-model="
                                                                 editedItem.difficulty
                                                             "
-                                                            label = "difficulty"
+                                                            label="difficulty"
                                                         ></v-text-field>
                                                     </v-col>
                                                     <v-col
@@ -260,7 +259,7 @@ export default {
     },
 
     methods: {
-            initialize() {
+        initialize() {
             this.myRoutines = [
                 {
                     name: "Frozen Yogurt",

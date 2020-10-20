@@ -1,14 +1,24 @@
 <template>
     <v-app-bar app color="secondary" dark>
-        <div class="d-flex align-center">
-            <v-img
-                alt="Vuetify Logo"
-                class="shrink mr-2"
-                contain
-                src="/src/assets/sportify.svg"
-                transition="scale-transition"
-                width="40"
-            />
+        <div class="d-flex align-center justify-start">
+            <v-btn
+                text
+                max-height="60"
+                max-width="150"
+                to="/home"
+                id="home-btn"
+                active-class="inactive"
+            >
+                <v-img
+                    alt="Sportify Logo"
+                    class="pl-0"
+                    contain
+                    src="@/assets/sportifyLoguito.svg"
+                    transition="scale-transition"
+                    max-height="60"
+                    max-width="150"
+                />
+            </v-btn>
         </div>
 
         <v-spacer></v-spacer>
@@ -71,7 +81,8 @@ export default {
         nav_buttons: [
             { title: "Home", path: "/home" },
             { title: "My Routines", path: "/myroutines" },
-            { title: "Create", path: "/newroutines" }
+            { title: "Create", path: "/newroutines" },
+            { title: "Search", path: "/search" }
         ],
         profile_overflow: [
             {
@@ -93,3 +104,8 @@ export default {
     })
 };
 </script>
+<style scoped>
+#home-btn.inactive::before {
+    opacity: 0 !important;
+}
+</style>
