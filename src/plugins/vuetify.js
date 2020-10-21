@@ -19,9 +19,9 @@ export default new Vuetify({
                 background: "#fdfff2"
             },
             dark: {
-                primary: "#7400b8",
-                secondary: "#DDA7FF",
-                contrast: "#000000",
+                primary: "#DDA7FF",
+                secondary: "#7400b8",
+                contrast: "#FFFFFF",
                 success: "#4083E7",
                 error: "#b71c1c",
                 rating: "#fcba03",

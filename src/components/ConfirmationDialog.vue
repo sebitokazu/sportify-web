@@ -12,7 +12,7 @@
                 <v-btn color="error" text @click="cancel">
                     Cancel
                 </v-btn>
-                <v-btn color="green darken-1" text @click="confirm">
+                <v-btn color="success" text @click="confirm">
                     Ok
                 </v-btn>
             </v-card-actions>
