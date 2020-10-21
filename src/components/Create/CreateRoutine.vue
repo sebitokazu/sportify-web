@@ -4,12 +4,12 @@
             <EditRoutine />
             <v-expansion-panels>
                 <v-expansion-panel
-                    v-for="(item,i) in ciclos"
+                    v-for="(item, i) in ciclos"
                     :key="i"
                     class="background"
                 >
                     <v-expansion-panel-header>
-                        {{item}}
+                        {{ item }}
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <cicle />
@@ -55,15 +55,9 @@ export default {
     name: "CreateRoutine",
     components: { Cicle, EditRoutine },
     data: () => ({
-        ciclos: [
-            'Warm up',
-            'Training',
-            'Streching'
-        ],
+        ciclos: ["Warm up", "Training", "Streching"]
     })
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

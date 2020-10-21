@@ -9,20 +9,20 @@
                 ></v-text-field>
             </v-col>
             <v-col>
-                    <v-icon align>
-                        alarm
-                    </v-icon>
-                    {{totalTime}}
-                    mins
+                <v-icon align>
+                    alarm
+                </v-icon>
+                {{ totalTime }}
+                mins
             </v-col>
             <v-col>
-                    <v-checkbox v-model="checkbox" color="success">
-                        <template v-slot:label>
-                            <div>
-                                Private
-                            </div>
-                        </template>
-                    </v-checkbox>
+                <v-checkbox v-model="checkbox" color="success">
+                    <template v-slot:label>
+                        <div>
+                            Private
+                        </div>
+                    </template>
+                </v-checkbox>
             </v-col>
             <v-col>
                 <v-chip-group>
@@ -46,11 +46,9 @@
 export default {
     name: "EditRoutine.vue",
     data: () => ({
-        totalTime: "15",
+        totalTime: "15"
     })
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

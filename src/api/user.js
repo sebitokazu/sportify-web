@@ -1,4 +1,4 @@
-import { Api } from './api.js';
+import { Api } from "./api.js";
 import Cookies from "js-cookie";
 
 export { UserApi, Credentials };
@@ -9,32 +9,36 @@ class UserApi {
     }
 
     static async login(credentials, controller) {
-        const result = await Api.post(`${UserApi.url}/login`, false, credentials, controller);
+        const result = await Api.post(
+            `${UserApi.url}/login`,
+            false,
+            credentials,
+            controller
+        );
         Api.token = result.token;
         return result;
     }
 
     static async logout(controller) {
-        await Api.post(`${UserApi.url}/logout`, true,null, controller);
+        await Api.post(`${UserApi.url}/logout`, true, null, controller);
         Api.token = undefined;
     }
 
-    static async register(userData){
+    static async register(userData) {
         await Api.post(this.url, false, userData);
     }
 
-    static setUserLogged(userLogged){
+    static setUserLogged(userLogged) {
         Cookies.set("userLogged", userLogged);
     }
 
-    static getUserLogged(){
+    static getUserLogged() {
         return Cookies.get("userLogged");
     }
 
-    static deleteUserLogged(){
+    static deleteUserLogged() {
         Cookies.remove("userLogged");
     }
-
 }
 
 class Credentials {

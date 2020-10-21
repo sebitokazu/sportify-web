@@ -8,21 +8,20 @@
                     class="ma-9 pa-1"
                     width="175"
                     height="175"
-                    :to=path
+                    :to="path"
                 >
                     <v-icon size="60" color="contrast">{{ icon }}</v-icon>
                 </v-btn>
             </v-col>
             <v-col>
-                <v-card-text class="pt-10 text-h4" >{{title}}</v-card-text>
-                <v-card-text class="pt-0 pr-10 text-h7" >{{text}}</v-card-text>
+                <v-card-text class="pt-10 text-h4">{{ title }}</v-card-text>
+                <v-card-text class="pt-0 pr-10 text-h7">{{ text }}</v-card-text>
             </v-col>
         </v-row>
     </v-card>
 </template>
 
 <script>
-
 export default {
     name: "MainCard.vue",
     props: {
@@ -31,9 +30,7 @@ export default {
         text: String,
         title: String
     }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -47,11 +47,17 @@
                                 label="Password"
                                 prepend-inner-icon="lock"
                                 :type="show ? 'text' : 'password'"
-                                :append-icon="show ? 'visibility' : 'visibility_off'"
+                                :append-icon="
+                                    show ? 'visibility' : 'visibility_off'
+                                "
                                 :rules="rulesPassword"
                                 filled
                                 shaped
-                                :hint="rulesPassword ? 'It looks nice!' : 'At least 8 characters'"
+                                :hint="
+                                    rulesPassword
+                                        ? 'It looks nice!'
+                                        : 'At least 8 characters'
+                                "
                                 @click:append="show = !show"
                                 required
                             >
@@ -76,7 +82,6 @@
 </template>
 
 <script>
-
 import { UserApi } from "@/api/user";
 
 export default {
@@ -103,9 +108,7 @@ export default {
             }
         ]
     }),
-    components: {
-
-    },
+    components: {},
     methods: {
         async register() {
             console.log(this.username);
@@ -120,19 +123,17 @@ export default {
                 email: this.email,
                 phone: "0",
                 avatarUrl: ""
-            }
+            };
             console.log(registerCredentials);
-            try{
+            try {
                 console.log(registerCredentials);
                 let response = await UserApi.register(registerCredentials);
                 console.log(response);
                 debugger;
                 console.log(response);
+            } catch (error) {
+                console.log(error);
             }
-            catch(error){
-                console.log(error)
-            }
-
         }
     }
 };

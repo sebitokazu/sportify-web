@@ -1,11 +1,10 @@
 export { Api };
 
 class Api {
-
     static token;
 
     static get baseUrl() {
-        return 'http://127.0.0.1:8080/api';
+        return "http://127.0.0.1:8080/api";
     }
 
     static get timeout() {
@@ -14,28 +13,26 @@ class Api {
 
     static async fetch(url, secure, init = {}, controller) {
         if (secure && Api.token) {
-            if (!init.headers)
-                init.headers = {};
+            if (!init.headers) init.headers = {};
 
-            init.headers['Authorization'] = `bearer ${Api.token}`;
+            init.headers["Authorization"] = `bearer ${Api.token}`;
         }
 
         controller = controller || new AbortController();
         const timer = setTimeout(() => controller.abort(), Api.timeout);
-        init.signal = controller.signal
+        init.signal = controller.signal;
 
         try {
             const response = await fetch(url, init);
             const text = await response.text();
-            const result = text ? (JSON).parse(text) : {};
-            if (result.code)
-                throw result;
+            const result = text ? JSON.parse(text) : {};
+            if (result.code) throw result;
 
             return result;
         } catch (error) {
             if (!error.code) {
                 // eslint-disable-next-line no-ex-assign
-                error = { "code": 99, "description": error.message.toLowerCase() };
+                error = { code: 99, description: error.message.toLowerCase() };
             }
             throw error;
         } finally {
@@ -44,33 +41,47 @@ class Api {
     }
 
     static async get(url, secure, controller) {
-        return await Api.fetch(url, secure, {}, controller)
+        return await Api.fetch(url, secure, {}, controller);
     }
 
-
     static async post(url, secure, data, controller) {
-        return await Api.fetch(url, secure, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+        return await Api.fetch(
+            url,
+            secure,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify(data)
             },
-            body: JSON.stringify(data)
-        }, controller);
+            controller
+        );
     }
 
     static async put(url, secure, data, controller) {
-        return await Api.fetch(url, secure,{
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+        return await Api.fetch(
+            url,
+            secure,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify(data)
             },
-            body: JSON.stringify(data)
-        }, controller);
+            controller
+        );
     }
 
     static async delete(url, secure, controller) {
-        return await Api.fetch(url, secure, {
-            method: 'DELETE',
-        }, controller);
+        return await Api.fetch(
+            url,
+            secure,
+            {
+                method: "DELETE"
+            },
+            controller
+        );
     }
 }

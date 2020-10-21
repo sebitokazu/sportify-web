@@ -28,16 +28,24 @@
                                 label="Password"
                                 prepend-inner-icon="lock"
                                 :type="show ? 'text' : 'password'"
-                                :append-icon="show ? 'visibility' : 'visibility_off'"
+                                :append-icon="
+                                    show ? 'visibility' : 'visibility_off'
+                                "
                                 :rules="rulesPassword"
                                 filled
                                 shaped
-                                :hint="rulesPassword ? 'It looks nice!' : 'At least 8 characters'"
+                                :hint="
+                                    rulesPassword
+                                        ? 'It looks nice!'
+                                        : 'At least 8 characters'
+                                "
                                 @click:append="show = !show"
                                 required
                             >
                             </v-text-field>
-                            <h3 v-if="invalidCredentials" >Invalid credentials, please try again.</h3>
+                            <h3 v-if="invalidCredentials">
+                                Invalid credentials, please try again.
+                            </h3>
                             <v-container class="">
                                 <v-row no-gutters>
                                     <v-col align="end">
@@ -81,7 +89,6 @@
                                         >
                                             Sign Up
                                         </v-btn>
-
                                     </v-row>
                                 </v-container>
                             </v-card-actions>
@@ -94,9 +101,7 @@
 </template>
 
 <script>
-import {UserApi, Credentials} from "@/api/user";
-
-
+import { UserApi, Credentials } from "@/api/user";
 
 export default {
     name: "LoginView",
@@ -118,24 +123,19 @@ export default {
             }
         ]
     }),
-    components: {
-    },
+    components: {},
     methods: {
         async login() {
-
-            let credentials = new Credentials(this.username,this.password);
-            try{
+            let credentials = new Credentials(this.username, this.password);
+            try {
                 console.log(credentials);
                 let response = await UserApi.login(credentials);
                 console.log(response);
-                if(response.data().code === 4)
-                    this.invalidCredentials++;
-            }
-            catch(error){
-                console.log(error)
+                if (response.data().code === 4) this.invalidCredentials++;
+            } catch (error) {
+                console.log(error);
             }
         }
-
     }
 };
 </script>

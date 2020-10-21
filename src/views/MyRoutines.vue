@@ -166,12 +166,12 @@ export default {
         editedItem: {
             name: "",
             duration: 0,
-            difficulty: 0,
+            difficulty: 0
         },
         defaultItem: {
             name: "",
             duration: 0,
-            difficulty: 0,
+            difficulty: 0
         }
     }),
 
@@ -197,32 +197,32 @@ export default {
                 {
                     name: "Frozen Yogurt",
                     duration: 159,
-                    difficulty: 1,
+                    difficulty: 1
                 },
                 {
                     name: "Ice cream sandwich",
                     duration: 237,
-                    difficulty: 2,
+                    difficulty: 2
                 },
                 {
                     name: "Eclair",
                     duration: 262,
-                    difficulty: 2,
+                    difficulty: 2
                 },
                 {
                     name: "Cupcake",
                     duration: 305,
-                    difficulty: 3,
+                    difficulty: 3
                 },
                 {
                     name: "Gingerbread",
                     duration: 356,
-                    difficulty: 1,
+                    difficulty: 1
                 },
                 {
                     name: "KitKat",
                     duration: 518,
-                    difficulty: 3,
+                    difficulty: 3
                 }
             ];
         },

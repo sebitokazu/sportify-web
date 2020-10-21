@@ -1,7 +1,13 @@
 <template>
     <v-dialog max-width="600px">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn v-bind="attrs" v-on="on" color="primary" class="background--text ml-4 mt-3" elevation="2">
+            <v-btn
+                v-bind="attrs"
+                v-on="on"
+                color="primary"
+                class="background--text ml-4 mt-3"
+                elevation="2"
+            >
                 <v-icon small class="mr-2"> add </v-icon>
                 New exercise
             </v-btn>
@@ -12,11 +18,33 @@
             </v-card-title>
             <v-card-text>
                 <v-form class="px-3">
-                    <v-text-field label="Exercise name" v-model="name"></v-text-field>
+                    <v-text-field
+                        label="Exercise name"
+                        v-model="name"
+                    ></v-text-field>
                     <v-textarea label="Detail" v-model="detail"></v-textarea>
-                    <v-slider label="Repetitions" v-model="slider" :thumb-size="24" thumb-label="always" :max="150"></v-slider>
-                    <v-slider label="Seconds" v-model="duration" step="5" :thumb-size="24" thumb-label="always" :max="480"></v-slider>
-                    <v-select :items="items" label="Type" v-model="type" dense outlined></v-select>
+                    <v-slider
+                        label="Repetitions"
+                        v-model="slider"
+                        :thumb-size="24"
+                        thumb-label="always"
+                        :max="150"
+                    ></v-slider>
+                    <v-slider
+                        label="Seconds"
+                        v-model="duration"
+                        step="5"
+                        :thumb-size="24"
+                        thumb-label="always"
+                        :max="480"
+                    ></v-slider>
+                    <v-select
+                        :items="items"
+                        label="Type"
+                        v-model="type"
+                        dense
+                        outlined
+                    ></v-select>
                     <v-btn class="success">Add exercise</v-btn>
                     <v-btn class="error">Cancel</v-btn>
                 </v-form>
@@ -28,20 +56,18 @@
 <script>
 export default {
     name: "FormAddExercise.vue",
-    data(){
-        return{
-            name: '',
-            detail: '',
+    data() {
+        return {
+            name: "",
+            detail: "",
             checkbox: false,
-            slider: '',
-            duration: '',
-            type: '',
-            items: ['Tonificacion', 'Aerobico', 'Elongacion', 'Resistencia']
-        }
-    },
-}
+            slider: "",
+            duration: "",
+            type: "",
+            items: ["Tonificacion", "Aerobico", "Elongacion", "Resistencia"]
+        };
+    }
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

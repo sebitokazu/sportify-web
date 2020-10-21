@@ -6,12 +6,12 @@ import Login from "../views/LoginView.vue";
 import Home from "../views/HomeView.vue";
 import Profile from "../views/ProfileView.vue";
 import NotFound from "../views/NotFoundView.vue";
-//import store from "../store";
 import MyRoutines from "../views/MyRoutines.vue";
 import NewRoutines from "../views/NewRoutines.vue";
 import Explore from "../views/ExploreView.vue";
 import Help from "../views/HelpView.vue";
 import MyExercises from "../views/MyExercisesView.vue";
+import { Api } from "@/api/api";
 
 Vue.use(VueRouter);
 
@@ -78,10 +78,17 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 });
-/*router.beforeEach((to, from, next) => {
-    if (!to.path.startsWith("/user")) next();
-    else if (!store.isAuthenticated) next({ name: "LoginView" });
-    else next();
-});*/
+
+router.beforeEach((to, from, next) => {
+    const publicPages = ["/", "/register", "/login"];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = Api.token;
+
+    if (authRequired && !loggedIn) {
+        next("/login");
+    } else {
+        next();
+    }
+});
 
 export default router;

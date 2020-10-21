@@ -1,4 +1,4 @@
-import { Api } from './api.js';
+import { Api } from "./api.js";
 
 export { SportApi, Sport };
 
@@ -12,7 +12,12 @@ class SportApi {
     }
 
     static async modify(sport, controller) {
-        return await Api.put(`${SportApi.url}/${sport.id}`, true, sport, controller);
+        return await Api.put(
+            `${SportApi.url}/${sport.id}`,
+            true,
+            sport,
+            controller
+        );
     }
 
     static async delete(id, controller) {
@@ -20,7 +25,7 @@ class SportApi {
     }
 
     static async get(id, controller) {
-        return await Api.get(`${SportApi.url}/${id}`,true,  controller);
+        return await Api.get(`${SportApi.url}/${id}`, true, controller);
     }
 
     static async getAll(controller) {

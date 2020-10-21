@@ -24,7 +24,7 @@ import AddCostumeExcercise from "@/components/Create/AddCostumeExercise";
 
 export default {
     name: "NewRoutines",
-    components: { AddCostumeExcercise, CreateRoutine, NavBar},
+    components: { AddCostumeExcercise, CreateRoutine, NavBar },
     data: () => ({
         dialog: false,
         dialogDelete: false,

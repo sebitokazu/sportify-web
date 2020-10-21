@@ -7,7 +7,10 @@
             <v-row>
                 <v-col v-for="n in 3" :key="n" cols="4">
                     <v-row v-for="k in exercisesList" :key="k">
-                        <Exercise :exercise-name=k.exerciseName :image=k.image />
+                        <Exercise
+                            :exercise-name="k.exerciseName"
+                            :image="k.image"
+                        />
                     </v-row>
                 </v-col>
             </v-row>
@@ -22,7 +25,7 @@ import FormAddExercise from "@/components/FormAddExercise";
 export default {
     name: "AddCostumeExercise.vue",
     components: { Exercise, FormAddExercise },
-    data:() => ({
+    data: () => ({
         exercisesList: [
             {
                 exerciseName: "Abdominales",
@@ -56,9 +59,7 @@ export default {
             }
         ]
     })
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
