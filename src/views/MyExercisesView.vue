@@ -13,7 +13,7 @@
                     </v-card-title>
                     <v-skeleton-loader
                         v-if="firstLoad"
-                        class="mx-auto"
+                        class="px-2"
                         type="table-row-divider@5,table-tfoot "
                     ></v-skeleton-loader>
                     <v-data-table
@@ -56,12 +56,6 @@ export default {
     components: {
         NavBar,
         ConfirmationDialog
-    },
-    async mounted() {
-        this.firstLoad = true;
-        await new Promise(resolve =>
-            setTimeout(() => resolve((this.firstLoad = false)), 2000)
-        );
     },
 
     data: () => ({
@@ -110,7 +104,13 @@ export default {
         }
     },
 
-    created() {
+    beforeMount() {
+        this.firstLoad = true;
+    },
+    async created() {
+        await new Promise(resolve =>
+            setTimeout(() => resolve((this.firstLoad = false)), 2000)
+        );
         this.initialize();
     },
 
