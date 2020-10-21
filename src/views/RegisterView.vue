@@ -22,15 +22,52 @@
                             ref="registerForm"
                             class="px-4 "
                         >
-                            <FormEmail />
-                            <FormUsername />
-                            <FormPassword />
+                            <v-text-field
+                                v-model="email"
+                                label="Email"
+                                prepend-inner-icon="email"
+                                :rules="rulesEmail"
+                                filled
+                                shaped
+                                required
+                            >
+                            </v-text-field>
+                            <v-text-field
+                                v-model="username"
+                                label="Username"
+                                prepend-inner-icon="person"
+                                :rules="rulesUsername"
+                                filled
+                                shaped
+                                required
+                            >
+                            </v-text-field>
+                            <v-text-field
+                                v-model="password"
+                                label="Password"
+                                prepend-inner-icon="lock"
+                                :type="show ? 'text' : 'password'"
+                                :append-icon="show ? 'visibility' : 'visibility_off'"
+                                :rules="rulesPassword"
+                                filled
+                                shaped
+                                :hint="rulesPassword ? 'It looks nice!' : 'At least 8 characters'"
+                                @click:append="show = !show"
+                                required
+                            >
+                            </v-text-field>
                             <v-card-actions>
-                                <FormInput
-                                    text="Sign Up"
-                                    :valid="valid"
+                                <v-btn
+                                    class="mx-auto"
+                                    color="purple lighten-2"
+                                    depressed
+                                    disabled="!valid"
+                                    type="submit"
                                     to="/home"
-                                />
+                                    @click="registerAndLogin"
+                                >
+                                    Sign Up
+                                </v-btn>
                             </v-card-actions>
                         </v-form>
                     </v-card>
@@ -41,21 +78,53 @@
 </template>
 
 <script>
-import FormEmail from "@/components/FormComponents/FormEmail";
-import FormUsername from "@/components/FormComponents/FormUsername";
-import FormPassword from "@/components/FormComponents/FormPassword";
-import FormInput from "@/components/FormComponents/FormInput";
+
+import { UserApi } from "@/api/user";
 
 export default {
     name: "RegisterView",
     data: () => ({
-        valid: false
+        valid: true,
+        email: "",
+        rulesEmail: [
+            value => !!value || "Email is required",
+            value => /.+@.+\..+/.test(value) || "Invalid email"
+        ],
+        username: "",
+        rulesUsername: [value => !!value || "Username is required"],
+        password: "",
+        show: false,
+        rulesPassword: [
+            value => !!value || "Password is required",
+            value => {
+                const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+                return (
+                    pattern.test(value) ||
+                    "Min. 8 characters with at least one capital letter, a number and a special character."
+                );
+            }
+        ]
     }),
     components: {
-        FormEmail,
-        FormUsername,
-        FormPassword,
-        FormInput
+
+    },
+    methods: {
+        async registerAndLogin() {
+
+            let registerCredentials = {
+                username: this.username,
+                password: this.password,
+                email: this.email
+            }
+            try{
+                let response = await UserApi.register(registerCredentials);
+                console.log(response);
+            }
+            catch(error){
+                console.log(error)
+            }
+
+        }
     }
 };
 </script>
