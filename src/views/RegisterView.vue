@@ -61,10 +61,8 @@
                                     class="mx-auto"
                                     color="purple lighten-2"
                                     depressed
-                                    disabled="!valid"
-                                    type="submit"
-                                    to="/home"
-                                    @click="registerAndLogin"
+                                    :disabled="!valid"
+                                    @click="register"
                                 >
                                     Sign Up
                                 </v-btn>
@@ -109,15 +107,26 @@ export default {
 
     },
     methods: {
-        async registerAndLogin() {
-
+        async register() {
+            console.log(this.username);
+            console.log(this.email);
+            console.log(this.password);
             let registerCredentials = {
                 username: this.username,
                 password: this.password,
-                email: this.email
+                fullName: "",
+                gender: "male",
+                birthdate: 132465,
+                email: this.email,
+                phone: "0",
+                avatarUrl: ""
             }
+            console.log(registerCredentials);
             try{
+                console.log(registerCredentials);
                 let response = await UserApi.register(registerCredentials);
+                console.log(response);
+                debugger;
                 console.log(response);
             }
             catch(error){

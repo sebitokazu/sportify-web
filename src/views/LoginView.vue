@@ -42,7 +42,6 @@
                                 <v-row no-gutters>
                                     <v-col align="end">
                                         <v-btn
-                                            @click="login"
                                             class="mb-3"
                                             text
                                             x-small
@@ -135,8 +134,8 @@ export default {
             catch(error){
                 console.log(error)
             }
-
         }
+
     }
 };
 </script>
