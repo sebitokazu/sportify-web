@@ -129,7 +129,6 @@ export default {
                 console.log(registerCredentials);
                 let response = await UserApi.register(registerCredentials);
                 console.log(response);
-                debugger;
                 console.log(response);
             } catch (error) {
                 console.log(error);
