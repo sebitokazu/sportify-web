@@ -3,9 +3,9 @@
         <v-img
             class="white--text align-end"
             height="130px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            :src=image
         >
-            <v-card-title>{{exerciseName}}</v-card-title>
+            <v-card-title class="accent--text">{{exerciseName}}</v-card-title>
         </v-img>
         <v-card-actions>
             <v-row>
@@ -30,7 +30,8 @@
 export default {
     name: "Exercise",
     props: {
-        exerciseName: String
+        exerciseName: String,
+        image: String
     }
 };
 </script>

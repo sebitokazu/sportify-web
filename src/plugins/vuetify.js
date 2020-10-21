@@ -14,6 +14,7 @@ export default new Vuetify({
                 secondary: "#DDA7FF",
                 accent: "#4083E7",
                 error: "#b71c1c",
+                rating: "#fcba03",
                 background: "#f5f9e3"
             },
             dark: {
@@ -21,6 +22,7 @@ export default new Vuetify({
                 secondary: "#DDA7FF",
                 accent: "#4083E7",
                 error: "#b71c1c",
+                rating: "#fcba03",
                 background: "#222023"
             }
         }

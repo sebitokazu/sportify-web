@@ -1,0 +1,51 @@
+<template>
+    <v-dialog max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+            <v-btn v-bind="attrs" v-on="on" color="primary">
+                <v-icon small class="mr-2"> add </v-icon>
+                Add custom exercise
+            </v-btn>
+        </template>
+        <v-card>
+            <v-card-title>
+                <h2>Create a new exercise</h2>
+            </v-card-title>
+            <v-card-text>
+                <v-form class="px-3">
+                    <v-text-field label="Exercise name" v-model="name"></v-text-field>
+                    <v-textarea label="Detail" v-model="detail"></v-textarea>
+                    <v-slider label="Repetitions" v-model="slider" :thumb-size="24" thumb-label="always" :max="150"></v-slider>
+                    <v-slider label="Seconds" v-model="duration" step="5" :thumb-size="24" thumb-label="always" :max="480"></v-slider>
+                    <v-select :items="items" label="Type" v-model="type" dense outlined></v-select>
+                    <v-btn class="success">Add exercise</v-btn>
+                </v-form>
+            </v-card-text>
+        </v-card>
+    </v-dialog>
+</template>
+
+<script>
+export default {
+    name: "FormAddExercise.vue",
+    data(){
+        return{
+            name: '',
+            detail: '',
+            checkbox: false,
+            slider: '',
+            duration: '',
+            type: '',
+            items: ['Tonificacion', 'Aerobico', 'Elongacion', 'Resistencia']
+        }
+    },
+    methods: {
+        // createRoutine(){
+        //
+        // }
+    }
+}
+</script>
+
+<style scoped>
+
+</style>

@@ -16,7 +16,7 @@
                     mins
             </v-col>
             <v-col>
-                    <v-checkbox v-model="checkbox">
+                    <v-checkbox v-model="checkbox" color="accent">
                         <template v-slot:label>
                             <div>
                                 Private
@@ -28,7 +28,8 @@
                 <v-chip-group>
                     Difficulty:
                     <v-rating
-                        color="primary"
+                        color="rating"
+                        background-color="grey"
                         empty-icon="star"
                         full-icon="star"
                         hover
