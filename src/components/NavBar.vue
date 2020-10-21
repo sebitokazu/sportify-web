@@ -5,9 +5,9 @@
                 alt="Vuetify Logo"
                 class="shrink mr-2"
                 contain
-                src="/src/assets/sportify.svg"
+                src="@/assets/sportify.svg"
                 transition="scale-transition"
-                width="40"
+                max-height="60"
             />
         </div>
 
@@ -16,7 +16,7 @@
         <div>
             <v-btn
                 text
-                color="black"
+                color="contrast"
                 v-for="(item, index) in nav_buttons"
                 :key="index"
                 :to="item.path"
@@ -26,7 +26,7 @@
 
         <v-spacer></v-spacer>
         <v-text-field
-            class="rounded-pill mt-6 shrink"
+            class="rounded-pill mt-6 shrink background--text"
             prepend-inner-icon="search"
             label="Search"
             outlined
@@ -42,7 +42,7 @@
             <template v-slot:activator="{ on, attrs }">
                 <v-btn v-bind="attrs" text v-on="on">
                     <v-avatar size="75%">
-                        <v-icon dark>account_circle</v-icon>
+                        <v-icon dark color="contrast">account_circle</v-icon>
                     </v-avatar>
                 </v-btn>
             </template>

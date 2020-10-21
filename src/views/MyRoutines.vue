@@ -8,10 +8,10 @@
                         :headers="headers"
                         :items="myRoutines"
                         sort-by="routines"
-                        class="elevation-1"
+                        class="elevation-1 background"
                     >
                         <template v-slot:top>
-                            <v-toolbar flat>
+                            <v-toolbar flat color="background">
                                 <v-toolbar-title>My Routines</v-toolbar-title>
                                 <v-divider
                                     class="mx-4"

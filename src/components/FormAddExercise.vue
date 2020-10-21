@@ -1,9 +1,9 @@
 <template>
     <v-dialog max-width="600px">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn v-bind="attrs" v-on="on" color="primary">
+            <v-btn v-bind="attrs" v-on="on" color="primary" class="background--text ml-4 mt-3" elevation="2">
                 <v-icon small class="mr-2"> add </v-icon>
-                Add custom exercise
+                New exercise
             </v-btn>
         </template>
         <v-card>
@@ -18,6 +18,7 @@
                     <v-slider label="Seconds" v-model="duration" step="5" :thumb-size="24" thumb-label="always" :max="480"></v-slider>
                     <v-select :items="items" label="Type" v-model="type" dense outlined></v-select>
                     <v-btn class="success">Add exercise</v-btn>
+                    <v-btn class="error">Cancel</v-btn>
                 </v-form>
             </v-card-text>
         </v-card>
@@ -38,11 +39,6 @@ export default {
             items: ['Tonificacion', 'Aerobico', 'Elongacion', 'Resistencia']
         }
     },
-    methods: {
-        // createRoutine(){
-        //
-        // }
-    }
 }
 </script>
 

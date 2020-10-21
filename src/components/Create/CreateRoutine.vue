@@ -1,11 +1,12 @@
 <template>
     <v-container>
-        <v-card>
+        <v-card color="background">
             <EditRoutine />
             <v-expansion-panels>
                 <v-expansion-panel
                     v-for="(item,i) in ciclos"
                     :key="i"
+                    class="background"
                 >
                     <v-expansion-panel-header>
                         {{item}}
@@ -22,9 +23,9 @@
                 label="Detail"
                 value="This Routine..."
             ></v-textarea>
-            <v-card align="end" flat>
+            <v-card align="end" flat color="background">
                 <v-btn
-                    color="accent"
+                    color="success"
                     dark
                     class="mb-2"
                     v-bind="attrs"
@@ -47,8 +48,8 @@
 </template>
 
 <script>
-import Cicle from "@/components/Cicle";
-import EditRoutine from "@/components/EditRoutine";
+import Cicle from "@/components/Create/Cicle";
+import EditRoutine from "@/components/Create/EditRoutine";
 
 export default {
     name: "CreateRoutine",

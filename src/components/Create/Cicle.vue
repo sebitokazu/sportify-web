@@ -5,7 +5,7 @@
         sort-by="routines"
         disable-pagination
         hide-default-footer
-
+        class="background"
     >
         <template v-slot:top>
                 <v-dialog v-model="dialog" max-width="500px">

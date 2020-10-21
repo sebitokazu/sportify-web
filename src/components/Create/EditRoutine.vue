@@ -16,7 +16,7 @@
                     mins
             </v-col>
             <v-col>
-                    <v-checkbox v-model="checkbox" color="accent">
+                    <v-checkbox v-model="checkbox" color="success">
                         <template v-slot:label>
                             <div>
                                 Private

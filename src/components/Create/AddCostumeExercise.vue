@@ -2,12 +2,7 @@
     <v-responsive class="overflow-y-auto" max-height="800">
         <template>
             <v-row>
-                <v-btn color="primary" text>
-                    <v-icon small class="mr-2">
-                        add
-                    </v-icon>
-                    Add costume excercise
-                </v-btn>
+                <FormAddExercise />
             </v-row>
             <v-row>
                 <v-col v-for="n in 3" :key="n" cols="4">
@@ -21,11 +16,12 @@
 </template>
 
 <script>
-import Exercise from "@/components/Exercise";
+import Exercise from "@/components/Create/Exercise";
+import FormAddExercise from "@/components/FormAddExercise";
 
 export default {
     name: "AddCostumeExercise.vue",
-    components: { Exercise },
+    components: { Exercise, FormAddExercise },
     data:() => ({
         exercisesList: [
             {

@@ -19,8 +19,8 @@
 
 <script>
 import NavBar from "@/components/NavBar";
-import CreateRoutine from "@/components/CreateRoutine";
-import AddCostumeExcercise from "@/components/AddCostumeExercise";
+import CreateRoutine from "@/components/Create/CreateRoutine";
+import AddCostumeExcercise from "@/components/Create/AddCostumeExercise";
 
 export default {
     name: "NewRoutines",
