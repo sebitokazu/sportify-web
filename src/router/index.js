@@ -11,6 +11,7 @@ import MyRoutines from "../views/MyRoutines.vue";
 import NewRoutines from "../views/NewRoutines.vue";
 import SearchView from "../views/SearchView.vue";
 import Help from "../views/HelpView.vue";
+import MyExercises from "../views/MyExercisesView.vue";
 
 Vue.use(VueRouter);
 
@@ -59,6 +60,11 @@ const routes = [
         path: "/help",
         name: "HelpView",
         component: Help
+    },
+    {
+        path: "/myexercises",
+        name: "MyExercises",
+        component: MyExercises
     },
     {
         path: "*",
