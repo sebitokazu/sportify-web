@@ -10,6 +10,7 @@ import NotFound from "../views/NotFoundView.vue";
 import MyRoutines from "../views/MyRoutines.vue";
 import NewRoutines from "../views/NewRoutines.vue";
 import SearchView from "../views/SearchView.vue";
+import Help from "../views/HelpView.vue";
 
 Vue.use(VueRouter);
 
@@ -53,6 +54,11 @@ const routes = [
         path: "/search",
         name: "SearchView",
         component: SearchView
+    },
+    {
+        path: "/help",
+        name: "HelpView",
+        component: Help
     },
     {
         path: "*",
