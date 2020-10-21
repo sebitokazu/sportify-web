@@ -95,6 +95,9 @@ export default {
         NavBar,
         RoutineCard
     },
+    beforeMount() {
+        this.loading = true;
+    },
     async created() {
         this.getAllRoutines();
     },
@@ -105,7 +108,6 @@ export default {
             //this.searchResult=fetchblabl
         },
         async getAllRoutines() {
-            this.loading = true;
             await new Promise(resolve =>
                 setTimeout(() => resolve((this.loading = false)), 2000)
             );
