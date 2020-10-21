@@ -6,6 +6,7 @@
         :disabled="!valid"
         type="submit"
         :to="to"
+        @click="emitLoginAction"
     >
         {{ text }}
     </v-btn>
@@ -23,6 +24,11 @@ export default {
         },
         to: {
             type: String
+        }
+    },
+    methods: {
+        emitLoginAction(){
+            this.$emit("login");
         }
     }
 };

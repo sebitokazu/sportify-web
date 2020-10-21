@@ -10,6 +10,7 @@ import NotFound from "../views/NotFoundView.vue";
 import MyRoutines from "../views/MyRoutines.vue";
 import NewRoutines from "../views/NewRoutines.vue";
 import SearchView from "../views/SearchView.vue";
+import {Api} from "@/api/api";
 
 Vue.use(VueRouter);
 
@@ -66,10 +67,17 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 });
-/*router.beforeEach((to, from, next) => {
-    if (!to.path.startsWith("/user")) next();
-    else if (!store.isAuthenticated) next({ name: "LoginView" });
-    else next();
-});*/
+router.beforeEach((to, from, next) => {
+    const publicPages = ['/', '/register', '/login'];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = Api.token;
+
+    if(authRequired && !loggedIn){
+        next('/login');
+    }else{
+        next();
+    }
+
+});
 
 export default router;
