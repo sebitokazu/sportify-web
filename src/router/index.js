@@ -9,7 +9,7 @@ import NotFound from "../views/NotFoundView.vue";
 //import store from "../store";
 import MyRoutines from "../views/MyRoutines.vue";
 import NewRoutines from "../views/NewRoutines.vue";
-import SearchView from "../views/SearchView.vue";
+import Explore from "../views/ExploreView.vue";
 import Help from "../views/HelpView.vue";
 import MyExercises from "../views/MyExercisesView.vue";
 
@@ -52,9 +52,9 @@ const routes = [
         component: NewRoutines
     },
     {
-        path: "/search",
-        name: "SearchView",
-        component: SearchView
+        path: "/explore",
+        name: "ExploreView",
+        component: Explore
     },
     {
         path: "/help",
