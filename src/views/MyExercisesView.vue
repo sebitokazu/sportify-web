@@ -11,7 +11,13 @@
                         <!-- Dialog for new exercise -->
                         <!-- </template> -->
                     </v-card-title>
+                    <v-skeleton-loader
+                        v-if="firstLoad"
+                        class="mx-auto"
+                        type="table-row-divider@5,table-tfoot "
+                    ></v-skeleton-loader>
                     <v-data-table
+                        v-else
                         :headers="headers"
                         :items="myExercises"
                         sort-by="Exercise"
@@ -28,8 +34,9 @@
                         <template v-slot:top v-if="deleteDialog">
                             <ConfirmationDialog
                                 :dialog="deleteDialog"
-                                dialogTitle="Are you sure you want to delete it?"
-                                message=""
+                                :dialogTitle="
+                                    `Are you sure you want to delete ${toDelete.name}?`
+                                "
                                 @cancel="deleteDialog = false"
                                 @confirm="deleteItem"
                             />
@@ -50,8 +57,16 @@ export default {
         NavBar,
         ConfirmationDialog
     },
+    async mounted() {
+        this.firstLoad = true;
+        await new Promise(resolve =>
+            setTimeout(() => resolve((this.firstLoad = false)), 2000)
+        );
+    },
+
     data: () => ({
         deleteDialog: false,
+        firstLoad: true,
         headers: [
             {
                 text: "Exercise",
