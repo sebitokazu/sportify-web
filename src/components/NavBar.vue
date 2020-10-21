@@ -83,7 +83,7 @@ export default {
             { title: "My Routines", path: "/myroutines" },
             { title: "My Exercises", path: "/myexercises" },
             { title: "Create", path: "/newroutines" },
-            { title: "Search", path: "/search" }
+            { title: "Explore", path: "/explore" }
         ],
         profile_overflow: [
             {
