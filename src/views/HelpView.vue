@@ -24,7 +24,11 @@
                                     </template>
                                 </v-expansion-panel-header>
                                 <v-expansion-panel-content>
-                                    {{ item.description }}
+                                    <template>
+                                        <HelpDescription
+                                            :steps="item.description"
+                                        />
+                                    </template>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
                         </v-expansion-panels>
@@ -37,15 +41,28 @@
 
 <script>
 import NavBar from "@/components/NavBar";
+import HelpDescription from "@/components/HelpDescription";
 export default {
     name: "HelpView",
     components: {
-        NavBar
+        NavBar,
+        HelpDescription
     },
     data: () => ({
         helpItems: [
-            { title: "Create a routine", description: "Go to Create -> ..." },
-            { title: "", description: "" },
+            {
+                title: "How do I create a routine?",
+                description: [
+                    "Go to Create",
+                    "Set up your routine on left side",
+                    "Pick exercises on the right side",
+                    "Voila!"
+                ]
+            },
+            {
+                title: "Can I see routines made by other people?",
+                description: ["Of course! Go to explore", "Have fun!"]
+            },
             { title: "", description: "" },
             { title: "", description: "" },
             { title: "", description: "" }
