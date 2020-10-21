@@ -1,15 +1,11 @@
 <template>
-    <v-card class="ma-lg-2 pa-lg-2 ma-md-4">
+    <v-card class="ma-lg-2 pa-lg-2 ma-md-4" max-width="200" min-width="150">
         <v-img
             class="white--text align-end"
             height="130px"
             src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
         >
-            <v-btn icon color="white" class="mb-md-8">
-                <v-icon>visibility</v-icon>
-            </v-btn>
-
-            <v-card-title>{{excerciseName}}</v-card-title>
+            <v-card-title>{{exerciseName}}</v-card-title>
         </v-img>
         <v-card-actions>
             <v-row>
@@ -22,9 +18,9 @@
             </v-row>
             <v-btn color="primary" text>
                 <v-icon small class="mr-2">
-                    mdi-pencil
+                    visibility
                 </v-icon>
-                Edit
+                See
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -32,9 +28,9 @@
 
 <script>
 export default {
-    name: "Excercise",
+    name: "Exercise",
     props: {
-        excerciseName: String
+        exerciseName: String
     }
 };
 </script>

@@ -19,6 +19,7 @@
                                         class="ma-9 pa-1"
                                         width="175"
                                         height="175"
+                                        :to="item.path"
                                     >
                                         <v-icon x-large>{{ item.icon }}</v-icon>
                                     </v-btn>
@@ -30,8 +31,6 @@
                         </v-card>
                     </v-col>
                 </v-row>
-                <Routine />
-                <RoutineList />
             </v-container>
         </v-main>
     </div>
@@ -44,16 +43,14 @@
 
 <script>
 import NavBar from "@/components/NavBar";
-import Routine from "@/components/Routine";
-import RoutineList from "@/components/RoutineList";
 
 export default {
     name: "HomeView",
-    components: { NavBar, Routine, RoutineList },
+    components: { NavBar},
     data: () => ({
-        buttons: [{ icon: "add", text: "Ingrese para crear una nueva rutina o ejercicios" },
-            { icon: "create", text: "Ingrese para editar tus rutinas o ejercicios" },
-            { icon: "people", text: "Ingrese para poder buscar ..." }]
+        buttons: [{ icon: "add", text: "Ingrese para crear una nueva rutina o ejercicios", path: "/NewRoutines"},
+            { icon: "create", text: "Ingrese para editar tus rutinas o ejercicios", path: "/MyRoutines"},
+            { icon: "people", text: "Ingrese para poder buscar ...", path: "/HomeView"}]
     })
 };
 </script>
