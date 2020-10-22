@@ -4,7 +4,7 @@
             <v-btn
                 text
                 max-height="60"
-                max-width="150"
+                max-width="180"
                 to="/home"
                 id="home-btn"
                 active-class="inactive"

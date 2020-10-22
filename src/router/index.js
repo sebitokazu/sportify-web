@@ -79,6 +79,7 @@ const router = new VueRouter({
     routes
 });
 
+
 router.beforeEach((to, from, next) => {
     const publicPages = ["/", "/register", "/login"];
     const authRequired = !publicPages.includes(to.path);

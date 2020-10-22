@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mx-auto" max-width="250">
+    <v-card class="mx-auto" max-width="250" color="background">
         <v-card-title class="text--center">{{ title }}</v-card-title>
 
         <v-card-subtitle class="">
