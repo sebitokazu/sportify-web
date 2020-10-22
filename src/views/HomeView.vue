@@ -55,7 +55,7 @@ export default {
                 icon: "search",
                 text:
                     "Te quedaste sin ideas? Ingrese para poder navegar a traves de todas las rutinas creadas dentro de sportify.",
-                path: "/HomeView",
+                path: "/explore",
                 title: "Explore"
             },
             {

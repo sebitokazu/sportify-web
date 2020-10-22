@@ -12,7 +12,8 @@
                 length="5"
                 readonly
                 dense
-                color="accent"
+                color="rating"
+                background-color="grey"
                 :value="difficulty"
             ></v-rating>
         </v-card-text>

@@ -23,6 +23,12 @@
                         sort-by="Exercise"
                         class="elevation-1"
                     >
+                        <template v-slot:item.duration="{ item }">
+                            <v-icon align>
+                                alarm
+                            </v-icon>
+                            {{item.duration}} '
+                        </template>
                         <template v-slot:item.actions="{ item }">
                             <v-icon small class="mr-2" @click="editItem(item)">
                                 mdi-pencil
@@ -71,7 +77,7 @@ export default {
                 value: "name"
             },
             { text: "Detail", value: "detail" },
-            { text: "Duration (min)", value: "duration" },
+            { text: "Duration", value: "duration" },
             { text: "Type", value: "type" },
             { text: "Actions", value: "actions", sortable: false }
         ],

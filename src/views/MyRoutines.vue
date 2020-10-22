@@ -10,6 +10,22 @@
                         sort-by="routines"
                         class="elevation-1 background"
                     >
+                        <template v-slot:item.difficulty="{ item }">
+                            <v-rating
+                                color="rating"
+                                background-color="grey"
+                                empty-icon="local_fire_department"
+                                full-icon="local_fire_department"
+                                readonly
+                                length="3"
+                                :value="item.difficulty"
+                            ></v-rating>
+                        </template>
+                        <template v-slot:item.public="{ item }">
+                            <v-icon :color="getColor(item.public)">
+                                {{getPublic(item.public)}}
+                            </v-icon>
+                        </template>
                         <template v-slot:top>
                             <v-toolbar flat color="background">
                                 <v-toolbar-title>My Routines</v-toolbar-title>
@@ -47,9 +63,7 @@
                                                         md="4"
                                                     >
                                                         <v-text-field
-                                                            v-model="
-                                                                editedItem.name
-                                                            "
+                                                            v-model="editedItem.name"
                                                             label="Routine Name"
                                                         ></v-text-field>
                                                     </v-col>
@@ -59,10 +73,8 @@
                                                         md="4"
                                                     >
                                                         <v-text-field
-                                                            v-model="
-                                                                editedItem.duration
-                                                            "
-                                                            label="duration"
+                                                            v-model="editedItem.difficulty"
+                                                            label="difficulty"
                                                         ></v-text-field>
                                                     </v-col>
                                                     <v-col
@@ -71,10 +83,19 @@
                                                         md="4"
                                                     >
                                                         <v-text-field
-                                                            v-model="
-                                                                editedItem.difficulty
-                                                            "
-                                                            label="difficulty"
+                                                            v-model="editedItem.category"
+                                                            label="category"
+                                                        ></v-text-field>
+                                                    </v-col>
+
+                                                    <v-col
+                                                        cols="12"
+                                                        sm="6"
+                                                        md="4"
+                                                    >
+                                                        <v-text-field
+                                                            v-model="editedItem.public"
+                                                            label="public"
                                                         ></v-text-field>
                                                     </v-col>
                                                 </v-row>
@@ -106,8 +127,11 @@
                             <v-icon small class="mr-2" @click="editItem(item)">
                                 mdi-pencil
                             </v-icon>
-                            <v-icon small @click="deleteItem(item)">
+                            <v-icon small class="mr-2" @click="deleteItem(item)">
                                 mdi-delete
+                            </v-icon>
+                            <v-icon small @click="seeDetail(item)">
+                                visibility
                             </v-icon>
                         </template>
                         <template v-slot:no-data>
@@ -129,26 +153,6 @@ export default {
     name: "MyRoutines",
     components: { NavBar },
     data: () => ({
-        selectTime: [],
-        itemsTime: [
-            "10 minutes",
-            "20 minutes",
-            "30 minutes",
-            "40 minutes",
-            "50 minutes",
-            "1 hour"
-        ],
-        selectSurrounding: [],
-        itemsSurrounding: ["House", "Outdoor", "Silence", "Gym"],
-        itemsMaterials: [
-            "Pesas de 1kg",
-            "Pesas de 2kg",
-            "Pesas de 5kg",
-            "Pesas de 10kg",
-            "Pelota",
-            "Silla",
-            "Cinta"
-        ],
         dialog: false,
         headers: [
             {
@@ -157,22 +161,25 @@ export default {
                 sortable: false,
                 value: "name"
             },
-            { text: "Duration (min)", value: "duration" },
+            { text: "Is Public", value: "public" },
             { text: "Difficulty", value: "difficulty" },
+            { text: "Category", value: "category" },
             { text: "Actions", value: "actions", sortable: false }
         ],
         myRoutines: [],
         editedIndex: -1,
         editedItem: {
             name: "",
-            duration: 0,
-            difficulty: 0
+            public: "Yes",
+            difficulty: 0,
+            category: ""
         },
         defaultItem: {
             name: "",
-            duration: 0,
-            difficulty: 0
-        }
+            public: "Yes",
+            difficulty: 0,
+            category: ""
+        },
     }),
 
     computed: {
@@ -192,37 +199,51 @@ export default {
     },
 
     methods: {
+        getPublic(isPublic){
+            if(isPublic == "Yes") return 'done'
+            else return 'clear'
+        },
+        getColor(isPublic){
+            if(isPublic == "Yes") return 'success'
+            else return 'error'
+        },
         initialize() {
             this.myRoutines = [
                 {
                     name: "Frozen Yogurt",
-                    duration: 159,
-                    difficulty: 1
+                    public: "Yes",
+                    difficulty: 1,
+                    category: "Categoria 1"
                 },
                 {
                     name: "Ice cream sandwich",
-                    duration: 237,
-                    difficulty: 2
+                    public: "No",
+                    difficulty: 2,
+                    category: "Categoria 2"
                 },
                 {
                     name: "Eclair",
-                    duration: 262,
-                    difficulty: 2
+                    public: "No",
+                    difficulty: 2,
+                    category: "Categoria 1"
                 },
                 {
                     name: "Cupcake",
-                    duration: 305,
-                    difficulty: 3
+                    public: "Yes",
+                    difficulty: 3,
+                    category: "Categoria 2"
                 },
                 {
                     name: "Gingerbread",
-                    duration: 356,
-                    difficulty: 1
+                    public: "No",
+                    difficulty: 1,
+                    category: "Categoria 3"
                 },
                 {
                     name: "KitKat",
-                    duration: 518,
-                    difficulty: 3
+                    public: "Yes",
+                    difficulty: 3,
+                    category: "Categoria 1"
                 }
             ];
         },
@@ -237,6 +258,10 @@ export default {
             const index = this.myRoutines.indexOf(item);
             confirm("Are you sure you want to delete this item?") &&
                 this.myRoutines.splice(index, 1);
+        },
+
+        seeDetail(item){
+            item.color="red"
         },
 
         close() {

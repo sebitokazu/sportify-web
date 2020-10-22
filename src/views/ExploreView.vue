@@ -61,31 +61,31 @@ export default {
         loading: "",
         listaRutinas: [
             {
-                name: "Rutinas",
+                name: "Rutina1",
                 author: "Tommy",
                 detail: "Compliqueti",
                 difficulty: 4,
                 datecreated: 1602646871112
             },
             {
-                name: "Rutinas",
+                name: "Rutina2",
                 author: "Sebastian",
                 destail: "Compliqueti",
                 difficulty: 5,
                 datecreated: 1602646871112
             },
             {
-                name: "Rutinas",
+                name: "Rutina3",
                 author: "Lautaro",
                 detail: "Compliqueti",
                 difficulty: 2,
                 datecreated: 1602646871112
             },
             {
-                name: "Rutinas",
+                name: "Rutina4",
                 author: "Valentin",
                 detail: "Compliqueti",
-                difficulty: 4,
+                difficulty: 3,
                 datecreated: 1602646871112
             }
         ],
