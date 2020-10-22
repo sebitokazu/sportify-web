@@ -6,16 +6,6 @@
                 <v-card color="background">
                     <v-card-title>
                         My Routines
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            color="primary"
-                            dark
-                            class="mb-2"
-                            to="/newroutines"
-                        >
-                            <v-icon small class="mr-2"> add </v-icon>
-                            New Routine
-                        </v-btn>
                     </v-card-title>
 
                     <template>
