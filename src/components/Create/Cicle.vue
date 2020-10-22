@@ -65,6 +65,11 @@
 <script>
 export default {
     name: "Cicle.vue",
+    props: {
+        exercises: {
+            type: Array
+        }
+    },
     data: () => ({
         dialog: false,
         headers: [
@@ -110,29 +115,7 @@ export default {
 
     methods: {
         initialize() {
-            this.myRoutines = [
-                {
-                    name: "Frozen Yogurt",
-                    duration: 159,
-                    difficulty: 1
-                },
-                {
-                    name: "Ice cream sandwich",
-                    duration: 237,
-                    difficulty: 2
-                },
-                {
-                    name: "Eclair",
-                    duration: 262,
-                    difficulty: 2
-                },
-
-                {
-                    name: "KitKat",
-                    duration: 518,
-                    difficulty: 3
-                }
-            ];
+            this.myRoutines = this.exercises;
         },
 
         editItem(item) {

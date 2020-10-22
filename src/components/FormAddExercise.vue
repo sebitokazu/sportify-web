@@ -45,7 +45,9 @@
                         dense
                         outlined
                     ></v-select>
-                    <v-btn @click="addExercise" class="success">Add exercise</v-btn>
+                    <v-btn @click="addExercise" class="success"
+                        >Add exercise</v-btn
+                    >
                     <v-btn class="error">Cancel</v-btn>
                 </v-form>
             </v-card-text>
@@ -55,6 +57,7 @@
 
 <script>
 import { RoutinesApi } from "@/api/routines";
+import routineStore from "@/store/routineStore";
 
 export default {
     name: "FormAddExercise.vue",
@@ -70,15 +73,16 @@ export default {
         };
     },
     methods: {
-        async addExercise(){
+        async addExercise() {
             let exercise = {
                 name: this.name,
                 detail: this.detail,
                 type: "exercise",
                 duration: this.duration,
                 repetitions: 0
-            }
-            await RoutinesApi.addExercise(1,1,exercise);
+            };
+            await RoutinesApi.addExercise(1, 1, exercise);
+            routineStore.addExercise(exercise, 1);
         }
     }
 };

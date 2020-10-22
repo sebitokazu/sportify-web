@@ -2,17 +2,18 @@
     <v-container>
         <v-card color="background">
             <EditRoutine />
+            <v-btn dark> Add cycle</v-btn>
             <v-expansion-panels>
                 <v-expansion-panel
-                    v-for="(item, i) in ciclos"
+                    v-for="(value, name, i) in cycles"
                     :key="i"
                     class="background"
                 >
                     <v-expansion-panel-header>
-                        {{ item }}
+                        {{ name }}
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <cicle />
+                        <cicle :exercises="value" />
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -50,12 +51,14 @@
 <script>
 import Cicle from "@/components/Create/Cicle";
 import EditRoutine from "@/components/Create/EditRoutine";
+import routineStore from "@/store/routineStore";
 
 export default {
     name: "CreateRoutine",
     components: { Cicle, EditRoutine },
+
     data: () => ({
-        ciclos: ["Warm up", "Training", "Streching"]
+        cycles: routineStore.getCycles()
     })
 };
 </script>
