@@ -130,9 +130,19 @@
                             <v-icon small class="mr-2" @click="deleteItem(item)">
                                 mdi-delete
                             </v-icon>
-                            <v-icon small @click="seeDetail(item)">
-                                visibility
-                            </v-icon>
+                            <v-dialog v-model="dialog">
+                                <template v-slot:activator="{ on, attrs }">
+                                        <v-icon small v-on="on" v-bind="attrs">
+                                            visibility
+                                        </v-icon>
+                                </template>
+                                <RoutineCardDetailed
+                                    :title="item.name"
+                                    :detail="item.detail"
+                                    @dialog="dialog = false"
+                                />
+                            </v-dialog>
+
                         </template>
                         <template v-slot:no-data>
                             <v-btn color="primary" @click="initialize">
@@ -148,10 +158,11 @@
 
 <script>
 import NavBar from "@/components/NavBar";
+import RoutineCardDetailed from "@/components/RoutineCardDetailed";
 
 export default {
     name: "MyRoutines",
-    components: { NavBar },
+    components: { NavBar, RoutineCardDetailed },
     data: () => ({
         dialog: false,
         headers: [
@@ -213,37 +224,43 @@ export default {
                     name: "Frozen Yogurt",
                     public: "Yes",
                     difficulty: 1,
-                    category: "Categoria 1"
+                    category: "Categoria 1",
+                    detail: "Este esjercicio es buenardo"
                 },
                 {
                     name: "Ice cream sandwich",
                     public: "No",
                     difficulty: 2,
-                    category: "Categoria 2"
+                    category: "Categoria 2",
+                    detail: "Este esjercicio es buenardo"
                 },
                 {
                     name: "Eclair",
                     public: "No",
                     difficulty: 2,
-                    category: "Categoria 1"
+                    category: "Categoria 1",
+                    detail: "Este esjercicio es buenardo"
                 },
                 {
                     name: "Cupcake",
                     public: "Yes",
                     difficulty: 3,
-                    category: "Categoria 2"
+                    category: "Categoria 2",
+                    detail: "Este esjercicio es buenardo"
                 },
                 {
                     name: "Gingerbread",
                     public: "No",
                     difficulty: 1,
-                    category: "Categoria 3"
+                    category: "Categoria 3",
+                    detail: "Este esjercicio es buenardo"
                 },
                 {
                     name: "KitKat",
                     public: "Yes",
                     difficulty: 3,
-                    category: "Categoria 1"
+                    category: "Categoria 1",
+                    detail: "Este esjercicio es buenardo"
                 }
             ];
         },
