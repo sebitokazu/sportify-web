@@ -14,12 +14,12 @@
                         min-width="250"
                         max-width="350"
                         elevation="3"
-                        class="pb-6 background"
+                        class="pb-6"
                     >
-                        <v-card-title>Register</v-card-title>
+                        <v-card-title>Validation</v-card-title>
                         <v-form
                             v-model="valid"
-                            ref="toke"
+                            ref="registerForm"
                             class="px-4 "
                         >
                             <v-text-field
@@ -82,57 +82,11 @@
 </template>
 
 <script>
-import { UserApi } from "@/api/user";
-import router from "@/router";
-
 export default {
-    name: "RegisterView",
-    data: () => ({
-        valid: true,
-        email: "",
-        rulesEmail: [
-            value => !!value || "Email is required",
-            value => /.+@.+\..+/.test(value) || "Invalid email"
-        ],
-        username: "",
-        rulesUsername: [value => !!value || "Username is required"],
-        password: "",
-        show: false,
-        rulesPassword: [
-            value => !!value || "Password is required",
-            value => {
-                const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-                return (
-                    pattern.test(value) ||
-                    "Min. 8 characters with at least one capital letter, a number and a special character."
-                );
-            }
-        ]
-    }),
-    components: {},
-    methods: {
-        async register() {
-            let registerCredentials = {
-                username: this.username,
-                password: this.password,
-                fullName: "",
-                gender: "male",
-                birthdate: 132465,
-                email: this.email,
-                phone: "0",
-                avatarUrl: ""
-            };
-            console.log(registerCredentials);
-            try {
-                console.log(registerCredentials);
-                let response = await UserApi.register(registerCredentials);
-                console.log(response);
-                console.log(response);
-            } catch (error) {
-                console.log(error);
-            };
-            await router.push('token');
-        }
-    }
-};
+name: "TokenConfirmationView.vue"
+}
 </script>
+
+<style scoped>
+
+</style>
