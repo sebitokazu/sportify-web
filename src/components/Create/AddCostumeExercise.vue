@@ -1,21 +1,23 @@
 <template>
-    <v-responsive class="overflow-y-auto" max-height="800">
-        <template>
-            <v-row>
-                <FormAddExercise />
-            </v-row>
-            <v-row>
-                <v-col v-for="n in 3" :key="n" cols="4">
-                    <v-row v-for="k in exercisesList" :key="k">
-                        <Exercise
-                            :exercise-name="k.exerciseName"
-                            :image="k.image"
-                        />
-                    </v-row>
-                </v-col>
-            </v-row>
-        </template>
-    </v-responsive>
+    <div>
+        <div class="d-flex justify-center mb-3">
+            <FormAddExercise />
+        </div>
+        <v-responsive class="overflow-y-auto" max-height="800">
+            <v-container>
+                <v-row justify="center">
+                    <v-col v-for="n in 3" :key="n" cols="4">
+                        <v-row v-for="k in exercisesList" :key="k">
+                            <Exercise
+                                :exercise-name="k.exerciseName"
+                                :image="k.image"
+                            />
+                        </v-row>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-responsive>
+    </div>
 </template>
 
 <script>

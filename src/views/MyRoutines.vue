@@ -2,9 +2,15 @@
     <div>
         <NavBar />
         <v-main>
-            <v-container fluid>
+            <v-container class="mt-3">
                 <template>
+                    <v-skeleton-loader
+                        v-if="firstLoad"
+                        class="px-2"
+                        type="table-row-divider@5,table-tfoot "
+                    ></v-skeleton-loader>
                     <v-data-table
+                        v-else
                         :headers="headers"
                         :items="myRoutines"
                         sort-by="routines"
@@ -129,6 +135,7 @@ export default {
     name: "MyRoutines",
     components: { NavBar },
     data: () => ({
+        firstLoad: true,
         selectTime: [],
         itemsTime: [
             "10 minutes",
@@ -186,8 +193,13 @@ export default {
             val || this.close();
         }
     },
-
-    created() {
+    beforeMount() {
+        this.firstLoad = true;
+    },
+    async created() {
+        await new Promise(resolve =>
+            setTimeout(() => resolve((this.firstLoad = false)), 2000)
+        );
         this.initialize();
     },
 

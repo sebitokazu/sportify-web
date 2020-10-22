@@ -2,13 +2,14 @@
     <div>
         <NavBar />
         <v-main>
-            <v-container fluid>
-                <v-row>
-                    <v-col>
+            <v-container fluid class="px-3">
+                <v-row no-gutters>
+                    <v-col class="px-2">
                         <CreateRoutine />
                     </v-col>
                     <v-divider vertical></v-divider>
-                    <v-col cols="6" md="6">
+
+                    <v-col cols="6" class="px-2">
                         <AddCostumeExcercise />
                     </v-col>
                 </v-row>
