@@ -28,7 +28,7 @@
                 ></v-textarea>
                 <v-card-actions class="pb-3 mx-2">
                     <v-spacer></v-spacer>
-                    <v-btn color="error" dark v-bind="attrs" v-on="on">
+                    <v-btn color="error" text dark v-bind="attrs" v-on="on">
                         Cancel
                     </v-btn>
                     <v-btn color="success" dark v-bind="attrs" v-on="on">

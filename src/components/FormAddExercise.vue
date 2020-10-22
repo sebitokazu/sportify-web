@@ -1,5 +1,5 @@
 <template>
-    <v-dialog max-width="600px">
+    <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
             <v-btn
                 v-bind="attrs"
@@ -51,8 +51,12 @@
                     ></v-select>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn class="error">Cancel</v-btn>
-                        <v-btn class="success">Add exercise</v-btn>
+                        <v-btn class="error" @click="dialog = false"
+                            >Cancel</v-btn
+                        >
+                        <v-btn class="success" @click="dialog = false"
+                            >Add exercise</v-btn
+                        >
                     </v-card-actions>
                 </v-form>
             </v-card-text>
@@ -63,17 +67,16 @@
 <script>
 export default {
     name: "FormAddExercise.vue",
-    data() {
-        return {
-            name: "",
-            detail: "",
-            checkbox: false,
-            slider: "",
-            duration: "",
-            type: "",
-            items: ["Tonificacion", "Aerobico", "Elongacion", "Resistencia"]
-        };
-    }
+    data: () => ({
+        name: "",
+        detail: "",
+        checkbox: false,
+        slider: "",
+        duration: "",
+        type: "",
+        items: ["Tonificacion", "Aerobico", "Elongacion", "Resistencia"],
+        dialog: false
+    })
 };
 </script>
 

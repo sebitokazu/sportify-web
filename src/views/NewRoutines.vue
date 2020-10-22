@@ -3,7 +3,15 @@
         <NavBar />
         <v-main>
             <v-container fluid class="px-3">
-                <v-row no-gutters>
+                <splitpanes class="default">
+                    <pane min-size="40" size="50">
+                        <CreateRoutine />
+                    </pane>
+                    <pane min-size="45" size="50">
+                        <AddCostumeExcercise />
+                    </pane>
+                </splitpanes>
+                <!-- <v-row no-gutters>
                     <v-col class="px-2">
                         <CreateRoutine />
                     </v-col>
@@ -12,7 +20,7 @@
                     <v-col cols="6" class="px-2">
                         <AddCostumeExcercise />
                     </v-col>
-                </v-row>
+                </v-row> -->
             </v-container>
         </v-main>
     </div>
@@ -22,13 +30,22 @@
 import NavBar from "@/components/NavBar";
 import CreateRoutine from "@/components/Create/CreateRoutine";
 import AddCostumeExcercise from "@/components/Create/AddCostumeExercise";
+import { Splitpanes, Pane } from "splitpanes";
+import "splitpanes/dist/splitpanes.css";
 
 export default {
     name: "NewRoutines",
-    components: { AddCostumeExcercise, CreateRoutine, NavBar },
+    components: {
+        AddCostumeExcercise,
+        CreateRoutine,
+        NavBar,
+        Splitpanes,
+        Pane
+    },
     data: () => ({
         dialog: false,
         dialogDelete: false,
+        startSize: 50,
         headers: [
             {
                 text: "Excercise name",
@@ -148,4 +165,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+.splitpanes--vertical > .splitpanes__splitter {
+    min-width: 2px;
+    background: linear-gradient(90deg, #ccc, #ccc);
+}
+</style>

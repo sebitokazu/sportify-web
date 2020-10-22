@@ -3,7 +3,7 @@
         <NavBar />
         <v-main>
             <v-container fluid>
-                <v-row class="mainButtons">
+                <v-row>
                     <v-col
                         cols="12"
                         sm="6"
@@ -22,11 +22,7 @@
         </v-main>
     </div>
 </template>
-<style scoped>
-.mainButtons .v-btn:hover .v-icon {
-    transform: scale(1.2);
-}
-</style>
+<style scoped></style>
 
 <script>
 import NavBar from "@/components/NavBar";
@@ -41,21 +37,21 @@ export default {
                 icon: "directions_run",
                 text:
                     "Ingrese para ver todas tu ejercicios. Vas a poder ver la duración de cada ejercicio, el detalle y vas a poder edirarlos. Tambien vas a poder crear uno nuevo.",
-                path: "/NewRoutines",
+                path: "/myexercises",
                 title: "Exercises"
             },
             {
                 icon: "fitness_center",
                 text:
                     "Ingrese para ver todas tus rutinas. Vas a poder ver la duración de cada una y su dificultad. Tambien vas a poder eliminar y crear rutinas a partir de ejercicios. ",
-                path: "/MyRoutines",
+                path: "/myroutines",
                 title: "Routines"
             },
             {
                 icon: "search",
                 text:
                     "Te quedaste sin ideas? Ingrese para poder navegar a traves de todas las rutinas creadas dentro de sportify.",
-                path: "/HomeView",
+                path: "/explore",
                 title: "Explore"
             },
             {

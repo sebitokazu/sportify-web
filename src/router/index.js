@@ -11,7 +11,7 @@ import NewRoutines from "../views/NewRoutines.vue";
 import Explore from "../views/ExploreView.vue";
 import Help from "../views/HelpView.vue";
 import MyExercises from "../views/MyExercisesView.vue";
-import { Api } from "@/api/api";
+//import { Api } from "@/api/api";
 
 Vue.use(VueRouter);
 
@@ -79,7 +79,7 @@ const router = new VueRouter({
     routes
 });
 
-router.beforeEach((to, from, next) => {
+/*router.beforeEach((to, from, next) => {
     const publicPages = ["/", "/register", "/login"];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = Api.token;
@@ -89,6 +89,6 @@ router.beforeEach((to, from, next) => {
     } else {
         next();
     }
-});
+});*/
 
 export default router;

@@ -3,7 +3,7 @@
         <NavBar />
         <v-main>
             <v-container class="mt-3">
-                <v-card>
+                <v-card color="background">
                     <v-card-title>
                         My Exercises
                         <v-spacer></v-spacer>
@@ -21,7 +21,7 @@
                         :headers="headers"
                         :items="myExercises"
                         sort-by="Exercise"
-                        class="elevation-1"
+                        class="elevation-1 background"
                     >
                         <template v-slot:item.actions="{ item }">
                             <v-icon small class="mr-2" @click="editItem(item)">
