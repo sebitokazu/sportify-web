@@ -50,7 +50,12 @@
             offset-y="true"
         >
             <template v-slot:activator="{ on, attrs }">
-                <v-btn @click="test" v-bind="attrs" text v-on="on">
+                <v-btn
+                    @click="testBadCredentials"
+                    v-bind="attrs"
+                    text
+                    v-on="on"
+                >
                     <v-avatar size="75%">
                         <v-icon dark color="contrast">account_circle</v-icon>
                     </v-avatar>
@@ -74,7 +79,8 @@
     </v-app-bar>
 </template>
 <script>
-import {UserApi} from "@/api/user";
+import { UserApi } from "@/api/user";
+import { Credentials } from "@/api/user";
 
 export default {
     name: "NavBar",
@@ -108,6 +114,11 @@ export default {
     methods: {
         async test() {
             let response = await UserApi.getCurrentUser();
+            console.log(response);
+        },
+        async testBadCredentials() {
+            let credentials = new Credentials("vsratti", "InvalidPassword123*");
+            let response = await UserApi.login(credentials);
             console.log(response);
         }
     }

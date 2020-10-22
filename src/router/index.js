@@ -12,6 +12,7 @@ import Explore from "../views/ExploreView.vue";
 import Help from "../views/HelpView.vue";
 import MyExercises from "../views/MyExercisesView.vue";
 import { Api } from "@/api/api";
+import TokenView from "@/views/TokenView";
 
 Vue.use(VueRouter);
 
@@ -67,6 +68,11 @@ const routes = [
         component: MyExercises
     },
     {
+        path: "/token",
+        name: "VerifyAccount",
+        component: TokenView
+    },
+    {
         path: "*",
         name: "404",
         component: NotFound
@@ -80,7 +86,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ["/", "/register", "/login"];
+    const publicPages = ["/", "/register", "/login", "/token"];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = Api.token;
 

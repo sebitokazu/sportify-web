@@ -182,8 +182,9 @@
 
 <script>
 import NavBar from "@/components/NavBar";
-import {UserApi} from "@/api/user";
+import { UserApi } from "@/api/user";
 //import BirthdayPicker from "@/components/BirthdayPicker";
+
 
 export default {
     name: "ProfileView",
@@ -199,8 +200,7 @@ export default {
         hasProfileImage: false,
         readMode: true,
         postLoader: false,
-        textFieldValues: {
-        },
+        textFieldValues: {},
         menu: false,
         minYear: "1900-01-01",
         rules: {
@@ -215,7 +215,7 @@ export default {
             val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
         }
     },
-    async created(){
+    async created() {
         await this.getUserData();
     },
     methods: {
@@ -225,7 +225,6 @@ export default {
             this.textFieldValues.birthdate = this.formatDate(
                 this.textFieldValues.birthdate
             );
-            console.log(this.textFieldValues);
         },
         performAction() {
             if (this.action === "save") this.save();
@@ -234,20 +233,24 @@ export default {
         async save() {
             this.dialog = false;
             this.postLoader = true;
-            //post...
-            await new Promise(resolve =>
-                setTimeout(() => resolve((this.postLoader = false)), 2000)
-            );
+            console.log(this.textFieldValues);
+            let currentUserData = await UserApi.getCurrentUser();
+            let currentPassword = currentUserData.password;
+            let updatePass = this.textFieldValues.password !== "";
+            let userData = {
+                username: this.textFieldValues.username,
+                password: updatePass
+                    ? this.textFieldValues.password
+                    : currentPassword,
+                fullName: this.textFieldValues.fullName,
+                gender: this.textFieldValues.gender,
+                birthdate: this.textFieldValues.birthdate,
+                email: this.textFieldValues.email,
+                phone: "",
+                avatarUrl: "https://flic.kr/p/3ntH2u"
+            };
+            await UserApi.updateCurrentUser(userData);
             this.readMode = true;
-            console.log(
-                this.textFieldValues.username,
-                this.textFieldValues.password,
-                this.textFieldValues.fullName,
-                this.textFieldValues.gender,
-                this.textFieldValues.birthdate,
-                this.textFieldValues.phone,
-                this.textFieldValues.avatarUrl
-            );
             await this.getUserData();
         },
         async discard() {

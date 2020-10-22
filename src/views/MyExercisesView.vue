@@ -51,7 +51,7 @@
 <script>
 import NavBar from "@/components/NavBar";
 import ConfirmationDialog from "@/components/ConfirmationDialog";
-import {RoutinesApi} from "@/api/routines";
+import { RoutinesApi } from "@/api/routines";
 
 export default {
     name: "MyExercises",

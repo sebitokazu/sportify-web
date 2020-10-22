@@ -16,10 +16,10 @@
                         elevation="3"
                         class="pb-6"
                     >
-                        <v-card-title>Register</v-card-title>
+                        <v-card-title>Validation</v-card-title>
                         <v-form
                             v-model="valid"
-                            ref="registerForm"
+                            ref="vadationForm"
                             class="px-4 "
                         >
                             <v-text-field
@@ -33,32 +33,11 @@
                             >
                             </v-text-field>
                             <v-text-field
-                                v-model="username"
-                                label="Username"
-                                prepend-inner-icon="person"
-                                :rules="rulesUsername"
+                                v-model="code"
+                                label="Validation code"
+                                prepend-inner-icon="vpn_key"
                                 filled
                                 shaped
-                                required
-                            >
-                            </v-text-field>
-                            <v-text-field
-                                v-model="password"
-                                label="Password"
-                                prepend-inner-icon="lock"
-                                :type="show ? 'text' : 'password'"
-                                :append-icon="
-                                    show ? 'visibility' : 'visibility_off'
-                                "
-                                :rules="rulesPassword"
-                                filled
-                                shaped
-                                :hint="
-                                    rulesPassword
-                                        ? 'It looks nice!'
-                                        : 'At least 8 characters'
-                                "
-                                @click:append="show = !show"
                                 required
                             >
                             </v-text-field>
@@ -68,9 +47,9 @@
                                     color="purple lighten-2"
                                     depressed
                                     :disabled="!valid"
-                                    @click="register"
+                                    @click="validate"
                                 >
-                                    Sign Up
+                                    Validate Code
                                 </v-btn>
                             </v-card-actions>
                         </v-form>
@@ -86,7 +65,7 @@ import { UserApi } from "@/api/user";
 import router from "@/router";
 
 export default {
-    name: "RegisterView",
+    name: "TokenConfirmationView.vue",
     data: () => ({
         valid: true,
         email: "",
@@ -94,45 +73,35 @@ export default {
             value => !!value || "Email is required",
             value => /.+@.+\..+/.test(value) || "Invalid email"
         ],
-        username: "",
-        rulesUsername: [value => !!value || "Username is required"],
-        password: "",
+        rulesToken: [
+            value => !!value || "Validation code is required",
+            value => /./.test(value) || "Invalid validation code"
+        ],
+        code: "",
         show: false,
-        rulesPassword: [
-            value => !!value || "Password is required",
-            value => {
-                const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-                return (
-                    pattern.test(value) ||
-                    "Min. 8 characters with at least one capital letter, a number and a special character."
-                );
-            }
-        ]
     }),
     components: {},
     methods: {
-        async register() {
-            let registerCredentials = {
-                username: this.username,
-                password: this.password,
-                fullName: "",
-                gender: "male",
-                birthdate: 132465,
+        async validate() {
+            console.log(this.code);
+            let validateData = {
                 email: this.email,
-                phone: "0",
-                avatarUrl: ""
+                code: this.code
             };
-            console.log(registerCredentials);
+            console.log(validateData);
             try {
-                console.log(registerCredentials);
-                let response = await UserApi.register(registerCredentials);
+                console.log(validateData);
+                let response = await UserApi.validate(validateData);
                 console.log(response);
-                console.log(response);
+                await router.push('login');
             } catch (error) {
                 console.log(error);
-            };
-            await router.push('token');
+            }
         }
     }
-};
+}
 </script>
+
+<style scoped>
+
+</style>

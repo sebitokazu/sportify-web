@@ -1,6 +1,6 @@
-import { Api } from './api.js';
+import { Api } from "./api.js";
 import Cookies from "js-cookie";
-import {RoutinesApi} from "@/api/routines";
+import { RoutinesApi } from "@/api/routines";
 
 export { UserApi, Credentials };
 
@@ -10,17 +10,22 @@ class UserApi {
     }
 
     static async login(credentials, controller) {
-        const result = await Api.post(`${UserApi.url}/login`, false, credentials, controller);
+        const result = await Api.post(
+            `${UserApi.url}/login`,
+            false,
+            credentials,
+            controller
+        );
         Api.token = result.token;
         return result;
     }
 
     static async logout(controller) {
-        await Api.post(`${UserApi.url}/logout`, true,null, controller);
+        await Api.post(`${UserApi.url}/logout`, true, null, controller);
         Api.token = undefined;
     }
 
-    static async register(userData){
+    static async register(userData) {
         await Api.post(this.url, false, userData);
         let routineRepository = {
             name: "MyRepository",
@@ -30,40 +35,46 @@ class UserApi {
             category: {
                 id: 1
             }
-        }
+        };
         let cycleRepository = {
             name: "Cycle Repository",
             detail: "None",
             type: "warmup",
             order: 1,
             repetitions: 1
-        }
+        };
         let responseRoutine = await RoutinesApi.addRoutine(routineRepository);
         let id = responseRoutine.id;
-        await RoutinesApi.addCycle(id,cycleRepository);
-
+        await RoutinesApi.addCycle(id, cycleRepository);
     }
 
-    static async getCurrentUser(){
-        return await Api.get(`${UserApi.url}/current`,true);
+    static async validate(data){
+        return await Api.post(`${UserApi.url}/verify_email`, false, data);
     }
 
-    static async getCurrentUserRoutines(){
-        return await Api.get(`${UserApi.url}/current/routines`,true);
+    static async getCurrentUser() {
+        return await Api.get(`${UserApi.url}/current`, true);
     }
 
-    static setUserLogged(userLogged){
+    static async updateCurrentUser(userData) {
+        return await Api.put(`${UserApi.url}/current`, userData, true);
+    }
+
+    static async getCurrentUserRoutines() {
+        return await Api.get(`${UserApi.url}/current/routines`, true);
+    }
+
+    static setUserLogged(userLogged) {
         Cookies.set("userLogged", userLogged);
     }
 
-    static getUserLogged(){
+    static getUserLogged() {
         return Cookies.get("userLogged");
     }
 
-    static deleteUserLogged(){
+    static deleteUserLogged() {
         Cookies.remove("userLogged");
     }
-
 }
 
 class Credentials {

@@ -43,9 +43,9 @@
                                 required
                             >
                             </v-text-field>
-                            <h3 v-if="invalidCredentials">
-                                Invalid credentials, please try again.
-                            </h3>
+                            <h5 v-if="invalidCredentials" class="red--text">
+                                Invalid username or password
+                            </h5>
                             <v-container class="">
                                 <v-row no-gutters>
                                     <v-col align="end">
@@ -107,32 +107,30 @@ export default {
     name: "LoginView",
     data: () => ({
         valid: false,
-        invalidCredentials: true,
+        invalidCredentials: false,
         username: "",
         rulesUsername: [value => !!value || "Username is required"],
         password: "",
         show: false,
-        // rulesPassword: [
-        //     value => !!value || "Password is required",
-        //     value => {
-        //         const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-        //         return (
-        //             pattern.test(value) ||
-        //             "Min. 8 characters with at least one capital letter, a number and a special character."
-        //         );
-        //     }
-        // ]
+        rulesPassword: [
+            value => !!value || "Password is required",
+            value => {
+                const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+                return (
+                    pattern.test(value) ||
+                    "Min. 8 characters with at least one capital letter, a number and a special character."
+                );
+            }
+        ]
     }),
     components: {},
     methods: {
         async login() {
             let credentials = new Credentials(this.username, this.password);
             try {
-                console.log(credentials);
-                let response = await UserApi.login(credentials);
-                console.log(response);
-                if (response.data().code === 4) this.invalidCredentials++;
+                await UserApi.login(credentials);
             } catch (error) {
+                if (error.code === 4) this.invalidCredentials++;
                 console.log(error);
             }
         }

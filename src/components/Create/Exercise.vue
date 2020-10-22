@@ -14,12 +14,12 @@
         </v-img>
         <v-card-actions>
             <v-row>
-                    <v-btn color="primary" text>
-                        <v-icon small class="mr-2">
-                            add
-                        </v-icon>
-                        Add
-                    </v-btn>
+                <v-btn color="primary" text>
+                    <v-icon small class="mr-2">
+                        add
+                    </v-icon>
+                    Add
+                </v-btn>
             </v-row>
             <v-dialog v-model="dialog" width="500">
                 <template v-slot:activator="{ on, attrs }">
@@ -44,7 +44,6 @@
 import RoutineCardDetailed from "@/components/RoutineCardDetailed.vue";
 
 export default {
-
     name: "Exercise",
     components: {
         RoutineCardDetailed
@@ -52,7 +51,7 @@ export default {
     props: {
         exerciseName: String,
         image: String,
-        detail: String,
+        detail: String
     },
     data: () => ({
         dialog: false
