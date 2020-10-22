@@ -182,6 +182,7 @@
 
 <script>
 import NavBar from "@/components/NavBar";
+import {UserApi} from "@/api/user";
 //import BirthdayPicker from "@/components/BirthdayPicker";
 
 export default {
@@ -199,14 +200,6 @@ export default {
         readMode: true,
         postLoader: false,
         textFieldValues: {
-            username: "Sergio",
-            email: "sergioperez@gmail.com",
-            password: "Password",
-            fullName: "Full name",
-            gender: "",
-            birthdate: "",
-            phone: "",
-            avatarUrl: ""
         },
         menu: false,
         minYear: "1900-01-01",
@@ -222,21 +215,17 @@ export default {
             val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
         }
     },
+    async created(){
+        await this.getUserData();
+    },
     methods: {
         async getUserData() {
-            this.textFieldValues = {
-                username: "Sergio",
-                email: "sergioperez@gmail.com",
-                password: "Password",
-                fullName: "Full name",
-                gender: "",
-                birthdate: "284007600000",
-                phone: "",
-                avatarUrl: ""
-            };
+            let response = await UserApi.getCurrentUser();
+            this.textFieldValues = response;
             this.textFieldValues.birthdate = this.formatDate(
                 this.textFieldValues.birthdate
             );
+            console.log(this.textFieldValues);
         },
         performAction() {
             if (this.action === "save") this.save();

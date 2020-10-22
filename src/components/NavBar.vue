@@ -74,7 +74,7 @@
     </v-app-bar>
 </template>
 <script>
-import { RoutinesApi } from "@/api/routines";
+import {UserApi} from "@/api/user";
 
 export default {
     name: "NavBar",
@@ -107,7 +107,7 @@ export default {
     }),
     methods: {
         async test() {
-            let response = await RoutinesApi.getExercises(1, 1)
+            let response = await UserApi.getCurrentUser();
             console.log(response);
         }
     }
