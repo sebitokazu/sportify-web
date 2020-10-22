@@ -13,10 +13,10 @@
                     alt="Sportify Logo"
                     class="pl-0"
                     contain
-                    src="@/assets/sportifyLoguito.svg"
+                    src="@/assets/logo_botella2.png"
                     transition="scale-transition"
-                    max-height="60"
-                    max-width="150"
+                    max-height="100"
+                    max-width="200"
                 />
             </v-btn>
         </div>
