@@ -1,4 +1,3 @@
-<!-- MyExercisesView.vue viejo. No funcaban los dos v-if (o v-slot) -->
 <template>
     <div>
         <NavBar />
@@ -24,45 +23,6 @@
                         sort-by="Exercise"
                         class="elevation-1"
                     >
-                        <template v-slot:top>
-                            <v-dialog v-model="dialog" max-width="500px">
-                                <v-card>
-                                    <v-card-text>
-                                        <v-container>
-                                            <v-row>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field
-                                                        v-model="editingExercise.name"
-                                                        label="Exercise Name"
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-textarea label="Detail" v-model="editingExercise.detail"></v-textarea>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-slider
-                                                        label="Repetitions"
-                                                        v-model="editingExercise.repetitions"
-                                                        :thumb-size="24"
-                                                        thumb-label="always"
-                                                        :max="150"
-                                                    ></v-slider>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-card-text>
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn color="blue darken-1" text @click="close">
-                                            Cancel
-                                        </v-btn>
-                                        <v-btn color="blue darken-1" text @click="save">
-                                            Save
-                                        </v-btn>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-dialog>
-                        </template>
                         <template v-slot:item.actions="{ item }">
                             <v-icon small class="mr-2" @click="editItem(item)">
                                 mdi-pencil
@@ -71,6 +31,33 @@
                                 mdi-delete
                             </v-icon>
                         </template>
+
+                        <template v-slot:top v-if="editDialog">
+                            <template>
+                                <v-dialog max-width="600px">
+                                    <v-card>
+                                        <v-card-title>
+                                            <h2>Create a new exercise</h2>
+                                        </v-card-title>
+                                        <v-card-text>
+                                            Editing...
+                                        </v-card-text>
+                                    </v-card>
+                                </v-dialog>
+                            </template>
+                        </template>
+
+                        <template v-slot:top v-if="deleteDialog">
+                            <ConfirmationDialog
+                                :dialog="deleteDialog"
+                                :dialogTitle="
+                                    `Are you sure you want to delete ${toDelete.name}?`
+                                "
+                                @cancel="deleteDialog = false"
+                                @confirm="deleteItem"
+                            />
+                        </template>
+
                     </v-data-table>
                 </v-card>
             </v-container>
@@ -80,13 +67,13 @@
 
 <script>
 import NavBar from "@/components/NavBar";
-// import ConfirmationDialog from "@/components/ConfirmationDialog";
+import ConfirmationDialog from "@/components/ConfirmationDialog";
 import {RoutinesApi} from "@/api/routines";
 
 export default {
     name: "MyExercises",
     components: {
-        NavBar//, ConfirmationDialog
+        NavBar, ConfirmationDialog
     },
 
     data: () => ({
@@ -122,15 +109,7 @@ export default {
             places: 0,
             groups: 0
         },
-        toDelete: null, toEdit: null,
-        editingExercise: {
-                name: "",
-                detail: "",
-                repetitions: "",
-                duration: "",
-                type: "",
-                items: ["exercise", "rest"]
-        },
+        toDelete: null, toEdit: null
     }),
 
     computed: {
@@ -201,17 +180,6 @@ export default {
                 this.myRoutines.push(this.editedItem);
             }
             this.close();
-        },
-
-        async exerciseEditionConfirmed(){
-            let exercise = {
-                name: this.editingExercise.name,
-                detail: this.editingExercise.detail,
-                type: this.editingExercise.type,
-                duration: this.editingExercise.duration,
-                repetitions: this.editingExercise.repetitions
-            }
-            await RoutinesApi.updateExercise(1,1, exercise);
         }
     }
 };

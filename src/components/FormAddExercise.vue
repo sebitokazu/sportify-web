@@ -66,7 +66,7 @@ export default {
             repetitions: "",
             duration: "",
             type: "",
-            items: ["Tonificacion", "Aerobico", "Elongacion", "Resistencia"]
+            items: ["exercise", "rest"]
         };
     },
     methods: {
@@ -74,9 +74,9 @@ export default {
             let exercise = {
                 name: this.name,
                 detail: this.detail,
-                type: "exercise",
+                type: this.type,
                 duration: this.duration,
-                repetitions: 0
+                repetitions: this.repetitions
             }
             await RoutinesApi.addExercise(1,1,exercise);
         }
