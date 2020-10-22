@@ -51,6 +51,8 @@
 <script>
 import NavBar from "@/components/NavBar";
 import ConfirmationDialog from "@/components/ConfirmationDialog";
+import {RoutinesApi} from "@/api/routines";
+
 export default {
     name: "MyExercises",
     components: {
@@ -111,58 +113,13 @@ export default {
         await new Promise(resolve =>
             setTimeout(() => resolve((this.firstLoad = false)), 2000)
         );
-        this.initialize();
+        await this.initialize();
     },
 
     methods: {
-        initialize() {
-            this.myExercises = [
-                {
-                    id: 0,
-                    name: "Jumping Jacks",
-                    detail: "Jumping Jacks",
-                    type: "exercise",
-                    duration: 30,
-                    repetitions: 0,
-                    order: 1
-                },
-                {
-                    id: 1,
-                    name: "Jumping Jacks",
-                    detail: "Jumping Jacks",
-                    type: "exercise",
-                    duration: 30,
-                    repetitions: 0,
-                    order: 1
-                },
-                {
-                    id: 2,
-                    name: "Jumping Jacks",
-                    detail: "Jumping Jacks",
-                    type: "exercise",
-                    duration: 30,
-                    repetitions: 0,
-                    order: 1
-                },
-                {
-                    id: 3,
-                    name: "Jumping Jacks",
-                    detail: "Jumping Jacks",
-                    type: "exercise",
-                    duration: 30,
-                    repetitions: 0,
-                    order: 1
-                },
-                {
-                    id: 4,
-                    name: "Jumping Jacks",
-                    detail: "Jumping Jacks",
-                    type: "exercise",
-                    duration: 30,
-                    repetitions: 0,
-                    order: 1
-                }
-            ];
+        async initialize() {
+            let response = await RoutinesApi.getExercises(1, 1);
+            this.myExercises = response.results;
         },
 
         editItem(item) {

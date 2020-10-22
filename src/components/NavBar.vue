@@ -50,7 +50,7 @@
             offset-y="true"
         >
             <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" text v-on="on">
+                <v-btn @click="test" v-bind="attrs" text v-on="on">
                     <v-avatar size="75%">
                         <v-icon dark color="contrast">account_circle</v-icon>
                     </v-avatar>
@@ -74,6 +74,8 @@
     </v-app-bar>
 </template>
 <script>
+import { RoutinesApi } from "@/api/routines";
+
 export default {
     name: "NavBar",
 
@@ -102,7 +104,13 @@ export default {
                 }
             }
         ]
-    })
+    }),
+    methods: {
+        async test() {
+            let response = await RoutinesApi.getExercises(1, 1)
+            console.log(response);
+        }
+    }
 };
 </script>
 <style scoped>

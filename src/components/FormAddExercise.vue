@@ -25,7 +25,7 @@
                     <v-textarea label="Detail" v-model="detail"></v-textarea>
                     <v-slider
                         label="Repetitions"
-                        v-model="slider"
+                        v-model="repetitions"
                         :thumb-size="24"
                         thumb-label="always"
                         :max="150"
@@ -45,7 +45,7 @@
                         dense
                         outlined
                     ></v-select>
-                    <v-btn class="success">Add exercise</v-btn>
+                    <v-btn @click="addExercise" class="success">Add exercise</v-btn>
                     <v-btn class="error">Cancel</v-btn>
                 </v-form>
             </v-card-text>
@@ -54,6 +54,8 @@
 </template>
 
 <script>
+import { RoutinesApi } from "@/api/routines";
+
 export default {
     name: "FormAddExercise.vue",
     data() {
@@ -61,11 +63,23 @@ export default {
             name: "",
             detail: "",
             checkbox: false,
-            slider: "",
+            repetitions: "",
             duration: "",
             type: "",
             items: ["Tonificacion", "Aerobico", "Elongacion", "Resistencia"]
         };
+    },
+    methods: {
+        async addExercise(){
+            let exercise = {
+                name: this.name,
+                detail: this.detail,
+                type: "exercise",
+                duration: this.duration,
+                repetitions: 0
+            }
+            await RoutinesApi.addExercise(1,1,exercise);
+        }
     }
 };
 </script>
