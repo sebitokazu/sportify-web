@@ -2,7 +2,23 @@
     <v-container>
         <v-card color="background">
             <EditRoutine />
-            <v-btn dark> Add cycle</v-btn>
+            <v-dialog v-model="dialog" max-width="600px">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn dark v-on="on" v-bind="attrs"> Add cycle</v-btn>
+                </template>
+                <v-card>
+                    <v-card-title>
+                        New Cycle
+                    </v-card-title>
+                    <v-text-field
+                        label="Name"
+                        v-model="cycleName"
+                    ></v-text-field>
+                    <v-card-actions>
+                        <v-btn @click="addCycle">Confirm</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
             <v-expansion-panels>
                 <v-expansion-panel
                     v-for="(value, name, i) in cycles"
@@ -13,7 +29,7 @@
                         {{ name }}
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <cicle :exercises="value" />
+                        <Cicle :exercises="value" />
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -58,8 +74,16 @@ export default {
     components: { Cicle, EditRoutine },
 
     data: () => ({
-        cycles: routineStore.getCycles()
-    })
+        cycles: routineStore.getCycles(),
+        dialog: false,
+        cycleName: ""
+    }),
+    methods: {
+        addCycle() {
+            this.dialog = false;
+            routineStore.addCycle(this.cycleName);
+        }
+    }
 };
 </script>
 

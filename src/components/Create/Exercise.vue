@@ -30,7 +30,7 @@
                     <v-card>
                         <v-card-text>
                             <v-select
-                                :items="cycles"
+                                :items="cyclesName()"
                                 label="Cycle"
                                 v-model="cycle"
                                 dense
@@ -56,7 +56,7 @@
                     </v-btn>
                 </template>
                 <RoutineCardDetailed
-                    :title="exercise.xerciseName"
+                    :title="exercise.name"
                     :detail="exercise.detail"
                     @dialog="dialog = false"
                 />
@@ -79,12 +79,10 @@ export default {
             type: Object
         }
     },
-    created() {
-        this.cycles = routineStore.getCyclesName();
-    },
+    created() {},
     data: () => ({
         dialog: false,
-        cycles: [],
+        cycles: routineStore.getCycles(),
         cycleDialog: false,
         cycle: ""
     }),
@@ -93,6 +91,9 @@ export default {
         addExercise() {
             routineStore.addExercise(this.exercise, this.cycle);
             this.cycleDialog = false;
+        },
+        cyclesName() {
+            return Object.keys(this.cycles);
         }
     }
 };

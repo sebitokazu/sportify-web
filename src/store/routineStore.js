@@ -7,10 +7,11 @@ const routineStore = {
     },
     addExercise(exercise, cycle) {
         cycles[cycle].push(exercise);
-        console.log(cycles);
+        console.log(this.getCyclesName());
     },
     addCycle(cycle) {
         cycles[cycle] = [];
+        console.log(cycles);
     },
     getCycles() {
         return cycles;

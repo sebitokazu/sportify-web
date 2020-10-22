@@ -27,8 +27,8 @@
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
                                     <v-text-field
-                                        v-model="editedItem.difficulty"
-                                        label="difficulty"
+                                        v-model="editedItem.repetition"
+                                        label="repetition"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -74,13 +74,13 @@ export default {
         dialog: false,
         headers: [
             {
-                text: "Routines",
+                text: "Exercise",
                 align: "start",
                 sortable: false,
                 value: "name"
             },
             { text: "Duration (min)", value: "duration" },
-            { text: "Difficulty", value: "difficulty" },
+            { text: "Repetitions", value: "repetitions" },
             { text: "Actions", value: "actions", sortable: false }
         ],
         myRoutines: [],
