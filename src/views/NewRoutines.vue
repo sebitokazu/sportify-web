@@ -144,9 +144,22 @@ export default {
             this.close();
         }
     },
-    destroyed() {
-        routineStore.clearAll();
-    }
+    beforeRouteLeave(to, from, next) {
+        if (routineStore.wasModified()) {
+            const answer = window.confirm(
+                "Do you really want to leave? you have unsaved changes!"
+            );
+            if (answer) {
+                routineStore.clearAll();
+                next();
+            } else {
+                next(false);
+            }
+        } else {
+            next();
+        }
+    },
+    destroyed() {}
 };
 </script>
 
