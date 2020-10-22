@@ -1,14 +1,9 @@
 <template>
-    <v-card>
+    <v-card color="background">
         <v-card-title class="headline">
             {{ title }}
         </v-card-title>
-
-        <v-card-subtitle>{{ detail }}</v-card-subtitle>
-
-        <v-card-text>
-            <div>{{ description }}</div>
-        </v-card-text>
+        <v-card-subtitle class="pt-2">{{ detail }}</v-card-subtitle>
 
         <v-divider></v-divider>
 
@@ -29,9 +24,6 @@ export default {
             type: String
         },
         detail: {
-            type: String
-        },
-        description: {
             type: String
         }
     },

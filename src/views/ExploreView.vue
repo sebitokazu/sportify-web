@@ -69,21 +69,21 @@ export default {
             },
             {
                 name: "Rutinas",
-                author: "Tommy",
+                author: "Sebastian",
                 destail: "Compliqueti",
                 difficulty: 5,
                 datecreated: 1602646871112
             },
             {
                 name: "Rutinas",
-                author: "Tommy",
+                author: "Lautaro",
                 detail: "Compliqueti",
                 difficulty: 2,
                 datecreated: 1602646871112
             },
             {
                 name: "Rutinas",
-                author: "Tommy",
+                author: "Valentin",
                 detail: "Compliqueti",
                 difficulty: 4,
                 datecreated: 1602646871112

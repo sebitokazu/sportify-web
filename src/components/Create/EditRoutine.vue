@@ -30,8 +30,8 @@
                     <v-rating
                         color="rating"
                         background-color="grey"
-                        empty-icon="star"
-                        full-icon="star"
+                        empty-icon="local_fire_department"
+                        full-icon="local_fire_department"
                         hover
                         length="3"
                         value="3"

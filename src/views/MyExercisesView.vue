@@ -3,7 +3,7 @@
         <NavBar />
         <v-main>
             <v-container class="mt-3">
-                <v-card>
+                <v-card color="background">
                     <v-card-title>
                         My Exercises
                         <v-spacer></v-spacer>

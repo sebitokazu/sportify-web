@@ -14,30 +14,49 @@
         </v-img>
         <v-card-actions>
             <v-row>
-                <v-btn color="primary" text>
-                    <v-icon small class="mr-2">
-                        add
-                    </v-icon>
-                    Add
-                </v-btn>
+                    <v-btn color="primary" text>
+                        <v-icon small class="mr-2">
+                            add
+                        </v-icon>
+                        Add
+                    </v-btn>
             </v-row>
-            <v-btn color="primary" text>
-                <v-icon small class="mr-2">
-                    visibility
-                </v-icon>
-                See
-            </v-btn>
+            <v-dialog v-model="dialog" width="500">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn color="primary" text v-on="on" v-bind="attrs">
+                        <v-icon small class="mr-2">
+                            visibility
+                        </v-icon>
+                        See
+                    </v-btn>
+                </template>
+                <RoutineCardDetailed
+                    :title="exerciseName"
+                    :detail="detail"
+                    @dialog="dialog = false"
+                />
+            </v-dialog>
         </v-card-actions>
     </v-card>
 </template>
 
 <script>
+import RoutineCardDetailed from "@/components/RoutineCardDetailed.vue";
+
 export default {
+
     name: "Exercise",
+    components: {
+        RoutineCardDetailed
+    },
     props: {
         exerciseName: String,
-        image: String
-    }
+        image: String,
+        detail: String,
+    },
+    data: () => ({
+        dialog: false
+    })
 };
 </script>
 

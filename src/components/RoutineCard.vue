@@ -28,7 +28,6 @@
                 <RoutineCardDetailed
                     :title="title"
                     :detail="detail"
-                    :description="description"
                     @dialog="dialog = false"
                 />
             </v-dialog>
@@ -45,9 +44,6 @@ export default {
             type: String
         },
         author: {
-            type: String
-        },
-        description: {
             type: String
         },
         difficulty: {
