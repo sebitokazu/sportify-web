@@ -51,7 +51,7 @@
         >
             <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                    @click="testBadCredentials"
+
                     v-bind="attrs"
                     text
                     v-on="on"
@@ -80,7 +80,6 @@
 </template>
 <script>
 import { UserApi } from "@/api/user";
-import { Credentials } from "@/api/user";
 
 export default {
     name: "NavBar",
@@ -113,14 +112,19 @@ export default {
     }),
     methods: {
         async test() {
-            let response = await UserApi.getCurrentUser();
-            console.log(response);
+            let userData =
+            {
+                username: "vsratti",
+                fullName: "Valentin Segundo",
+                gender: "male",
+                password: "Valen4402*",
+                birthdate: 284007600000,
+                email: "valentinratti@sirius.com.ar",
+                phone: "98295822",
+                avatarUrl: "https://flic.kr/p/3ntH2u"
+            }
+            await UserApi.updateCurrentUser(userData);
         },
-        async testBadCredentials() {
-            let credentials = new Credentials("vsratti", "InvalidPassword123*");
-            let response = await UserApi.login(credentials);
-            console.log(response);
-        }
     }
 };
 </script>

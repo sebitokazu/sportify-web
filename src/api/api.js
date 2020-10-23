@@ -15,7 +15,7 @@ class Api {
         if (secure && Api.token) {
             if (!init.headers) init.headers = {};
 
-            init.headers["Authorization"] = `bearer ${Api.token}`;
+            init.headers["Authorization"] = `${localStorage.getItem("SavedToken")}`;
         }
 
         controller = controller || new AbortController();

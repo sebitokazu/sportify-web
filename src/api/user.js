@@ -17,12 +17,14 @@ class UserApi {
             controller
         );
         Api.token = result.token;
+        localStorage.setItem("SavedToken", 'Bearer ' + Api.token);
         return result;
     }
 
     static async logout(controller) {
         await Api.post(`${UserApi.url}/logout`, true, null, controller);
         Api.token = undefined;
+        localStorage.removeItem("SavedToken");
     }
 
     static async register(userData) {
@@ -57,7 +59,7 @@ class UserApi {
     }
 
     static async updateCurrentUser(userData) {
-        return await Api.put(`${UserApi.url}/current`, userData, true);
+        return await Api.put(`${UserApi.url}/current`, true, userData);
     }
 
     static async getCurrentUserRoutines() {
