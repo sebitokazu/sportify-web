@@ -23,7 +23,7 @@
                         </template>
                         <template v-slot:item.public="{ item }">
                             <v-icon :color="getColor(item.public)">
-                                {{getPublic(item.public)}}
+                                {{ getPublic(item.public) }}
                             </v-icon>
                         </template>
                         <template v-slot:top>
@@ -63,7 +63,9 @@
                                                         md="4"
                                                     >
                                                         <v-text-field
-                                                            v-model="editedItem.name"
+                                                            v-model="
+                                                                editedItem.name
+                                                            "
                                                             label="Routine Name"
                                                         ></v-text-field>
                                                     </v-col>
@@ -73,7 +75,9 @@
                                                         md="4"
                                                     >
                                                         <v-text-field
-                                                            v-model="editedItem.difficulty"
+                                                            v-model="
+                                                                editedItem.difficulty
+                                                            "
                                                             label="difficulty"
                                                         ></v-text-field>
                                                     </v-col>
@@ -83,7 +87,9 @@
                                                         md="4"
                                                     >
                                                         <v-text-field
-                                                            v-model="editedItem.category"
+                                                            v-model="
+                                                                editedItem.category
+                                                            "
                                                             label="category"
                                                         ></v-text-field>
                                                     </v-col>
@@ -94,7 +100,9 @@
                                                         md="4"
                                                     >
                                                         <v-text-field
-                                                            v-model="editedItem.public"
+                                                            v-model="
+                                                                editedItem.public
+                                                            "
                                                             label="public"
                                                         ></v-text-field>
                                                     </v-col>
@@ -127,14 +135,18 @@
                             <v-icon small class="mr-2" @click="editItem(item)">
                                 mdi-pencil
                             </v-icon>
-                            <v-icon small class="mr-2" @click="deleteItem(item)">
+                            <v-icon
+                                small
+                                class="mr-2"
+                                @click="deleteItem(item)"
+                            >
                                 mdi-delete
                             </v-icon>
                             <v-dialog v-model="dialog2" :retain-focus="false">
                                 <template v-slot:activator="{ on, attrs }">
-                                        <v-icon small v-on="on" v-bind="attrs">
-                                            visibility
-                                        </v-icon>
+                                    <v-icon small v-on="on" v-bind="attrs">
+                                        visibility
+                                    </v-icon>
                                 </template>
                                 <RoutineCardDetailed
                                     :title="item.name"
@@ -142,12 +154,6 @@
                                     @dialog="dialog2 = false"
                                 />
                             </v-dialog>
-
-                        </template>
-                        <template v-slot:no-data>
-                            <v-btn color="primary" @click="initialize">
-                                Reset
-                            </v-btn>
                         </template>
                     </v-data-table>
                 </template>
@@ -194,7 +200,7 @@ export default {
             public: "Yes",
             difficulty: 0,
             category: ""
-        },
+        }
     }),
 
     computed: {
@@ -219,13 +225,13 @@ export default {
     },
 
     methods: {
-        getPublic(isPublic){
-            if(isPublic == "Yes") return 'done'
-            else return 'clear'
+        getPublic(isPublic) {
+            if (isPublic == "Yes") return "done";
+            else return "clear";
         },
-        getColor(isPublic){
-            if(isPublic == "Yes") return 'success'
-            else return 'error'
+        getColor(isPublic) {
+            if (isPublic == "Yes") return "success";
+            else return "error";
         },
         async initialize() {
             let results = await RoutinesApi.getCurrentUserRoutines(0,999);
