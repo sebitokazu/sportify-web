@@ -21,7 +21,7 @@
                         :headers="headers"
                         :items="myExercises"
                         sort-by="Exercise"
-                        class="elevation-1"
+                        class="elevation-1 background"
                     >
                         <template v-slot:header>
                             <v-dialog v-model="dialog" max-width="600px">

@@ -1,5 +1,5 @@
 <template>
-    <v-dialog max-width="600px">
+    <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
             <v-btn
                 v-bind="attrs"
@@ -22,7 +22,11 @@
                         label="Exercise name"
                         v-model="name"
                     ></v-text-field>
-                    <v-textarea label="Detail" v-model="detail"></v-textarea>
+                    <v-textarea
+                        label="Detail"
+                        v-model="detail"
+                        class="mb-3"
+                    ></v-textarea>
                     <v-slider
                         label="Repetitions"
                         v-model="repetitions"
@@ -45,10 +49,12 @@
                         dense
                         outlined
                     ></v-select>
-                    <v-btn @click="addExercise" class="success"
+                    <v-card-actions>
+                        <v-btn class="error" @click="dialog = false">Cancel</v-btn>
+                        <v-btn @click="addExercise" class="success"
                         >Add exercise</v-btn
-                    >
-                    <v-btn class="error">Cancel</v-btn>
+                        >
+                    </v-card-actions>
                 </v-form>
             </v-card-text>
         </v-card>
@@ -68,11 +74,13 @@ export default {
             repetitions: "",
             duration: "",
             type: "",
+            dialog : false,
             items: ["exercise", "rest"]
         };
     },
     methods: {
         async addExercise(){
+            this.dialog = false;
             let exercise = {
                 name: this.name,
                 detail: this.detail,

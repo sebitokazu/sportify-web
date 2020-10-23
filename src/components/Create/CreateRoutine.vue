@@ -4,6 +4,8 @@
             <EditRoutine />
             <FormAddCycle />
             <v-expansion-panels>
+            <v-divider></v-divider>
+            <v-expansion-panels hover flat>
                 <v-expansion-panel
                     v-for="(value, name, i) in cycles"
                     :key="i"

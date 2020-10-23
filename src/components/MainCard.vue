@@ -33,4 +33,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-btn:hover .v-icon {
+    transform: scale(1.2);
+}
+</style>

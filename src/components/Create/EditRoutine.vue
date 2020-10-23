@@ -1,6 +1,6 @@
 <template>
-    <v-container fluid>
-        <v-row>
+    <v-container class="pa-4">
+        <v-row justify="space-between">
             <v-col cols="5">
                 <v-text-field
                     label="Routine Name"
