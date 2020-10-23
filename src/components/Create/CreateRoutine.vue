@@ -3,7 +3,7 @@
         <v-card color="background">
             <EditRoutine />
             <FormAddCycle />
-            <v-expansion-panels v-model="panel">
+            <v-expansion-panels>
                 <v-expansion-panel
                     v-for="(value, name, i) in cycles"
                     :key="i"
@@ -51,41 +51,38 @@ export default {
     data: () => ({
         cycles: routineStore.getExercisesCycleMap(),
         dialog: false,
-        cycleName: "",
         routine: routineStore.getRoutine(),
-        store: routineStore,
-        panel: 0
+        store: routineStore
     }),
     methods: {
         async saveRoutine() {
+            /*
+            if(create)
+            else //update
+            */
+            this.createRoutine();
+        },
+        async createRoutine() {
             const cycles = this.store.getCycles();
             const res = await RoutinesApi.addRoutine(this.store.getRoutine());
-            const id = res.id;
-            Object.values(cycles).forEach(async cycle => {
-                let r = await RoutinesApi.addCycle(id, cycle);
-                console.log(r);
-                const cycleId = r.id;
-                console.log(this.store.getCyclesExercisesByName(cycle.name));
-                this.store
-                    .getCyclesExercisesByName(cycle.name)
-                    .forEach(async exercise => {
-                        let q = await RoutinesApi.addExercise(
-                            id,
-                            cycleId,
-                            exercise
-                        );
-                        console.log(q);
-                    });
+            const routineId = res.id;
+            Object.values(cycles).forEach(cycle => {
+                this.createCycle(routineId, cycle);
             });
         },
-        getExercises(name) {
-            return routineStore.getExerciseFromCycle(name);
-        }
-    },
-    computed: {
-        panel: function() {
-            return this.store.getOpenCyclePanel;
-        }
+        async createCycle(routineId, cycle) {
+            const res = await RoutinesApi.addCycle(routineId, cycle);
+            const cycleId = res.id;
+            this.store
+                .getCyclesExercisesByName(cycle.name)
+                .forEach(exercise => {
+                    this.createExercise(routineId, cycleId, exercise);
+                });
+        },
+        createExercise(routineId, cycleId, exercise) {
+            RoutinesApi.addExercise(routineId, cycleId, exercise);
+        },
+        async updateRoutine() {}
     }
 };
 </script>
