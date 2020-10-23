@@ -51,7 +51,6 @@
         >
             <template v-slot:activator="{ on, attrs }">
                 <v-btn
-
                     v-bind="attrs"
                     text
                     v-on="on"
@@ -66,11 +65,12 @@
                     v-for="(item, index) in profile_overflow"
                     :key="index"
                     :to="item.element.path"
+                    @click="logout"
                 >
-                    <v-list-item-icon>
+                    <v-list-item-icon @click="logout(this.action)">
                         <v-icon v-text="item.element.icon"></v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title
+                    <v-list-item-title @click="logout(this.action)"
                         v-text="item.element.title"
                     ></v-list-item-title>
                 </v-list-item>
@@ -100,12 +100,16 @@ export default {
                     path: "/profile"
                 }
             },
-            { element: { title: "Help", icon: "help_outline", path: "/help" } },
+            { element: {
+                title: "Help", icon: "help_outline", path: "/help"
+                }
+            },
             {
                 element: {
                     title: "Sign Out",
                     icon: "exit_to_app",
-                    path: "/"
+                    path: "/login",
+                    action : "logout"
                 }
             }
         ]
@@ -125,6 +129,11 @@ export default {
             }
             await UserApi.updateCurrentUser(userData);
         },
+        async logout(action) {
+            console.log("Hola");
+            if(action === 'logout')
+                await UserApi.logout();
+        }
     }
 };
 </script>

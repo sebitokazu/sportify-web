@@ -1,8 +1,8 @@
 <template>
     <div>
         <NavBar />
-        <v-main>
-            <v-container fluid>
+        <v-main class="staatliches">
+            <v-container fluid >
                 <v-row class="mainButtons">
                     <v-col
                         cols="12"
@@ -10,7 +10,7 @@
                         v-for="(item, index) in buttons"
                         :key="index"
                     >
-                        <main-card
+                        <main-card class="staatliches text-uppercase font-weight-black"
                             :icon="item.icon"
                             :path="item.path"
                             :text="item.text"
@@ -26,6 +26,11 @@
 .mainButtons .v-btn:hover .v-icon {
     transform: scale(1.2);
 }
+
+.staatliches{
+    font-family: 'Staatliches', cursive !IMPORTANT;
+}
+
 </style>
 
 <script>
