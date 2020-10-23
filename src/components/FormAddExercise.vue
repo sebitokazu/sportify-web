@@ -57,7 +57,6 @@
 
 <script>
 import { RoutinesApi } from "@/api/routines";
-import routineStore from "@/store/routineStore";
 
 export default {
     name: "FormAddExercise.vue",
