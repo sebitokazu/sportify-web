@@ -75,7 +75,8 @@ export default {
             const cycleId = res.id;
             this.store
                 .getCyclesExercisesByName(cycle.name)
-                .forEach(exercise => {
+                .forEach((exercise, idx) => {
+                    exercise.order = idx;
                     this.createExercise(routineId, cycleId, exercise);
                 });
         },
