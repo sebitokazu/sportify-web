@@ -1,4 +1,3 @@
-<!-- MyExercisesView.vue viejo. No funcaban los dos v-if (o v-slot) -->
 <template>
     <div>
         <NavBar />
@@ -24,42 +23,45 @@
                         sort-by="Exercise"
                         class="elevation-1"
                     >
-                        <template v-slot:top>
-                            <v-dialog v-model="dialog" max-width="500px">
+                        <template v-slot:header>
+                            <v-dialog v-model="dialog" max-width="600px">
                                 <v-card>
+                                    <v-card-title>
+                                        <h2>Edit an exercise</h2>
+                                    </v-card-title>
                                     <v-card-text>
-                                        <v-container>
-                                            <v-row>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field
-                                                        v-model="editingExercise.name"
-                                                        label="Exercise Name"
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-textarea label="Detail" v-model="editingExercise.detail"></v-textarea>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-slider
-                                                        label="Repetitions"
-                                                        v-model="editingExercise.repetitions"
-                                                        :thumb-size="24"
-                                                        thumb-label="always"
-                                                        :max="150"
-                                                    ></v-slider>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
+                                        <v-form class="px-3">
+                                            <v-text-field
+                                                label="Exercise name"
+                                                v-model="editingExercise.name"
+                                            ></v-text-field>
+                                            <v-textarea label="Detail" v-model="editingExercise.detail"></v-textarea>
+                                            <v-slider
+                                                label="Repetitions"
+                                                v-model="editingExercise.repetitions"
+                                                :thumb-size="24"
+                                                thumb-label="always"
+                                                :max="150"
+                                            ></v-slider>
+                                            <v-slider
+                                                label="Seconds"
+                                                v-model="editingExercise.duration"
+                                                step="5"
+                                                :thumb-size="24"
+                                                thumb-label="always"
+                                                :max="480"
+                                            ></v-slider>
+                                            <v-select
+                                                :items="editingExercise.items"
+                                                label="Type"
+                                                v-model="editingExercise.type"
+                                                dense
+                                                outlined
+                                            ></v-select>
+                                            <v-btn @click="save" class="success">save</v-btn>
+                                            <v-btn @click="close" class="error">cancel</v-btn>
+                                        </v-form>
                                     </v-card-text>
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn color="blue darken-1" text @click="close">
-                                            Cancel
-                                        </v-btn>
-                                        <v-btn color="blue darken-1" text @click="save">
-                                            Save
-                                        </v-btn>
-                                    </v-card-actions>
                                 </v-card>
                             </v-dialog>
                         </template>
@@ -71,6 +73,17 @@
                                 mdi-delete
                             </v-icon>
                         </template>
+                        <template v-slot:footer v-if="deleteDialog">
+                            <ConfirmationDialog
+                                :dialog="deleteDialog"
+                                :dialogTitle="
+                                    `Are you sure you want to delete ${toDelete.name}?`
+                                "
+                                @cancel="deleteDialog = false"
+                                @confirm="deleteItem"
+                            />
+                        </template>
+
                     </v-data-table>
                 </v-card>
             </v-container>
@@ -80,16 +93,17 @@
 
 <script>
 import NavBar from "@/components/NavBar";
-// import ConfirmationDialog from "@/components/ConfirmationDialog";
+import ConfirmationDialog from "@/components/ConfirmationDialog";
 import {RoutinesApi} from "@/api/routines";
 
 export default {
     name: "MyExercises",
     components: {
-        NavBar//, ConfirmationDialog
+        NavBar, ConfirmationDialog
     },
 
     data: () => ({
+        dialog: false,
         deleteDialog: false,
         editDialog: false,
         firstLoad: true,
@@ -123,6 +137,7 @@ export default {
             groups: 0
         },
         toDelete: null, toEdit: null,
+        currentExerciseId: -1,
         editingExercise: {
                 name: "",
                 detail: "",
@@ -161,10 +176,20 @@ export default {
             this.myExercises = response.results;
         },
 
-        editItem(item) {
+        async editItem(item) {
+            const index = this.myExercises.indexOf(item);
+            this.currentExerciseId = this.myExercises[index].id;
+            let response = await RoutinesApi.getExercise(1, 1, this.currentExerciseId);
+
+            this.editingExercise.name = response.name;
+            this.editingExercise.detail = response.detail;
+            this.editingExercise.type = response.type;
+            this.editingExercise.duration = response.duration;
+            this.editingExercise.repetitions = response.repetitions;
+
             this.editDialog = true;
-            this.editedIndex = this.myExercises.indexOf(item);
-            this.editedItem = Object.assign({}, item);
+            // this.editedIndex = this.myExercises.indexOf(item);
+            // this.editedItem = Object.assign({}, item);
             this.toEdit = item;
             this.dialog = true;
         },
@@ -180,7 +205,8 @@ export default {
             const index = this.myExercises.indexOf(this.toDelete);
             this.toDelete = null;
             await RoutinesApi.deleteExercise(1, 1, this.myExercises[index].id);
-            this.myExercises.splice(index, 1);
+            //this.myExercises.splice(index, 1);
+            await this.initialize();
         },
 
         close() {
@@ -189,29 +215,29 @@ export default {
                 this.editedItem = Object.assign({}, this.defaultItem);
                 this.editedIndex = -1;
             });
-        },
-
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(
-                    this.myRoutines[this.editedIndex],
-                    this.editedItem
-                );
-            } else {
-                this.myRoutines.push(this.editedItem);
-            }
             this.close();
         },
 
-        async exerciseEditionConfirmed(){
-            let exercise = {
-                name: this.editingExercise.name,
-                detail: this.editingExercise.detail,
-                type: this.editingExercise.type,
-                duration: this.editingExercise.duration,
-                repetitions: this.editingExercise.repetitions
+
+        async save() {
+            if (this.editedIndex > -1) {
+                Object.assign(
+                    this.myExercises[this.editedIndex],
+                    this.editedItem
+                );
+            } else {
+                //this.myExercises.push(this.editedItem);
+                let exercise = {
+                    name: this.editingExercise.name,
+                    detail: this.editingExercise.detail,
+                    type: this.editingExercise.type,
+                    duration: this.editingExercise.duration,
+                    repetitions: this.editingExercise.repetitions
+                }
+                await RoutinesApi.updateExercise(1, 1, this.currentExerciseId, exercise);
+                await this.initialize();
             }
-            await RoutinesApi.updateExercise(1,1, exercise);
+            this.close();
         }
     }
 };

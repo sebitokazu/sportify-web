@@ -1,10 +1,5 @@
 <template>
     <v-main>
-        <v-parallax
-            dark
-            src="https://2.bp.blogspot.com/-PhcO3VGIYEE/U-OJucExh0I/AAAAAAAAj-8/wDA_RUx-xKA/s1600/Atrendylife-adidas-running-ejercicio-sport-runninggirl-instantaneaytomaprimera-8.jpg"
-            height="768"
-        >
         <v-container>
             <v-row>
                 <v-col cols="12" align-self="start">
@@ -102,7 +97,6 @@
                 </v-col>
             </v-row>
         </v-container>
-            </v-parallax>
     </v-main>
 </template>
 
