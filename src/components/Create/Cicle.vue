@@ -58,14 +58,19 @@
 </template>
 
 <script>
+import routineStore from "@/store/routineStore";
 export default {
     name: "Cicle.vue",
     props: {
         exercises: {
             type: Array
+        },
+        name: {
+            type: String
         }
     },
     data: () => ({
+        store: routineStore,
         dialog: false,
         headers: [
             {
@@ -122,7 +127,7 @@ export default {
         deleteItem(item) {
             const index = this.myRoutines.indexOf(item);
             confirm("Are you sure you want to delete this item?") &&
-                this.myRoutines.splice(index, 1);
+                this.store.deleteExercise(index, this.name);
         },
 
         close() {

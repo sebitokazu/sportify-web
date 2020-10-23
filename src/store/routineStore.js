@@ -44,6 +44,13 @@ export default Vue.observable({
         Vue.set(cycles, name, { ...cycle });
         modificated = true;
     },
+    deleteExercise(index, cycle) {
+        Vue.delete(exercisesCycleMap[cycle], index);
+    },
+    deleteCycle(cycle) {
+        Vue.delete(exercisesCycleMap, cycle);
+        Vue.delete(cycles, cycle);
+    },
     getCycles() {
         return cycles;
     },
