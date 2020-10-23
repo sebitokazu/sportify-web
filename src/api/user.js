@@ -62,9 +62,6 @@ class UserApi {
         return await Api.put(`${UserApi.url}/current`, true, userData);
     }
 
-    static async getCurrentUserRoutines() {
-        return await Api.get(`${UserApi.url}/current/routines`, true);
-    }
 
     static setUserLogged(userLogged) {
         Cookies.set("userLogged", userLogged);

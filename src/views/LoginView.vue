@@ -107,6 +107,7 @@ export default {
     data: () => ({
         valid: false,
         invalidCredentials: false,
+        verifyAccount: false,
         username: "",
         rulesUsername: [value => !!value || "Username is required"],
         password: "",
@@ -131,8 +132,13 @@ export default {
                 await router.push('home');
             } catch (error) {
                 if (error.code === 4) this.invalidCredentials++;
-                console.log(error);
+                    console.log(error);
+                if(error.code === 8){
+                    await this.routeToToken();
+                }
             };
+        },
+        async routeToToken(){
 
         }
     }
