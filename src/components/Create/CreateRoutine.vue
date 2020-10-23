@@ -3,7 +3,6 @@
         <v-card color="background">
             <EditRoutine />
             <FormAddCycle />
-            <v-expansion-panels>
             <v-divider></v-divider>
             <v-expansion-panels hover flat>
                 <v-expansion-panel

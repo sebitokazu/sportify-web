@@ -11,7 +11,6 @@ import NewRoutines from "../views/NewRoutines.vue";
 import Explore from "../views/ExploreView.vue";
 import Help from "../views/HelpView.vue";
 import MyExercises from "../views/MyExercisesView.vue";
-import { Api } from "@/api/api";
 import TokenView from "@/views/TokenView";
 
 Vue.use(VueRouter);
