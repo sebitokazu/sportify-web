@@ -130,7 +130,7 @@
                             <v-icon small class="mr-2" @click="deleteItem(item)">
                                 mdi-delete
                             </v-icon>
-                            <v-dialog v-model="dialog">
+                            <v-dialog v-model="dialog2">
                                 <template v-slot:activator="{ on, attrs }">
                                         <v-icon small v-on="on" v-bind="attrs">
                                             visibility
@@ -139,7 +139,7 @@
                                 <RoutineCardDetailed
                                     :title="item.name"
                                     :detail="item.detail"
-                                    @dialog="dialog = false"
+                                    @dialog="dialog2 = false"
                                 />
                             </v-dialog>
 
@@ -165,6 +165,7 @@ export default {
     components: { NavBar, RoutineCardDetailed },
     data: () => ({
         dialog: false,
+        dialog2: false,
         headers: [
             {
                 text: "Routines",
@@ -275,10 +276,6 @@ export default {
             const index = this.myRoutines.indexOf(item);
             confirm("Are you sure you want to delete this item?") &&
                 this.myRoutines.splice(index, 1);
-        },
-
-        seeDetail(item){
-            item.color="red"
         },
 
         close() {
