@@ -11,7 +11,6 @@ import NewRoutines from "../views/NewRoutines.vue";
 import Explore from "../views/ExploreView.vue";
 import Help from "../views/HelpView.vue";
 import MyExercises from "../views/MyExercisesView.vue";
-import { Api } from "@/api/api";
 import TokenView from "@/views/TokenView";
 
 Vue.use(VueRouter);
@@ -88,7 +87,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     const publicPages = ["/", "/register", "/login", "/token"];
     const authRequired = !publicPages.includes(to.path);
-    const loggedIn = Api.token;
+    const loggedIn = localStorage.getItem("SavedToken");
 
     if (authRequired && !loggedIn) {
         next("/login");

@@ -68,8 +68,6 @@
                                             color="purple lighten-2"
                                             depressed
                                             :disabled="!valid"
-                                            type="submit"
-                                            to="/home"
                                             @click="login"
                                         >
                                             Sign In
@@ -102,6 +100,7 @@
 
 <script>
 import { UserApi, Credentials } from "@/api/user";
+import router from "@/router";
 
 export default {
     name: "LoginView",
@@ -129,10 +128,12 @@ export default {
             let credentials = new Credentials(this.username, this.password);
             try {
                 await UserApi.login(credentials);
+                await router.push('home');
             } catch (error) {
                 if (error.code === 4) this.invalidCredentials++;
                 console.log(error);
-            }
+            };
+
         }
     }
 };
