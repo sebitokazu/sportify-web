@@ -84,16 +84,17 @@ export default {
         dialog: false,
         cycles: routineStore.getCycles(),
         cycleDialog: false,
-        cycle: ""
+        cycle: "",
+        store: routineStore
     }),
 
     methods: {
         addExercise() {
-            routineStore.addExercise(this.exercise, this.cycle);
+            this.store.addExercise(this.exercise, this.cycle);
             this.cycleDialog = false;
         },
         cyclesName() {
-            return Object.keys(this.cycles);
+            return routineStore.getCyclesName();
         }
     }
 };

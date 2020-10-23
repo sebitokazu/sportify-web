@@ -56,12 +56,13 @@ export default {
             type: "",
             order: 1,
             repetitions: 1
-        }
+        },
+        store: routineStore
     }),
     methods: {
         addCycle() {
             this.dialog = false;
-            routineStore.addCycle(this.cycle.name, this.cycle);
+            this.store.addCycle(this.cycle.name, this.cycle);
         }
     }
 };
