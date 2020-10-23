@@ -12,10 +12,10 @@ class Api {
     }
 
     static async fetch(url, secure, init = {}, controller) {
-        if (secure && Api.token) {
+        if (secure && localStorage.getItem("SavedToken")) {
             if (!init.headers) init.headers = {};
 
-            init.headers["Authorization"] = `bearer ${Api.token}`;
+            init.headers["Authorization"] = `${localStorage.getItem("SavedToken")}`;
         }
 
         controller = controller || new AbortController();

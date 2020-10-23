@@ -5,21 +5,46 @@
         min-width="150"
         color="background"
     >
-        <v-img class="white--text align-end" height="130px" :src="image">
+        <v-img
+            class="white--text align-end"
+            height="130px"
+            :src="exercise.image"
+        >
             <v-card-title
                 class="primary--text py-1 pl-2"
                 style="background-color:rgba(253, 255, 242, 0.5);"
-                >{{ exerciseName }}</v-card-title
+                >{{ exercise.name }}</v-card-title
             >
         </v-img>
         <v-card-actions>
             <v-row>
-                <v-btn color="primary" text>
-                    <v-icon small class="mr-2">
-                        add
-                    </v-icon>
-                    Add
-                </v-btn>
+                <v-dialog v-model="cycleDialog" width="500">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn color="primary" text v-on="on" v-bind="attrs">
+                            <v-icon small class="mr-2">
+                                add
+                            </v-icon>
+                            Add
+                        </v-btn>
+                    </template>
+                    <v-card>
+                        <v-card-text>
+                            <v-select
+                                :items="cyclesName()"
+                                label="Cycle"
+                                v-model="cycle"
+                                dense
+                                outlined
+                            ></v-select>
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="success" @click="addExercise">
+                                Save
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
             </v-row>
             <v-dialog v-model="dialog" width="500">
                 <template v-slot:activator="{ on, attrs }">
@@ -31,8 +56,8 @@
                     </v-btn>
                 </template>
                 <RoutineCardDetailed
-                    :title="exerciseName"
-                    :detail="detail"
+                    :title="exercise.name"
+                    :detail="exercise.detail"
                     @dialog="dialog = false"
                 />
             </v-dialog>
@@ -42,6 +67,7 @@
 
 <script>
 import RoutineCardDetailed from "@/components/RoutineCardDetailed.vue";
+import routineStore from "@/store/routineStore";
 
 export default {
     name: "Exercise",
@@ -49,13 +75,27 @@ export default {
         RoutineCardDetailed
     },
     props: {
-        exerciseName: String,
-        image: String,
-        detail: String
+        exercise: {
+            type: Object
+        }
     },
     data: () => ({
-        dialog: false
-    })
+        dialog: false,
+        cycles: routineStore.getCycles(),
+        cycleDialog: false,
+        cycle: "",
+        store: routineStore
+    }),
+
+    methods: {
+        addExercise() {
+            this.store.addExercise(this.exercise, this.cycle);
+            this.cycleDialog = false;
+        },
+        cyclesName() {
+            return routineStore.getCyclesName();
+        }
+    }
 };
 </script>
 

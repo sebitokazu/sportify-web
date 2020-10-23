@@ -10,7 +10,7 @@
             </v-row>
             <v-row justify="center">
                 <v-col cols="4">
-                    <v-card min-width="250" max-width="350" elevation="3" color="background">
+                    <v-card min-width="250" max-width="350" elevation="3">
                         <v-card-title>Login</v-card-title>
                         <v-form v-model="valid" ref="loginForm" class="px-4 ">
                             <v-text-field
@@ -46,44 +46,28 @@
                             <h5 v-if="invalidCredentials" class="red--text">
                                 Invalid username or password
                             </h5>
-
+                            <v-container class="">
+                                <v-row no-gutters>
+                                    <v-col align="end">
+                                        <v-btn
+                                            class="mb-3"
+                                            text
+                                            x-small
+                                            color="blue"
+                                        >
+                                            Forgot your password?
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
                             <v-card-actions>
                                 <v-container class="mt-n4">
-                                    <v-row>
-                                        <v-container>
-                                            <v-row no-gutters>
-                                                <v-col align="end">
-                                                    <v-dialog v-model="dialog" width="500">
-                                                        <template v-slot:activator="{ on, attrs }">
-                                                            <v-btn
-                                                                class="mb-3"
-                                                                text
-                                                                x-small
-                                                                color="blue"
-                                                                v-on="on"
-                                                                v-bind="attrs"
-                                                            >
-                                                                Forgot your password?
-                                                            </v-btn>
-                                                        </template>
-                                                        <MailSent
-                                                            :title="title"
-                                                            :detail="detail"
-                                                            @dialog="dialog = false"
-                                                        />
-                                                    </v-dialog>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-row>
                                     <v-row>
                                         <v-btn
                                             class="mx-auto"
                                             color="purple lighten-2"
                                             depressed
                                             :disabled="!valid"
-                                            type="submit"
-                                            to="/home"
                                             @click="login"
                                         >
                                             Sign In
@@ -116,11 +100,10 @@
 
 <script>
 import { UserApi, Credentials } from "@/api/user";
-import MailSent from "@/components/MailSent";
+import router from "@/router";
 
 export default {
     name: "LoginView",
-    components: { MailSent },
     data: () => ({
         valid: false,
         invalidCredentials: false,
@@ -137,20 +120,20 @@ export default {
                     "Min. 8 characters with at least one capital letter, a number and a special character."
                 );
             }
-        ],
-        title: "Mail sent",
-        detail: "Your password will be sent to this e-mail. Please check your inbox in order to continue.",
-        dialog: false
+        ]
     }),
+    components: {},
     methods: {
         async login() {
             let credentials = new Credentials(this.username, this.password);
             try {
                 await UserApi.login(credentials);
+                await router.push('home');
             } catch (error) {
                 if (error.code === 4) this.invalidCredentials++;
                 console.log(error);
-            }
+            };
+
         }
     }
 };

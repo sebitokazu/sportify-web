@@ -51,7 +51,6 @@
         >
             <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                    @click="testBadCredentials"
                     v-bind="attrs"
                     text
                     v-on="on"
@@ -66,11 +65,12 @@
                     v-for="(item, index) in profile_overflow"
                     :key="index"
                     :to="item.element.path"
+                    @click="logout"
                 >
-                    <v-list-item-icon>
+                    <v-list-item-icon @click="logout(this.action)">
                         <v-icon v-text="item.element.icon"></v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title
+                    <v-list-item-title @click="logout(this.action)"
                         v-text="item.element.title"
                     ></v-list-item-title>
                 </v-list-item>
@@ -80,7 +80,6 @@
 </template>
 <script>
 import { UserApi } from "@/api/user";
-import { Credentials } from "@/api/user";
 
 export default {
     name: "NavBar",
@@ -101,25 +100,39 @@ export default {
                     path: "/profile"
                 }
             },
-            { element: { title: "Help", icon: "help_outline", path: "/help" } },
+            { element: {
+                title: "Help", icon: "help_outline", path: "/help"
+                }
+            },
             {
                 element: {
                     title: "Sign Out",
                     icon: "exit_to_app",
-                    path: "/"
+                    path: "/login",
+                    action : "logout"
                 }
             }
         ]
     }),
     methods: {
         async test() {
-            let response = await UserApi.getCurrentUser();
-            console.log(response);
+            let userData =
+            {
+                username: "vsratti",
+                fullName: "Valentin Segundo",
+                gender: "male",
+                password: "Valen4402*",
+                birthdate: 284007600000,
+                email: "valentinratti@sirius.com.ar",
+                phone: "98295822",
+                avatarUrl: "https://flic.kr/p/3ntH2u"
+            }
+            await UserApi.updateCurrentUser(userData);
         },
-        async testBadCredentials() {
-            let credentials = new Credentials("vsratti", "InvalidPassword123*");
-            let response = await UserApi.login(credentials);
-            console.log(response);
+        async logout(action) {
+            console.log("Hola");
+            if(action === 'logout')
+                await UserApi.logout();
         }
     }
 };

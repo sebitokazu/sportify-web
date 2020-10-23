@@ -1,8 +1,8 @@
 <template>
     <div>
         <NavBar />
-        <v-main>
-            <v-container fluid>
+        <v-main class="staatliches">
+            <v-container fluid >
                 <v-row class="mainButtons">
                     <v-col
                         cols="12"
@@ -26,6 +26,11 @@
 .mainButtons .v-btn:hover .v-icon {
     transform: scale(1.2);
 }
+
+.staatliches{
+    font-family: 'Staatliches', cursive !IMPORTANT;
+}
+
 </style>
 
 <script>
@@ -41,14 +46,14 @@ export default {
                 icon: "directions_run",
                 text:
                     "Ingrese para ver todas tu ejercicios. Vas a poder ver la duración de cada ejercicio, el detalle y vas a poder edirarlos. Tambien vas a poder crear uno nuevo.",
-                path: "/NewRoutines",
+                path: "/myexercises",
                 title: "Exercises"
             },
             {
                 icon: "fitness_center",
                 text:
                     "Ingrese para ver todas tus rutinas. Vas a poder ver la duración de cada una y su dificultad. Tambien vas a poder eliminar y crear rutinas a partir de ejercicios. ",
-                path: "/MyRoutines",
+                path: "/myroutines",
                 title: "Routines"
             },
             {
@@ -62,7 +67,7 @@ export default {
                 icon: "add",
                 text:
                     "Ingrese para poder crear una nueva rutina desde cero. Vas a poder agregar todos los ejercicios, ciclos, dificultad y duraciones que quieras.",
-                path: "/NewRoutines",
+                path: "/newroutines",
                 title: "Create"
             }
         ]

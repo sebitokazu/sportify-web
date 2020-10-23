@@ -1,10 +1,11 @@
 <template>
-    <v-container fluid>
-        <v-row>
+    <v-container class="pa-4">
+        <v-row justify="space-between">
             <v-col cols="5">
                 <v-text-field
                     label="Routine Name"
                     outlined
+                    v-model="routine.name"
                     dense
                 ></v-text-field>
             </v-col>
@@ -16,7 +17,7 @@
                 mins
             </v-col>
             <v-col>
-                <v-checkbox v-model="checkbox" color="success">
+                <v-checkbox color="success" v-model="routine.isPublic">
                     <template v-slot:label>
                         <div>
                             Private
@@ -35,19 +36,53 @@
                         hover
                         length="3"
                         value="3"
+                        v-model="difficulty"
                     ></v-rating>
                 </v-chip-group>
+            </v-col>
+            <v-col>
+                <v-select
+                    :items="categories"
+                    label="Category"
+                    v-model="category"
+                    dense
+                    outlined
+                ></v-select>
             </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script>
+import routineStore from "@/store/routineStore";
 export default {
     name: "EditRoutine.vue",
+    props: {},
     data: () => ({
-        totalTime: "15"
-    })
+        totalTime: "15",
+        categories: [],
+        category: "",
+        difficulty: "",
+        routine: routineStore.getRoutine()
+    }),
+    watch: {
+        rating: function(val) {
+            switch (val) {
+                case 1:
+                    this.routine.difficulty = "rookie";
+                    break;
+                case 2:
+                    this.routine.difficulty = "advanced";
+                    break;
+                case 3:
+                    this.routine.difficulty = "rookie";
+                    break;
+            }
+        },
+        category: function(val) {
+            this.routine.id = val;
+        }
+    }
 };
 </script>
 

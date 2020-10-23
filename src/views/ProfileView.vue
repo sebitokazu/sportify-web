@@ -233,22 +233,17 @@ export default {
         async save() {
             this.dialog = false;
             this.postLoader = true;
-            console.log(this.textFieldValues);
-            let currentUserData = await UserApi.getCurrentUser();
-            let currentPassword = currentUserData.password;
-            let updatePass = this.textFieldValues.password !== "";
             let userData = {
                 username: this.textFieldValues.username,
-                password: updatePass
-                    ? this.textFieldValues.password
-                    : currentPassword,
+                password: "",
                 fullName: this.textFieldValues.fullName,
                 gender: this.textFieldValues.gender,
-                birthdate: this.textFieldValues.birthdate,
+                birthdate: 123456, //cambiar
                 email: this.textFieldValues.email,
                 phone: "",
                 avatarUrl: "https://flic.kr/p/3ntH2u"
-            };
+            }
+            console.log(userData);
             await UserApi.updateCurrentUser(userData);
             this.readMode = true;
             await this.getUserData();

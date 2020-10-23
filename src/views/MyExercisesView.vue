@@ -21,13 +21,49 @@
                         :headers="headers"
                         :items="myExercises"
                         sort-by="Exercise"
-                        class="elevation-1"
+                        class="elevation-1 background"
                     >
-                        <template v-slot:item.duration="{ item }">
-                            <v-icon align>
-                                alarm
-                            </v-icon>
-                            {{item.duration}} '
+                        <template v-slot:header>
+                            <v-dialog v-model="dialog" max-width="600px">
+                                <v-card>
+                                    <v-card-title>
+                                        <h2>Edit an exercise</h2>
+                                    </v-card-title>
+                                    <v-card-text>
+                                        <v-form class="px-3">
+                                            <v-text-field
+                                                label="Exercise name"
+                                                v-model="editingExercise.name"
+                                            ></v-text-field>
+                                            <v-textarea label="Detail" v-model="editingExercise.detail"></v-textarea>
+                                            <v-slider
+                                                label="Repetitions"
+                                                v-model="editingExercise.repetitions"
+                                                :thumb-size="24"
+                                                thumb-label="always"
+                                                :max="150"
+                                            ></v-slider>
+                                            <v-slider
+                                                label="Seconds"
+                                                v-model="editingExercise.duration"
+                                                step="5"
+                                                :thumb-size="24"
+                                                thumb-label="always"
+                                                :max="480"
+                                            ></v-slider>
+                                            <v-select
+                                                :items="editingExercise.items"
+                                                label="Type"
+                                                v-model="editingExercise.type"
+                                                dense
+                                                outlined
+                                            ></v-select>
+                                            <v-btn @click="save" class="success">save</v-btn>
+                                            <v-btn @click="close" class="error">cancel</v-btn>
+                                        </v-form>
+                                    </v-card-text>
+                                </v-card>
+                            </v-dialog>
                         </template>
                         <template v-slot:item.actions="{ item }">
                             <v-icon small class="mr-2" @click="editItem(item)">
@@ -37,7 +73,7 @@
                                 mdi-delete
                             </v-icon>
                         </template>
-                        <template v-slot:top v-if="deleteDialog">
+                        <template v-slot:footer v-if="deleteDialog">
                             <ConfirmationDialog
                                 :dialog="deleteDialog"
                                 :dialogTitle="
@@ -47,6 +83,7 @@
                                 @confirm="deleteItem"
                             />
                         </template>
+
                     </v-data-table>
                 </v-card>
             </v-container>
@@ -67,7 +104,9 @@ export default {
     },
 
     data: () => ({
+        dialog: false,
         deleteDialog: false,
+        editDialog: false,
         firstLoad: true,
         headers: [
             {
@@ -77,7 +116,8 @@ export default {
                 value: "name"
             },
             { text: "Detail", value: "detail" },
-            { text: "Duration", value: "duration" },
+            { text: "Duration (sec)", value: "duration" },
+            { text: "Repetitions", value: "repetitions" },
             { text: "Type", value: "type" },
             { text: "Actions", value: "actions", sortable: false }
         ],
@@ -97,7 +137,16 @@ export default {
             places: 0,
             groups: 0
         },
-        toDelete: null
+        toDelete: null, toEdit: null,
+        currentExerciseId: -1,
+        editingExercise: {
+                name: "",
+                detail: "",
+                repetitions: "",
+                duration: "",
+                type: "",
+                items: ["exercise", "rest"]
+        },
     }),
 
     computed: {
@@ -128,9 +177,21 @@ export default {
             this.myExercises = response.results;
         },
 
-        editItem(item) {
-            this.editedIndex = this.myRoutines.indexOf(item);
-            this.editedItem = Object.assign({}, item);
+        async editItem(item) {
+            const index = this.myExercises.indexOf(item);
+            this.currentExerciseId = this.myExercises[index].id;
+            let response = await RoutinesApi.getExercise(1, 1, this.currentExerciseId);
+
+            this.editingExercise.name = response.name;
+            this.editingExercise.detail = response.detail;
+            this.editingExercise.type = response.type;
+            this.editingExercise.duration = response.duration;
+            this.editingExercise.repetitions = response.repetitions;
+
+            this.editDialog = true;
+            // this.editedIndex = this.myExercises.indexOf(item);
+            // this.editedItem = Object.assign({}, item);
+            this.toEdit = item;
             this.dialog = true;
         },
 
@@ -139,12 +200,16 @@ export default {
             this.toDelete = item;
         },
 
-        deleteItem() {
+        async deleteItem() {
             //post delete
+            this.deleteDialog = false;
             const index = this.myExercises.indexOf(this.toDelete);
             this.deleteDialog = false;
             this.myExercises.splice(index, 1);
             this.toDelete = null;
+            await RoutinesApi.deleteExercise(1, 1, this.myExercises[index].id);
+            //this.myExercises.splice(index, 1);
+            await this.initialize();
         },
 
         close() {
@@ -153,16 +218,27 @@ export default {
                 this.editedItem = Object.assign({}, this.defaultItem);
                 this.editedIndex = -1;
             });
+            this.close();
         },
 
-        save() {
+
+        async save() {
             if (this.editedIndex > -1) {
                 Object.assign(
-                    this.myRoutines[this.editedIndex],
+                    this.myExercises[this.editedIndex],
                     this.editedItem
                 );
             } else {
-                this.myRoutines.push(this.editedItem);
+                //this.myExercises.push(this.editedItem);
+                let exercise = {
+                    name: this.editingExercise.name,
+                    detail: this.editingExercise.detail,
+                    type: this.editingExercise.type,
+                    duration: this.editingExercise.duration,
+                    repetitions: this.editingExercise.repetitions
+                }
+                await RoutinesApi.updateExercise(1, 1, this.currentExerciseId, exercise);
+                await this.initialize();
             }
             this.close();
         }

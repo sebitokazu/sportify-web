@@ -24,4 +24,7 @@ export default {
     left: 0;
     background-size: cover;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
 </style>

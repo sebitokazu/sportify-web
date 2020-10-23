@@ -164,6 +164,8 @@ export default {
     name: "MyRoutines",
     components: { NavBar, RoutineCardDetailed },
     data: () => ({
+        firstLoad: true,
+        selectTime: [],
         dialog: false,
         dialog2: false,
         headers: [
@@ -205,8 +207,13 @@ export default {
             val || this.close();
         }
     },
-
-    created() {
+    beforeMount() {
+        this.firstLoad = true;
+    },
+    async created() {
+        await new Promise(resolve =>
+            setTimeout(() => resolve((this.firstLoad = false)), 2000)
+        );
         this.initialize();
     },
 
