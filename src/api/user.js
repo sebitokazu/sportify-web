@@ -9,7 +9,7 @@ class UserApi {
         return `${Api.baseUrl}/user`;
     }
 
-    static async login(credentials, controller) {
+   static async login(credentials, controller) {
         const result = await Api.post(
             `${UserApi.url}/login`,
             false,

@@ -63,15 +63,28 @@
                             <v-card-actions>
                                 <v-container class="mt-n4">
                                     <v-row>
-                                        <v-btn
-                                            class="mx-auto"
-                                            color="purple lighten-2"
-                                            depressed
-                                            :disabled="!valid"
-                                            @click="login"
-                                        >
-                                            Sign In
-                                        </v-btn>
+                                        <template>
+                                            <v-dialog v-model="dialog" width="500">
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-btn
+                                                        class="mx-auto"
+                                                        color="purple lighten-2"
+                                                        depressed
+                                                        :disabled="!valid"
+                                                        @click="login"
+                                                        v-on="on"
+                                                        v-bind="attrs"
+                                                    >
+                                                        Sign In
+                                                    </v-btn>
+                                                </template>
+                                                <ConfirmationDialog
+                                                    :dialogTitle="title"
+                                                    :dialog="dialog"
+                                                    :message="detail"
+                                                />
+                                            </v-dialog>
+                                        </template>
                                     </v-row>
                                     <v-row>
                                         <v-divider
@@ -101,18 +114,21 @@
 <script>
 import { UserApi, Credentials } from "@/api/user";
 import router from "@/router";
+import ConfirmationDialog from "@/components/ConfirmationDialog";
 
 export default {
     name: "LoginView",
     data: () => ({
         valid: false,
+        dialog: false,
         invalidCredentials: false,
         verifyAccount: false,
         username: "",
         rulesUsername: [value => !!value || "Username is required"],
         password: "",
         show: false,
-        rulesPassword: [
+        title: "User invalid!",
+        detail: "You must validate your user first"
             value => !!value || "Password is required",
             value => {
                 const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
@@ -123,7 +139,7 @@ export default {
             }
         ]
     }),
-    components: {},
+    components: { ConfirmationDialog },
     methods: {
         async login() {
             let credentials = new Credentials(this.username, this.password);

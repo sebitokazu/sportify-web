@@ -17,7 +17,7 @@
                                 empty-icon="local_fire_department"
                                 full-icon="local_fire_department"
                                 readonly
-                                length="3"
+                                length="5"
                                 :value="item.difficulty"
                             ></v-rating>
                         </template>
