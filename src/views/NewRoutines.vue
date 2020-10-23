@@ -21,6 +21,7 @@
 import NavBar from "@/components/NavBar";
 import CreateRoutine from "@/components/Create/CreateRoutine";
 import AddCostumeExcercise from "@/components/Create/AddCostumeExercise";
+import routineStore from "@/store/routineStore";
 
 export default {
     name: "NewRoutines",
@@ -74,7 +75,6 @@ export default {
     created() {
         this.initialize();
     },
-
     methods: {
         initialize() {
             this.excercises = [
@@ -143,7 +143,23 @@ export default {
             }
             this.close();
         }
-    }
+    },
+    beforeRouteLeave(to, from, next) {
+        if (routineStore.wasModified()) {
+            const answer = window.confirm(
+                "Do you really want to leave? you have unsaved changes!"
+            );
+            if (answer) {
+                routineStore.clearAll();
+                next();
+            } else {
+                next(false);
+            }
+        } else {
+            next();
+        }
+    },
+    destroyed() {}
 };
 </script>
 

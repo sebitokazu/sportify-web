@@ -27,8 +27,8 @@
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
                                     <v-text-field
-                                        v-model="editedItem.difficulty"
-                                        label="difficulty"
+                                        v-model="editedItem.repetition"
+                                        label="repetition"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -54,28 +54,33 @@
                 mdi-delete
             </v-icon>
         </template>
-        <template v-slot:no-data>
-            <v-btn color="primary" @click="initialize">
-                Reset
-            </v-btn>
-        </template>
     </v-data-table>
 </template>
 
 <script>
+import routineStore from "@/store/routineStore";
 export default {
     name: "Cicle.vue",
+    props: {
+        exercises: {
+            type: Array
+        },
+        name: {
+            type: String
+        }
+    },
     data: () => ({
+        store: routineStore,
         dialog: false,
         headers: [
             {
-                text: "Routines",
+                text: "Exercise",
                 align: "start",
                 sortable: false,
                 value: "name"
             },
             { text: "Duration (min)", value: "duration" },
-            { text: "Difficulty", value: "difficulty" },
+            { text: "Repetitions", value: "repetitions" },
             { text: "Actions", value: "actions", sortable: false }
         ],
         myRoutines: [],
@@ -110,29 +115,7 @@ export default {
 
     methods: {
         initialize() {
-            this.myRoutines = [
-                {
-                    name: "Frozen Yogurt",
-                    duration: 159,
-                    difficulty: 1
-                },
-                {
-                    name: "Ice cream sandwich",
-                    duration: 237,
-                    difficulty: 2
-                },
-                {
-                    name: "Eclair",
-                    duration: 262,
-                    difficulty: 2
-                },
-
-                {
-                    name: "KitKat",
-                    duration: 518,
-                    difficulty: 3
-                }
-            ];
+            this.myRoutines = this.exercises;
         },
 
         editItem(item) {
@@ -144,7 +127,7 @@ export default {
         deleteItem(item) {
             const index = this.myRoutines.indexOf(item);
             confirm("Are you sure you want to delete this item?") &&
-                this.myRoutines.splice(index, 1);
+                this.store.deleteExercise(index, this.name);
         },
 
         close() {

@@ -57,6 +57,7 @@
 
 <script>
 import { RoutinesApi } from "@/api/routines";
+import routineStore from "@/store/routineStore";
 
 export default {
     name: "FormAddExercise.vue",
@@ -81,6 +82,7 @@ export default {
                 repetitions: 0
             };
             await RoutinesApi.addExercise(1, 1, exercise);
+            routineStore.addExercise(exercise, 1);
         }
     }
 };
