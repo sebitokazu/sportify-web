@@ -2,23 +2,7 @@
     <v-container>
         <v-card color="background">
             <EditRoutine />
-            <v-dialog v-model="dialog" max-width="600px">
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn dark v-on="on" v-bind="attrs"> Add cycle</v-btn>
-                </template>
-                <v-card>
-                    <v-card-title>
-                        New Cycle
-                    </v-card-title>
-                    <v-text-field
-                        label="Name"
-                        v-model="cycleName"
-                    ></v-text-field>
-                    <v-card-actions>
-                        <v-btn @click="addCycle">Confirm</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
+            <FormAddCycle />
             <v-expansion-panels>
                 <v-expansion-panel
                     v-for="(value, name, i) in cycles"
@@ -29,7 +13,7 @@
                         {{ name }}
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <Cicle :exercises="value" />
+                        <Cicle :exercises="getExercises(name)" />
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -39,6 +23,7 @@
                 name="input-7-4"
                 label="Detail"
                 value="This Routine..."
+                v-model="routine.detail"
             ></v-textarea>
             <v-card align="end" flat color="background">
                 <v-btn
@@ -47,6 +32,7 @@
                     class="mb-2"
                     v-bind="attrs"
                     v-on="on"
+                    @click="saveRoutine"
                 >
                     Save
                 </v-btn>
@@ -68,20 +54,37 @@
 import Cicle from "@/components/Create/Cicle";
 import EditRoutine from "@/components/Create/EditRoutine";
 import routineStore from "@/store/routineStore";
+import FormAddCycle from "@/components/Create/FormAddCycle";
+import { RoutinesApi } from "@/api/routines";
 
 export default {
     name: "CreateRoutine",
-    components: { Cicle, EditRoutine },
+    components: { Cicle, EditRoutine, FormAddCycle },
 
     data: () => ({
         cycles: routineStore.getCycles(),
         dialog: false,
-        cycleName: ""
+        cycleName: "",
+        routine: routineStore.getRoutine()
     }),
     methods: {
         addCycle() {
             this.dialog = false;
             routineStore.addCycle(this.cycleName);
+        },
+        async saveRoutine() {
+            const cycles = routineStore.getCycles();
+            const res = await RoutinesApi.addRoutine(routineStore.getRoutine());
+            const id = res.id;
+            Object.values(cycles).forEach(async cycle => {
+                console.log(cycle);
+                let r = await RoutinesApi.addCycle(id, cycle);
+                console.log(r);
+            });
+        },
+        bindRoutineData() {},
+        getExercises(name) {
+            return routineStore.getExerciseFromCycle(name);
         }
     }
 };
