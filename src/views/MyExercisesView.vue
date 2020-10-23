@@ -218,7 +218,6 @@ export default {
                 this.editedItem = Object.assign({}, this.defaultItem);
                 this.editedIndex = -1;
             });
-            this.close();
         },
 
 

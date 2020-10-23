@@ -246,6 +246,7 @@ export default {
             console.log(userData);
             await UserApi.updateCurrentUser(userData);
             this.readMode = true;
+            this.postLoader = false;
             await this.getUserData();
         },
         async discard() {

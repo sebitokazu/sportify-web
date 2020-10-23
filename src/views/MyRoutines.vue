@@ -130,7 +130,7 @@
                             <v-icon small class="mr-2" @click="deleteItem(item)">
                                 mdi-delete
                             </v-icon>
-                            <v-dialog v-model="dialog2">
+                            <v-dialog v-model="dialog2" :retain-focus="false">
                                 <template v-slot:activator="{ on, attrs }">
                                         <v-icon small v-on="on" v-bind="attrs">
                                             visibility
@@ -159,6 +159,7 @@
 <script>
 import NavBar from "@/components/NavBar";
 import RoutineCardDetailed from "@/components/RoutineCardDetailed";
+import {RoutinesApi} from "@/api/routines";
 
 export default {
     name: "MyRoutines",
@@ -226,51 +227,11 @@ export default {
             if(isPublic == "Yes") return 'success'
             else return 'error'
         },
-        initialize() {
-            this.myRoutines = [
-                {
-                    name: "Frozen Yogurt",
-                    public: "Yes",
-                    difficulty: 1,
-                    category: "Categoria 1",
-                    detail: "Este esjercicio es buenardo"
-                },
-                {
-                    name: "Ice cream sandwich",
-                    public: "No",
-                    difficulty: 2,
-                    category: "Categoria 2",
-                    detail: "Este esjercicio es buenardo"
-                },
-                {
-                    name: "Eclair",
-                    public: "No",
-                    difficulty: 2,
-                    category: "Categoria 1",
-                    detail: "Este esjercicio es buenardo"
-                },
-                {
-                    name: "Cupcake",
-                    public: "Yes",
-                    difficulty: 3,
-                    category: "Categoria 2",
-                    detail: "Este esjercicio es buenardo"
-                },
-                {
-                    name: "Gingerbread",
-                    public: "No",
-                    difficulty: 1,
-                    category: "Categoria 3",
-                    detail: "Este esjercicio es buenardo"
-                },
-                {
-                    name: "KitKat",
-                    public: "Yes",
-                    difficulty: 3,
-                    category: "Categoria 1",
-                    detail: "Este esjercicio es buenardo"
-                }
-            ];
+        async initialize() {
+            let results = await RoutinesApi.getCurrentUserRoutines(0,999);
+            results = results.results;
+            console.log(results);
+            this.myRoutines = results;
         },
 
         editItem(item) {
