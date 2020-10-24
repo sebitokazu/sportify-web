@@ -85,6 +85,7 @@
                                                 />
                                             </v-dialog>
                                         </template>
+
                                     </v-row>
                                     <v-row>
                                         <v-divider
@@ -128,7 +129,8 @@ export default {
         password: "",
         show: false,
         title: "User invalid!",
-        detail: "You must validate your user first"
+        detail: "You must validate your user first",
+        rulesPassword: [
             value => !!value || "Password is required",
             value => {
                 const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
