@@ -53,6 +53,7 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import RoutineCard from "@/components/RoutineCard.vue";
+import { RoutinesApi } from "@/api/routines";
 export default {
     name: "ExploreView",
     data: () => ({
@@ -100,6 +101,7 @@ export default {
     },
     async created() {
         this.getAllRoutines();
+        this.initialize();
     },
     methods: {
         search() {
@@ -111,6 +113,12 @@ export default {
             await new Promise(resolve =>
                 setTimeout(() => resolve((this.loading = false)), 2000)
             );
+        },
+        async initialize() {
+            let results = await RoutinesApi.retrieveAllRoutines();
+            results = results.results;
+            console.log(results);
+            this.listaRutinas = results;
         }
     },
     computed: {}

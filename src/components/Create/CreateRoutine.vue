@@ -37,6 +37,9 @@
                 </v-btn>
             </v-card>
         </v-card>
+        <v-overlay :value="postLoader">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
     </v-container>
 </template>
 
@@ -55,15 +58,18 @@ export default {
         cycles: routineStore.getExercisesCycleMap(),
         dialog: false,
         routine: routineStore.getRoutine(),
-        store: routineStore
+        store: routineStore,
+        postLoader: false
     }),
     methods: {
         async saveRoutine() {
-            /*
-            if(create)
-            else //update
-            */
-            this.createRoutine();
+            this.postLoader = true;
+            if (!this.store.isNewRoutine()) {
+                this.store.deleteRoutine();
+            }
+            await this.createRoutine();
+            this.postLoader = false;
+            this.store.saved();
         },
 
         async cancel(){
@@ -74,24 +80,28 @@ export default {
             const cycles = this.store.getCycles();
             const res = await RoutinesApi.addRoutine(this.store.getRoutine());
             const routineId = res.id;
-            Object.values(cycles).forEach(cycle => {
-                this.createCycle(routineId, cycle);
-            });
+            await Promise.all(
+                Object.values(cycles).map(async cycle => {
+                    await this.createCycle(routineId, cycle);
+                })
+            );
         },
         async createCycle(routineId, cycle) {
             const res = await RoutinesApi.addCycle(routineId, cycle);
             const cycleId = res.id;
-            this.store
-                .getCyclesExercisesByName(cycle.name)
-                .forEach((exercise, idx) => {
-                    exercise.order = idx;
-                    this.createExercise(routineId, cycleId, exercise);
-                });
+            console.log(this.store.getCyclesExercisesByName(res.name), "a");
+            await Promise.all(
+                this.store
+                    .getCyclesExercisesByName(res.name)
+                    .map(async (exercise, idx) => {
+                        exercise.order = idx;
+                        await this.createExercise(routineId, cycleId, exercise);
+                    })
+            );
         },
-        createExercise(routineId, cycleId, exercise) {
-            RoutinesApi.addExercise(routineId, cycleId, exercise);
-        },
-        async updateRoutine() {}
+        async createExercise(routineId, cycleId, exercise) {
+            await RoutinesApi.addExercise(routineId, cycleId, exercise);
+        }
     }
 };
 </script>

@@ -16,19 +16,19 @@
                                 <v-col cols="12" sm="6" md="4">
                                     <v-text-field
                                         v-model="editedItem.name"
-                                        label="Routine Name"
+                                        label="Exercise Name"
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
                                     <v-text-field
                                         v-model="editedItem.duration"
-                                        label="duration"
+                                        label="Duration (seg)"
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
                                     <v-text-field
-                                        v-model="editedItem.repetition"
-                                        label="repetition"
+                                        v-model="editedItem.repetitions"
+                                        label="Repetitions"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -79,7 +79,7 @@ export default {
                 sortable: false,
                 value: "name"
             },
-            { text: "Duration (min)", value: "duration" },
+            { text: "Duration (seg)", value: "duration" },
             { text: "Repetitions", value: "repetitions" },
             { text: "Actions", value: "actions", sortable: false }
         ],
@@ -120,7 +120,7 @@ export default {
 
         editItem(item) {
             this.editedIndex = this.myRoutines.indexOf(item);
-            this.editedItem = Object.assign({}, item);
+            // this.editedItem = this.myRoutines[this.editedIndex];
             this.dialog = true;
         },
 
