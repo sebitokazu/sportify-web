@@ -255,10 +255,12 @@ export default {
             // this.dialog = true;
         },
 
-        deleteItem(item) {
+        async deleteItem(item) {
             const index = this.myRoutines.indexOf(item);
+            const currentRoutineId = this.myRoutines[index].id;
             confirm("Are you sure you want to delete this item?") &&
-                this.myRoutines.splice(index, 1);
+                (await this.store.deleteRoutineById(currentRoutineId));
+            this.initialize();
         },
 
         close() {

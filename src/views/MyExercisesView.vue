@@ -35,17 +35,24 @@
                                                 label="Exercise name"
                                                 v-model="editingExercise.name"
                                             ></v-text-field>
-                                            <v-textarea label="Detail" v-model="editingExercise.detail"></v-textarea>
+                                            <v-textarea
+                                                label="Detail"
+                                                v-model="editingExercise.detail"
+                                            ></v-textarea>
                                             <v-slider
                                                 label="Repetitions"
-                                                v-model="editingExercise.repetitions"
+                                                v-model="
+                                                    editingExercise.repetitions
+                                                "
                                                 :thumb-size="24"
                                                 thumb-label="always"
                                                 :max="150"
                                             ></v-slider>
                                             <v-slider
                                                 label="Seconds"
-                                                v-model="editingExercise.duration"
+                                                v-model="
+                                                    editingExercise.duration
+                                                "
                                                 step="5"
                                                 :thumb-size="24"
                                                 thumb-label="always"
@@ -58,8 +65,12 @@
                                                 dense
                                                 outlined
                                             ></v-select>
-                                            <v-btn @click="save" class="success">save</v-btn>
-                                            <v-btn @click="close" class="error">cancel</v-btn>
+                                            <v-btn @click="save" class="success"
+                                                >save</v-btn
+                                            >
+                                            <v-btn @click="close" class="error"
+                                                >cancel</v-btn
+                                            >
                                         </v-form>
                                     </v-card-text>
                                 </v-card>
@@ -83,7 +94,6 @@
                                 @confirm="deleteItem"
                             />
                         </template>
-
                     </v-data-table>
                 </v-card>
             </v-container>
@@ -137,16 +147,17 @@ export default {
             places: 0,
             groups: 0
         },
-        toDelete: null, toEdit: null,
+        toDelete: null,
+        toEdit: null,
         currentExerciseId: -1,
         editingExercise: {
-                name: "",
-                detail: "",
-                repetitions: "",
-                duration: "",
-                type: "",
-                items: ["exercise", "rest"]
-        },
+            name: "",
+            detail: "",
+            repetitions: "",
+            duration: "",
+            type: "",
+            items: ["exercise", "rest"]
+        }
     }),
 
     computed: {
@@ -180,7 +191,11 @@ export default {
         async editItem(item) {
             const index = this.myExercises.indexOf(item);
             this.currentExerciseId = this.myExercises[index].id;
-            let response = await RoutinesApi.getExercise(1, 1, this.currentExerciseId);
+            let response = await RoutinesApi.getExercise(
+                1,
+                1,
+                this.currentExerciseId
+            );
 
             this.editingExercise.name = response.name;
             this.editingExercise.detail = response.detail;
@@ -205,7 +220,6 @@ export default {
             this.deleteDialog = false;
             const index = this.myExercises.indexOf(this.toDelete);
             this.deleteDialog = false;
-            this.myExercises.splice(index, 1);
             this.toDelete = null;
             await RoutinesApi.deleteExercise(1, 1, this.myExercises[index].id);
             //this.myExercises.splice(index, 1);
@@ -219,7 +233,6 @@ export default {
                 this.editedIndex = -1;
             });
         },
-
 
         async save() {
             if (this.editedIndex > -1) {
@@ -235,8 +248,13 @@ export default {
                     type: this.editingExercise.type,
                     duration: this.editingExercise.duration,
                     repetitions: this.editingExercise.repetitions
-                }
-                await RoutinesApi.updateExercise(1, 1, this.currentExerciseId, exercise);
+                };
+                await RoutinesApi.updateExercise(
+                    1,
+                    1,
+                    this.currentExerciseId,
+                    exercise
+                );
                 await this.initialize();
             }
             this.close();

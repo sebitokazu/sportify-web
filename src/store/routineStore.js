@@ -118,18 +118,46 @@ export default Vue.observable({
         const routineId = routine.id;
         delete routine.id;
         toDeleteCyclesId.forEach(cycleId => {
-            toDeleteExercisesId[cycleId].forEach(exerciseId => {
-                RoutinesApi.deleteExercise(routineId, cycleId, exerciseId);
-            });
-            RoutinesApi.deleteCycle(routineId, cycleId);
+            this.deleteRemoteCycle(routineId, cycleId);
         });
         RoutinesApi.deleteRoutine(routineId);
         toDeleteCyclesId = [];
         toDeleteExercisesId = {};
     },
+    deleteRemoteCycle(routineId, cycleId) {
+        toDeleteExercisesId[cycleId].forEach(exerciseId => {
+            this.deleteRemoteExercise(routineId, cycleId, exerciseId);
+        });
+        RoutinesApi.deleteCycle(routineId, cycleId);
+    },
+    deleteRemoteExercise(routineId, cycleId, exerciseId) {
+        RoutinesApi.deleteExercise(routineId, cycleId, exerciseId);
+    },
+
     saved() {
         modificated = false;
         this.clearAll();
+    },
+    async deleteRoutineById(id) {
+        let cyclesRes = await RoutinesApi.getCycles(id);
+        cyclesRes = cyclesRes.results;
+        await Promise.all(
+            cyclesRes.map(async cycle => {
+                let exercisesRes = await RoutinesApi.getExercises(id, cycle.id);
+                exercisesRes = exercisesRes.results;
+                await Promise.all(
+                    exercisesRes.map(async exercise => {
+                        await RoutinesApi.deleteExercise(
+                            id,
+                            cycle.id,
+                            exercise.id
+                        );
+                    })
+                );
+                await RoutinesApi.deleteCycle(id, cycle.id);
+            })
+        );
+        await RoutinesApi.deleteRoutine(id);
     }
 });
 
