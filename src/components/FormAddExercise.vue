@@ -50,9 +50,11 @@
                         outlined
                     ></v-select>
                     <v-card-actions>
-                        <v-btn class="error" @click="dialog = false">Cancel</v-btn>
+                        <v-btn class="error" @click="dialog = false"
+                            >Cancel</v-btn
+                        >
                         <v-btn @click="addExercise" class="success"
-                        >Add exercise</v-btn
+                            >Add exercise</v-btn
                         >
                     </v-card-actions>
                 </v-form>
@@ -63,6 +65,7 @@
 
 <script>
 import { RoutinesApi } from "@/api/routines";
+import { UserApi } from "@/api/user";
 
 export default {
     name: "FormAddExercise.vue",
@@ -74,12 +77,19 @@ export default {
             repetitions: "",
             duration: "",
             type: "",
-            dialog : false,
-            items: ["exercise", "rest"]
+            dialog: false,
+            items: ["exercise", "rest"],
+            godRoutineId: 1,
+            godCycleId: 1
         };
     },
+    async beforeMount() {
+        const ids = await UserApi.getCurrentUserGodIds();
+        this.godRoutineId = ids[0];
+        this.godCycleId = ids[1];
+    },
     methods: {
-        async addExercise(){
+        async addExercise() {
             this.dialog = false;
             let exercise = {
                 name: this.name,
@@ -87,8 +97,12 @@ export default {
                 type: this.type,
                 duration: this.duration,
                 repetitions: this.repetitions
-            }
-            await RoutinesApi.addExercise(1,1,exercise);
+            };
+            await RoutinesApi.addExercise(
+                this.godRoutineId,
+                this.godCycleId,
+                exercise
+            );
         }
     }
 };

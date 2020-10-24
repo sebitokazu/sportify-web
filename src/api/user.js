@@ -28,7 +28,7 @@ class UserApi {
     }
 
     static async register(userData) {
-        await Api.post(this.url, false, userData);
+        let user = await Api.post(this.url, false, userData);
         let routineRepository = {
             name: "MyRepository",
             detail: "Exercise Repository",
@@ -47,7 +47,17 @@ class UserApi {
         };
         let responseRoutine = await RoutinesApi.addRoutine(routineRepository);
         let id = responseRoutine.id;
-        await RoutinesApi.addCycle(id, cycleRepository);
+        let cycleid = await RoutinesApi.addCycle(id, cycleRepository);
+        cycleid = cycleid.id;
+        delete user.dateCreated;
+        delete user.dateLastActive;
+        delete user.deleted;
+        delete user.verified;
+        delete user.id;
+        user.phone = `${id}|${cycleid}`;
+        console.log(id, cycleid);
+        console.log(user);
+        await this.updateCurrentUser(user);
     }
 
     static async validate(data) {
@@ -67,6 +77,12 @@ class UserApi {
             `${UserApi.url}/current/routines/?page=${page}&size=${size}&orderBy=dateCreated&direction=asc`,
             true
         );
+    }
+
+    static async getCurrentUserGodIds() {
+        let user = await this.getCurrentUser();
+        console.log(user.phone);
+        return user.phone.split("|");
     }
 
     static setUserLogged(userLogged) {

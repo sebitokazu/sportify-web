@@ -105,6 +105,7 @@
 import NavBar from "@/components/NavBar";
 import ConfirmationDialog from "@/components/ConfirmationDialog";
 import { RoutinesApi } from "@/api/routines";
+import { UserApi } from "@/api/user";
 
 export default {
     name: "MyExercises",
@@ -157,7 +158,9 @@ export default {
             duration: "",
             type: "",
             items: ["exercise", "rest"]
-        }
+        },
+        godRoutineId: 1,
+        godCycleId: 1
     }),
 
     computed: {
@@ -172,8 +175,11 @@ export default {
         }
     },
 
-    beforeMount() {
+    async beforeMount() {
         this.firstLoad = true;
+        const ids = await UserApi.getCurrentUserGodIds();
+        this.godRoutineId = parseInt(ids[0]);
+        this.godCycleId = parseInt(ids[1]);
     },
     async created() {
         await new Promise(resolve =>
@@ -184,7 +190,10 @@ export default {
 
     methods: {
         async initialize() {
-            let response = await RoutinesApi.getExercises(1, 1);
+            let response = await RoutinesApi.getExercises(
+                this.godRoutineId,
+                this.godCycleId
+            );
             this.myExercises = response.results;
         },
 
@@ -192,8 +201,8 @@ export default {
             const index = this.myExercises.indexOf(item);
             this.currentExerciseId = this.myExercises[index].id;
             let response = await RoutinesApi.getExercise(
-                1,
-                1,
+                this.godRoutineId,
+                this.godCycleId,
                 this.currentExerciseId
             );
 
@@ -221,7 +230,11 @@ export default {
             const index = this.myExercises.indexOf(this.toDelete);
             this.deleteDialog = false;
             this.toDelete = null;
-            await RoutinesApi.deleteExercise(1, 1, this.myExercises[index].id);
+            await RoutinesApi.deleteExercise(
+                this.godRoutineId,
+                this.godCycleId,
+                this.myExercises[index].id
+            );
             //this.myExercises.splice(index, 1);
             await this.initialize();
         },
