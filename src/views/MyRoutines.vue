@@ -26,6 +26,9 @@
                                 {{ getPublic(item.isPublic) }}
                             </v-icon>
                         </template>
+                        <template v-slot:item.category="{ item }">
+                            <p>{{item.category.name}}</p>
+                        </template>
                         <template v-slot:top>
                             <v-toolbar flat color="background">
                                 <v-toolbar-title>My Routines</v-toolbar-title>
@@ -58,7 +61,7 @@
                             <v-icon
                                 small
                                 class="mr-2"
-                                @click="showItem(item)"
+                                @click="deleteItem(item)"
                             >
                                 mdi-delete
                             </v-icon>
@@ -103,7 +106,7 @@ export default {
                 sortable: false,
                 value: "name"
             },
-            { text: "Is Public", value: "public" },
+            { text: "Is Public", value: "isPublic" },
             { text: "Difficulty", value: "difficulty" },
             { text: "Category", value: "category" },
             { text: "Actions", value: "actions", sortable: false }
@@ -151,8 +154,8 @@ export default {
             else return "clear";
         },
         getColor(isPublic) {
-            if (isPublic == false) return "success";
-            else return "error";
+            if (isPublic == false) return "error";
+            else return "success";
         },
         async initialize() {
             let results = await RoutinesApi.getCurrentUserRoutines(0,999);
