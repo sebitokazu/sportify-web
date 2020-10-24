@@ -25,10 +25,6 @@ class RoutinesApi {
         );
     }
 
-    static async getCurrentUserRoutines(page, size) {
-        return await Api.get(`${RoutinesApi.url}?page=${page}&size=${size}&orderBy=dateCreated&direction=asc`, true);
-    }
-
     static async retrieveRoutineById(routineId) {
         return await Api.get(`${RoutinesApi.url}/${routineId}`, true);
     }

@@ -35,6 +35,9 @@
                 </v-btn>
             </v-card>
         </v-card>
+        <v-overlay :value="postLoader">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
     </v-container>
 </template>
 
@@ -53,15 +56,18 @@ export default {
         cycles: routineStore.getExercisesCycleMap(),
         dialog: false,
         routine: routineStore.getRoutine(),
-        store: routineStore
+        store: routineStore,
+        postLoader: false
     }),
     methods: {
         async saveRoutine() {
-            /*
-            if(create)
-            else //update
-            */
+            this.postLoader = true;
+            if (!this.store.isNewRoutine()) {
+                this.store.deleteRoutine();
+            }
             this.createRoutine();
+            this.postLoader = false;
+            this.store.saved();
         },
         async createRoutine() {
             const cycles = this.store.getCycles();

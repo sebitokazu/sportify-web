@@ -165,7 +165,10 @@
 <script>
 import NavBar from "@/components/NavBar";
 import RoutineCardDetailed from "@/components/RoutineCardDetailed";
-import {RoutinesApi} from "@/api/routines";
+import { UserApi } from "@/api/user";
+import { RoutinesApi } from "@/api/routines";
+import routineStore from "@/store/routineStore";
+import router from "@/router";
 
 export default {
     name: "MyRoutines",
@@ -200,7 +203,8 @@ export default {
             public: "Yes",
             difficulty: 0,
             category: ""
-        }
+        },
+        store: routineStore
     }),
 
     computed: {
@@ -234,16 +238,21 @@ export default {
             else return "error";
         },
         async initialize() {
-            let results = await RoutinesApi.getCurrentUserRoutines(0,999);
+            let results = await UserApi.getCurrentUserRoutines(0, 999);
             results = results.results;
             console.log(results);
             this.myRoutines = results;
         },
 
-        editItem(item) {
-            this.editedIndex = this.myRoutines.indexOf(item);
-            this.editedItem = Object.assign({}, item);
-            this.dialog = true;
+        async editItem(item) {
+            const index = this.myRoutines.indexOf(item);
+            const currentRoutineId = this.myRoutines[index].id;
+            let response = await RoutinesApi.getRoutine(currentRoutineId);
+            await this.store.toEditRoutine(response);
+            await router.push("newroutines");
+            // this.editedIndex = this.myRoutines.indexOf(item);
+            // this.editedItem = Object.assign({}, item);
+            // this.dialog = true;
         },
 
         deleteItem(item) {

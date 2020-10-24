@@ -17,7 +17,7 @@ class UserApi {
             controller
         );
         Api.token = result.token;
-        localStorage.setItem("SavedToken", 'Bearer ' + Api.token);
+        localStorage.setItem("SavedToken", "Bearer " + Api.token);
         return result;
     }
 
@@ -50,7 +50,7 @@ class UserApi {
         await RoutinesApi.addCycle(id, cycleRepository);
     }
 
-    static async validate(data){
+    static async validate(data) {
         return await Api.post(`${UserApi.url}/verify_email`, false, data);
     }
 
@@ -62,6 +62,12 @@ class UserApi {
         return await Api.put(`${UserApi.url}/current`, true, userData);
     }
 
+    static async getCurrentUserRoutines(page, size) {
+        return await Api.get(
+            `${UserApi.url}/current/routines/?page=${page}&size=${size}&orderBy=dateCreated&direction=asc`,
+            true
+        );
+    }
 
     static setUserLogged(userLogged) {
         Cookies.set("userLogged", userLogged);
