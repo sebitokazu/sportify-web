@@ -117,7 +117,6 @@ export default {
         async initialize() {
             let results = await RoutinesApi.retrieveAllRoutines();
             results = results.results;
-            console.log(results);
             this.listaRutinas = results;
         }
     },

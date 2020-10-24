@@ -41,6 +41,7 @@
                         hover
                         length="5"
                         value="3"
+                        min="1"
                         v-model="difficulty"
                     ></v-rating>
                 </v-card>
@@ -68,7 +69,7 @@ export default {
         categories: [],
         categoriesName: [],
         category: "",
-        difficulty: routineStore.getRoutine().difficulty,
+        difficulty: 1,
         routine: routineStore.getRoutine(),
         store: routineStore
     }),
@@ -76,6 +77,8 @@ export default {
         const response = await CategoriesApi.retrieveAllCategories();
         this.categories = response.results;
         this.categoriesName = response.results.map(el => el.name);
+        const diff = routineStore.getRoutine().difficulty;
+        if (!this.store.isNewRoutine()) this.difficulty = diff;
     },
     watch: {
         difficulty: function(val) {

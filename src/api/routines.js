@@ -7,7 +7,11 @@ class RoutinesApi {
     }
 
     static async retrieveAllRoutines(controller) {
-        return await Api.get(RoutinesApi.url, true, controller);
+        return await Api.get(
+            `${RoutinesApi.url}?page=0&size=999&orderBy=dateCreated&direction=asc`,
+            true,
+            controller
+        );
     }
 
     static async retrieveRoutines(

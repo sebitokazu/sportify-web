@@ -24,7 +24,7 @@
 
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" width="500">
+            <v-dialog v-model="dialog" width="60%">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn color="primary" text right v-on="on" v-bind="attrs">
                         See more
@@ -32,6 +32,7 @@
                 </template>
                 <RoutineCardDetailed
                     :title="title"
+                    :id="id"
                     :detail="detail"
                     @dialog="dialog = false"
                 />
@@ -56,6 +57,9 @@ export default {
         },
         detail: {
             type: String
+        },
+        id: {
+            type: Number
         }
     },
     components: {
