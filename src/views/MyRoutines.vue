@@ -12,7 +12,7 @@
                     >
                         <template v-slot:item.difficulty="{ item }">
                             <v-rating
-                                color="rating"
+                                color="primary"
                                 background-color="grey"
                                 empty-icon="local_fire_department"
                                 full-icon="local_fire_department"
@@ -164,7 +164,7 @@ export default {
             let results = await UserApi.getCurrentUserRoutines(0, 999);
             results = results.results;
             console.log(results);
-            this.myRoutines = results;
+            this.myRoutines = results.splice(1);
         },
 
         async editItem(item) {

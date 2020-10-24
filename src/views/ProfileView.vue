@@ -201,6 +201,7 @@ export default {
         readMode: true,
         postLoader: false,
         textFieldValues: {},
+        numericBirthdate: 0,
         menu: false,
         minYear: "1900-01-01",
         rules: {
@@ -233,12 +234,14 @@ export default {
         async save() {
             this.dialog = false;
             this.postLoader = true;
+            this.numericBirthdate = this.textFieldValues.birthdate.split('-');
+            this.numericBirthdate = new Date(this.numericBirthdate[0],this.numericBirthdate[1]-1,this.numericBirthdate[2])*1;
             let userData = {
                 username: this.textFieldValues.username,
                 password: "",
                 fullName: this.textFieldValues.fullName,
                 gender: this.textFieldValues.gender,
-                birthdate: 123456, //cambiar
+                birthdate: this.numericBirthdate,
                 email: this.textFieldValues.email,
                 phone: "",
                 avatarUrl: "https://flic.kr/p/3ntH2u"
@@ -269,6 +272,7 @@ export default {
             return this.avatarUrl;
         },
         formatDate(date) {
+            this.numericBirthdate = date;
             var d = new Date(parseInt(date)),
                 month = "" + (d.getMonth() + 1),
                 day = "" + d.getDate(),

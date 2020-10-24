@@ -117,7 +117,7 @@ export default {
                 password: this.password,
                 fullName: "",
                 gender: "male",
-                birthdate: 132465,
+                birthdate: 0,
                 email: this.email,
                 phone: "0",
                 avatarUrl: ""

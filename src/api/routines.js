@@ -142,6 +142,14 @@ class RoutinesApi {
         );
     }
 
+    static async getCategories(routineId, cycleId, exerciseId, controller) {
+        return await Api.get(
+            `${RoutinesApi.url}/${routineId}/cycles/${cycleId}/exercises/${exerciseId}`,
+            true,
+            controller
+        );
+    }
+
     static async updateExercise(
         routineId,
         cycleId,
