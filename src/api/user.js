@@ -9,7 +9,7 @@ class UserApi {
         return `${Api.baseUrl}/user`;
     }
 
-   static async login(credentials, controller) {
+    static async login(credentials, controller) {
         const result = await Api.post(
             `${UserApi.url}/login`,
             false,
@@ -24,6 +24,7 @@ class UserApi {
     static async logout(controller) {
         await Api.post(`${UserApi.url}/logout`, true, null, controller);
         Api.token = undefined;
+        console.log("paso por aca");
         localStorage.removeItem("SavedToken");
     }
 

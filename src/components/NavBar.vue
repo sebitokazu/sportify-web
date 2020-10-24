@@ -50,11 +50,7 @@
             offset-y="true"
         >
             <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    v-bind="attrs"
-                    text
-                    v-on="on"
-                >
+                <v-btn v-bind="attrs" text v-on="on">
                     <v-avatar size="75%">
                         <v-icon dark color="contrast">account_circle</v-icon>
                     </v-avatar>
@@ -65,12 +61,12 @@
                     v-for="(item, index) in profile_overflow"
                     :key="index"
                     :to="item.element.path"
-                    @click="logout"
+                    @click="logout(item.element.action)"
                 >
-                    <v-list-item-icon @click="logout(this.action)">
+                    <v-list-item-icon>
                         <v-icon v-text="item.element.icon"></v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title @click="logout(this.action)"
+                    <v-list-item-title
                         v-text="item.element.title"
                     ></v-list-item-title>
                 </v-list-item>
@@ -80,6 +76,7 @@
 </template>
 <script>
 import { UserApi } from "@/api/user";
+import router from "@/router";
 
 export default {
     name: "NavBar",
@@ -100,24 +97,26 @@ export default {
                     path: "/profile"
                 }
             },
-            { element: {
-                title: "Help", icon: "help_outline", path: "/help"
+            {
+                element: {
+                    title: "Help",
+                    icon: "help_outline",
+                    path: "/help"
                 }
             },
             {
                 element: {
                     title: "Sign Out",
                     icon: "exit_to_app",
-                    path: "/login",
-                    action : "logout"
+                    path: "",
+                    action: "logout"
                 }
             }
         ]
     }),
     methods: {
         async test() {
-            let userData =
-            {
+            let userData = {
                 username: "vsratti",
                 fullName: "Valentin Segundo",
                 gender: "male",
@@ -126,13 +125,15 @@ export default {
                 email: "valentinratti@sirius.com.ar",
                 phone: "98295822",
                 avatarUrl: "https://flic.kr/p/3ntH2u"
-            }
+            };
             await UserApi.updateCurrentUser(userData);
         },
         async logout(action) {
-            console.log("Hola");
-            if(action === 'logout')
+            console.log(action);
+            if (action === "logout") {
                 await UserApi.logout();
+                router.push("/");
+            }
         }
     }
 };
