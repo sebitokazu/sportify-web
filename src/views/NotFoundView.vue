@@ -1,15 +1,14 @@
 <template>
     <v-main class="bg">
-        <!-- <v-img src="@/assets/restingman.jpg" class="bg"> -->
         <v-container>
             <v-row>
                 <v-col cols="2">
                     <v-img
-                        alt="Vuetify Logo"
                         contain
                         src="@/assets/logo_botella2.png"
                         transition="scale-transition"
                         width="100%"
+                        alt="Sportify Logo"
                     />
                 </v-col>
             </v-row>
@@ -39,7 +38,6 @@
                 </v-col>
             </v-row>
         </v-container>
-        <!-- </v-img> -->
     </v-main>
 </template>
 
@@ -53,22 +51,4 @@ export default {
     })
 };
 </script>
-<style scoped>
-/* .bg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-size: cover;
-} */
-/* .bg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url("../assets/restingman.jpg");
-    background-size: cover;
-} */
-</style>
+<style scoped></style>

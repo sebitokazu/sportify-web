@@ -10,6 +10,7 @@
             height="130px"
             :src="image"
             contain
+            alt="Exercise image"
         >
             <v-card-title
                 class="primary--text py-1 pl-2"

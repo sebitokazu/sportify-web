@@ -12,7 +12,11 @@
                                 color="grey"
                                 size="100"
                             >
-                                <v-img v-if="hasProfileImage" :src="getImage">
+                                <v-img
+                                    v-if="hasProfileImage"
+                                    :src="getImage"
+                                    alt="User profile image"
+                                >
                                 </v-img>
                                 <v-icon dark x-large v-else
                                     >mdi-account-circle</v-icon
@@ -185,7 +189,6 @@ import NavBar from "@/components/NavBar";
 import { UserApi } from "@/api/user";
 //import BirthdayPicker from "@/components/BirthdayPicker";
 
-
 export default {
     name: "ProfileView",
     components: {
@@ -234,8 +237,13 @@ export default {
         async save() {
             this.dialog = false;
             this.postLoader = true;
-            this.numericBirthdate = this.textFieldValues.birthdate.split('-');
-            this.numericBirthdate = new Date(this.numericBirthdate[0],this.numericBirthdate[1]-1,this.numericBirthdate[2])*1;
+            this.numericBirthdate = this.textFieldValues.birthdate.split("-");
+            this.numericBirthdate =
+                new Date(
+                    this.numericBirthdate[0],
+                    this.numericBirthdate[1] - 1,
+                    this.numericBirthdate[2]
+                ) * 1;
             let userData = {
                 username: this.textFieldValues.username,
                 password: "",
@@ -245,7 +253,7 @@ export default {
                 email: this.textFieldValues.email,
                 phone: "", //apendearle el godID
                 avatarUrl: "https://flic.kr/p/3ntH2u"
-            }
+            };
             console.log(userData);
             await UserApi.updateCurrentUser(userData);
             this.readMode = true;
