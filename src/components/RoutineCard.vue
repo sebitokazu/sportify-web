@@ -1,6 +1,8 @@
 <template>
     <v-card class="mx-auto" max-width="250" color="background">
-        <v-card-title class="text--center">{{ title }}</v-card-title>
+        <v-card-title class="text--center headerClass">{{
+            title
+        }}</v-card-title>
 
         <v-card-subtitle class="">
             {{ author }}
@@ -12,9 +14,11 @@
                 length="5"
                 readonly
                 dense
-                color="rating"
+                color="primary"
                 background-color="grey"
-                :value="difficulty"
+                :value="difficultyParse"
+                empty-icon="local_fire_department"
+                full-icon="local_fire_department"
             ></v-rating>
         </v-card-text>
 
@@ -59,8 +63,38 @@ export default {
     },
     data: () => ({
         dialog: false
-    })
+    }),
+    computed: {
+        difficultyParse: function() {
+            let val = 1;
+            switch (this.difficulty) {
+                case "rookie":
+                    val = 1;
+                    break;
+                case "begginer":
+                    val = 2;
+                    break;
+                case "intermediate":
+                    val = 3;
+                    break;
+                case "advanced":
+                    val = 4;
+                    break;
+                case "expert":
+                    val = 5;
+                    break;
+            }
+            return val;
+        }
+    }
 };
 </script>
 
-<style></style>
+<style scoped>
+.headerClass {
+    white-space: nowrap;
+    word-break: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>

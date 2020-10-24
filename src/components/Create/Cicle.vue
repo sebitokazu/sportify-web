@@ -16,19 +16,23 @@
                                 <v-col cols="12" sm="6" md="4">
                                     <v-text-field
                                         v-model="editedItem.name"
-                                        label="Exercise Name"
+                                        label="Exercise"
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
                                     <v-text-field
                                         v-model="editedItem.duration"
                                         label="Duration (seg)"
+                                        type="number"
+                                        min="1"
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
                                     <v-text-field
                                         v-model="editedItem.repetitions"
                                         label="Repetitions"
+                                        type="number"
+                                        min="1"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -36,10 +40,10 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="close">
+                        <v-btn color="error" text @click="close">
                             Cancel
                         </v-btn>
-                        <v-btn color="blue darken-1" text @click="save">
+                        <v-btn color="success" text @click="save">
                             Save
                         </v-btn>
                     </v-card-actions>
@@ -120,7 +124,7 @@ export default {
 
         editItem(item) {
             this.editedIndex = this.myRoutines.indexOf(item);
-            // this.editedItem = this.myRoutines[this.editedIndex];
+            this.editedItem = { ...this.myRoutines[this.editedIndex] };
             this.dialog = true;
         },
 
@@ -132,21 +136,16 @@ export default {
 
         close() {
             this.dialog = false;
-            this.$nextTick(() => {
-                this.editedItem = Object.assign({}, this.defaultItem);
-                this.editedIndex = -1;
-            });
         },
 
         save() {
-            if (this.editedIndex > -1) {
-                Object.assign(
-                    this.myRoutines[this.editedIndex],
-                    this.editedItem
-                );
-            } else {
-                this.myRoutines.push(this.editedItem);
-            }
+            this.myRoutines[this.editedIndex].name = this.editedItem.name;
+            this.myRoutines[
+                this.editedIndex
+            ].duration = this.editedItem.duration;
+            this.myRoutines[
+                this.editedIndex
+            ].repetitions = this.editedItem.repetitions;
             this.close();
         }
     }

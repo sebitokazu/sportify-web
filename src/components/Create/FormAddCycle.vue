@@ -2,7 +2,16 @@
     <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
             <v-col align="center">
-                <v-btn align="center" color="primary" v-on="on" v-bind="attrs" block> Add cycle</v-btn>
+                <v-btn
+                    align="center"
+                    color="primary"
+                    v-on="on"
+                    v-bind="attrs"
+                    block
+                    disabled
+                >
+                    Add cycle</v-btn
+                >
             </v-col>
         </template>
         <v-card class="ma-auto">
@@ -22,20 +31,12 @@
                     v-model="cycle.type"
                 ></v-select>
                 <v-slider
-                    label="Order"
-                    v-model="cycle.order"
-                    thumb-size="24"
-                    thumb-label="always"
-                    min="1"
-                    max="15"
-                ></v-slider>
-                <v-slider
                     label="Repetitions"
                     v-model="cycle.repetitions"
                     thumb-size="24"
                     thumb-label="always"
                     min="1"
-                    max="150"
+                    max="50"
                 ></v-slider>
             </v-card-text>
             <v-card-actions>
@@ -68,7 +69,7 @@ export default {
             this.dialog = false;
             this.store.addCycle(this.cycle.name, this.cycle);
         },
-        close(){
+        close() {
             this.dialog = false;
         }
     }

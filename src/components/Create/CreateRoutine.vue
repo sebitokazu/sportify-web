@@ -8,16 +8,49 @@
 
             <v-expansion-panels hover flat>
                 <v-expansion-panel
-                    v-for="(value, name, i) in cycles"
+                    v-for="(value, name, i) in store.getCycles()"
                     :key="i"
                     class="background"
                 >
-                    <v-expansion-panel-header>
-                        {{ name }}
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                        <Cicle :exercises="value" :name="name" />
-                    </v-expansion-panel-content>
+                    <v-container>
+                        <v-row no-gutters>
+                            <v-col>
+                                <v-expansion-panel-header>
+                                    {{ name }}
+                                </v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <Cicle
+                                        :exercises="
+                                            store.getCyclesExercisesByName(name)
+                                        "
+                                        :name="name"
+                                    />
+                                </v-expansion-panel-content>
+                            </v-col>
+                            <v-col cols="2">
+                                <v-container fluid>
+                                    <v-row class="flex-column" no-gutters>
+                                        <v-col>
+                                            <p class="text-caption">
+                                                Repetitions
+                                            </p>
+                                        </v-col>
+                                        <v-col class="mt-n5">
+                                            <v-text-field
+                                                type="number"
+                                                v-model="value.repetitions"
+                                                single-line
+                                                small
+                                                dense
+                                                min="1"
+                                                max="50"
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                </v-container>
+                            </v-col>
+                        </v-row>
+                    </v-container>
                 </v-expansion-panel>
             </v-expansion-panels>
             <v-textarea
@@ -32,7 +65,12 @@
                 <v-btn color="error" dark class="mb-2" @click="cancel">
                     Cancel
                 </v-btn>
-                <v-btn color="success" dark class="mb-2 mx-2" @click="saveRoutine">
+                <v-btn
+                    color="success"
+                    dark
+                    class="mb-2 mx-2"
+                    @click="saveRoutine"
+                >
                     Save
                 </v-btn>
             </v-card>
@@ -72,13 +110,13 @@ export default {
             this.store.saved();
         },
 
-        async cancel(){
-
-        },
+        async cancel() {},
 
         async createRoutine() {
             const cycles = this.store.getCycles();
-            const res = await RoutinesApi.addRoutine(this.store.getRoutine());
+            let routine = this.store.getRoutine();
+            routine.isPublic = !routine.isPublic;
+            const res = await RoutinesApi.addRoutine(routine);
             const routineId = res.id;
             await Promise.all(
                 Object.values(cycles).map(async cycle => {
@@ -87,6 +125,7 @@ export default {
             );
         },
         async createCycle(routineId, cycle) {
+            cycle.repetitions = parseInt(cycle.repetitions);
             const res = await RoutinesApi.addCycle(routineId, cycle);
             const cycleId = res.id;
             console.log(this.store.getCyclesExercisesByName(res.name), "a");
@@ -101,6 +140,9 @@ export default {
         },
         async createExercise(routineId, cycleId, exercise) {
             await RoutinesApi.addExercise(routineId, cycleId, exercise);
+        },
+        deleteCycle(cycle) {
+            this.store.deleteCycle(cycle);
         }
     }
 };
