@@ -17,13 +17,13 @@
                                 empty-icon="local_fire_department"
                                 full-icon="local_fire_department"
                                 readonly
-                                length="3"
-                                :value="item.difficulty"
+                                length="5"
+                                :value="calculateDifficulty(item.difficulty)"
                             ></v-rating>
                         </template>
-                        <template v-slot:item.public="{ item }">
-                            <v-icon :color="getColor(item.public)">
-                                {{ getPublic(item.public) }}
+                        <template v-slot:item.isPublic="{ item }">
+                            <v-icon :color="getColor(item.isPublic)">
+                                {{ getPublic(item.isPublic) }}
                             </v-icon>
                         </template>
                         <template v-slot:top>
@@ -40,94 +40,14 @@
                                         <v-btn
                                             color="primary"
                                             dark
+                                            @click="goToCreate"
                                             class="mb-2"
                                             v-bind="attrs"
                                             v-on="on"
                                         >
-                                            New Item
+                                            Create a New Routine
                                         </v-btn>
                                     </template>
-                                    <v-card>
-                                        <v-card-title>
-                                            <span class="headline">{{
-                                                formTitle
-                                            }}</span>
-                                        </v-card-title>
-
-                                        <v-card-text>
-                                            <v-container>
-                                                <v-row>
-                                                    <v-col
-                                                        cols="12"
-                                                        sm="6"
-                                                        md="4"
-                                                    >
-                                                        <v-text-field
-                                                            v-model="
-                                                                editedItem.name
-                                                            "
-                                                            label="Routine Name"
-                                                        ></v-text-field>
-                                                    </v-col>
-                                                    <v-col
-                                                        cols="12"
-                                                        sm="6"
-                                                        md="4"
-                                                    >
-                                                        <v-text-field
-                                                            v-model="
-                                                                editedItem.difficulty
-                                                            "
-                                                            label="difficulty"
-                                                        ></v-text-field>
-                                                    </v-col>
-                                                    <v-col
-                                                        cols="12"
-                                                        sm="6"
-                                                        md="4"
-                                                    >
-                                                        <v-text-field
-                                                            v-model="
-                                                                editedItem.category
-                                                            "
-                                                            label="category"
-                                                        ></v-text-field>
-                                                    </v-col>
-
-                                                    <v-col
-                                                        cols="12"
-                                                        sm="6"
-                                                        md="4"
-                                                    >
-                                                        <v-text-field
-                                                            v-model="
-                                                                editedItem.public
-                                                            "
-                                                            label="public"
-                                                        ></v-text-field>
-                                                    </v-col>
-                                                </v-row>
-                                            </v-container>
-                                        </v-card-text>
-
-                                        <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <v-btn
-                                                color="blue darken-1"
-                                                text
-                                                @click="close"
-                                            >
-                                                Cancel
-                                            </v-btn>
-                                            <v-btn
-                                                color="blue darken-1"
-                                                text
-                                                @click="save"
-                                            >
-                                                Save
-                                            </v-btn>
-                                        </v-card-actions>
-                                    </v-card>
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -138,7 +58,7 @@
                             <v-icon
                                 small
                                 class="mr-2"
-                                @click="deleteItem(item)"
+                                @click="showItem(item)"
                             >
                                 mdi-delete
                             </v-icon>
@@ -166,6 +86,7 @@
 import NavBar from "@/components/NavBar";
 import RoutineCardDetailed from "@/components/RoutineCardDetailed";
 import {RoutinesApi} from "@/api/routines";
+import router from "@/router";
 
 export default {
     name: "MyRoutines",
@@ -226,11 +147,11 @@ export default {
 
     methods: {
         getPublic(isPublic) {
-            if (isPublic == "Yes") return "done";
+            if (isPublic == true) return "done";
             else return "clear";
         },
         getColor(isPublic) {
-            if (isPublic == "Yes") return "success";
+            if (isPublic == false) return "success";
             else return "error";
         },
         async initialize() {
@@ -238,6 +159,7 @@ export default {
             results = results.results;
             console.log(results);
             this.myRoutines = results;
+
         },
 
         editItem(item) {
@@ -270,6 +192,23 @@ export default {
                 this.myRoutines.push(this.editedItem);
             }
             this.close();
+        },
+        calculateDifficulty(difficulty){
+            console.log(difficulty);
+            switch(difficulty){
+                case 'rookie': return 1;
+                case 'begginer': return 2;
+                case 'intermediate': return 3;
+                case 'advanced': return 4;
+                case 'expert': return 5;
+
+            }
+        },
+        goToCreate(){
+            router.push('newroutines');
+        },
+        showItem(item){
+            console.log(item);
         }
     }
 };
