@@ -45,28 +45,28 @@ export default {
             {
                 icon: "directions_run",
                 text:
-                    "Ingrese para ver todas tu ejercicios. Vas a poder ver la duración de cada ejercicio, el detalle y vas a poder edirarlos. Tambien vas a poder crear uno nuevo.",
+                    "Enter here and you will be able to see all your exercises. For each, you can see its detail, duration, repetitions and type. Also, you can delete and edit them.",
                 path: "/myexercises",
                 title: "Exercises"
             },
             {
                 icon: "fitness_center",
                 text:
-                    "Ingrese para ver todas tus rutinas. Vas a poder ver la duración de cada una y su dificultad. Tambien vas a poder eliminar y crear rutinas a partir de ejercicios. ",
+                    "Enter here and you will be able to see all your routines. For each, you can see its difficulty, category, and more. Also, you can delete and edit them.",
                 path: "/myroutines",
                 title: "Routines"
             },
             {
                 icon: "search",
                 text:
-                    "Te quedaste sin ideas? Ingrese para poder navegar a traves de todas las rutinas creadas dentro de sportify.",
+                    "Run out of ideas? Take a look to all sportify routines, created by its whole community.",
                 path: "/explore",
                 title: "Explore"
             },
             {
                 icon: "add",
                 text:
-                    "Ingrese para poder crear una nueva rutina desde cero. Vas a poder agregar todos los ejercicios, ciclos, dificultad y duraciones que quieras.",
+                    "First, create exercises (or use the ones already created).\nThen, create cycles (or use the ones already created).\nLast, create your routine.",
                 path: "/newroutines",
                 title: "Create"
             }

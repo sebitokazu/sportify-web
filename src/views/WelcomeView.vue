@@ -2,11 +2,13 @@
     <v-main>
         <v-parallax
             dark
-            src="https://cdn.pixabay.com/photo/2017/04/22/10/15/sport-2250970_1280.jpg"
-            height="768"
+            src="@/assets/logo_rosa.png" class="bg"
+                height="850"
         >
+<!--            src="https://cdn.pixabay.com/photo/2017/04/22/10/15/sport-2250970_1280.jpg"-->
+
             <v-container>
-                <v-row align="center" justify="center">
+                <v-row align="center" justify="up">
                     <v-col class="text-center" cols="12">
                         <h1 class="display-1">
                             Welcome!
@@ -15,15 +17,7 @@
                 </v-row>
                 <v-row justify="center" class="mb-7">
                     <v-col cols="2" class="ml-16">
-                        <v-img
-                            alt="Vuetify Logo"
-                            class="shrink mr-2"
-                            contain
-                            src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-                            transition="scale-transition"
-                            width="100"
-                            height="150"
-                        />
+
                     </v-col>
                 </v-row>
                 <v-row justify="center" no-gutters>
@@ -39,7 +33,7 @@
                     <v-col :xl="6" :lg="6" :md="6" :sm="10" cols="10">
                         <v-row justify="center" no-gutters class="mt-6">
                             <v-btn
-                                color="purple lighten-2"
+                                color="primary"
                                 width="33%"
                                 to="register"
                                 >Get started</v-btn
@@ -48,7 +42,7 @@
                         <v-row justify="center" no-gutters class="mt-6">
                             <v-btn
                                 outlined
-                                color="purple lighten-2"
+                                color="primary"
                                 width="33%"
                                 to="/login"
                                 >Sign in</v-btn

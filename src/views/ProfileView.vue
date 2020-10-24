@@ -74,7 +74,7 @@
                                 >
                                     <v-text-field
                                         v-model="textFieldValues.birthdate"
-                                        label="Birthday date"
+                                        label="Birth date"
                                         outlined
                                         v-bind="attrs"
                                         readonly
@@ -243,7 +243,7 @@ export default {
                 gender: this.textFieldValues.gender,
                 birthdate: this.numericBirthdate,
                 email: this.textFieldValues.email,
-                phone: "",
+                phone: "", //apendearle el godID
                 avatarUrl: "https://flic.kr/p/3ntH2u"
             }
             console.log(userData);
