@@ -83,7 +83,6 @@
                                 @confirm="deleteItem"
                             />
                         </template>
-
                     </v-data-table>
                 </v-card>
             </v-container>
