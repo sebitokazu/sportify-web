@@ -3,10 +3,32 @@
         <NavBar />
         <v-main>
             <v-container>
+                <v-row class="mt-3 px-3" justify="center">
+                    <v-col cols="10">
+                        <v-text-field
+                            v-model="searchText"
+                            class="rounded-pill "
+                            prepend-inner-icon="search"
+                            label="Search"
+                            hint="At least 3 characters"
+                            outlined
+                            clearable
+                            @click:clear="initialize"
+                            @keydown.enter="search"
+                            dense
+                        ></v-text-field>
+                    </v-col>
+                    <v-col>
+                        <v-btn rounded color="primary" @click="searched"
+                            >Search</v-btn
+                        >
+                    </v-col>
+                </v-row>
+                <v-divider></v-divider>
                 <v-row justify="start" class="py-5">
                     <v-col>
-                        <v-text-area solo class="text-h4">
-                            Check all the routines
+                        <v-text-area solo class="text-h6"
+                            >Search results for '{{ this.searchText }}'
                         </v-text-area>
                     </v-col>
                 </v-row>
@@ -58,7 +80,7 @@ export default {
     name: "ExploreView",
     data: () => ({
         searchText: "",
-        resultText: "",
+        resultText: "all",
         loading: "",
         listaRutinas: [
             {
@@ -104,11 +126,6 @@ export default {
         this.initialize();
     },
     methods: {
-        search() {
-            console.log(this.searchText);
-            this.resultText = this.searchText;
-            //this.searchResult=fetchblabl
-        },
         async getAllRoutines() {
             await new Promise(resolve =>
                 setTimeout(() => resolve((this.loading = false)), 2000)
@@ -118,6 +135,20 @@ export default {
             let results = await RoutinesApi.retrieveAllRoutines();
             results = results.results;
             this.listaRutinas = results;
+        },
+        async searched() {
+            if (this.searchText === "") {
+                this.initialize();
+            } else {
+                if (this.searchText.length >= 3) {
+                    let results = await RoutinesApi.retrieveAllRoutinesSearch(
+                        this.searchText
+                    );
+                    results = results.results;
+                    this.listaRutinas = results;
+                    this.resultText = this.searchText;
+                }
+            }
         }
     },
     computed: {}
