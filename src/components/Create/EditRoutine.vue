@@ -77,10 +77,16 @@ export default {
                     this.routine.difficulty = "rookie";
                     break;
                 case 2:
-                    this.routine.difficulty = "advanced";
+                    this.routine.difficulty = "begginer";
                     break;
                 case 3:
-                    this.routine.difficulty = "rookie";
+                    this.routine.difficulty = "intermediate";
+                    break;
+                case 4:
+                    this.routine.difficulty = "advanced";
+                    break;
+                case 5:
+                    this.routine.difficulty = "expert";
                     break;
             }
         },
