@@ -28,7 +28,7 @@ const defaultCycle = {
 const defaultRoutine = {
     name: "",
     detail: "",
-    isPublic: false,
+    isPublic: true,
     difficulty: "expert",
     category: { id: 1 }
 };
@@ -103,7 +103,8 @@ export default Vue.observable({
         routine.name = r.name;
         routine.detail = r.detail;
         routine.isPublic = r.isPublic;
-        routine.difficulty = r.difficulty;
+        routine.difficulty = difficultyValue(r.difficulty);
+        console.log(routine.difficulty);
         routine.category = r.category;
         routine.id = r.id;
 
@@ -173,4 +174,18 @@ export default Vue.observable({
     }
 });
 
+function difficultyValue(val) {
+    switch (val) {
+        case "rookie":
+            return 1;
+        case "begginer":
+            return 2;
+        case "intermediate":
+            return 3;
+        case "advanced":
+            return 4;
+        case "expert":
+            return 5;
+    }
+}
 //export default routineStore;

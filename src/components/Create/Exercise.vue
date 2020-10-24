@@ -5,11 +5,7 @@
         min-width="150"
         color="background"
     >
-        <v-img
-            class="white--text align-end"
-            height="130px"
-            :src="exercise.image"
-        >
+        <v-img class="white--text align-end" height="130px" :src="image">
             <v-card-title
                 class="primary--text py-1 pl-2"
                 style="background-color:rgba(253, 255, 242, 0.5);"
@@ -72,6 +68,7 @@
 <script>
 import RoutineCardDetailed from "@/components/RoutineCardDetailed.vue";
 import routineStore from "@/store/routineStore";
+import { RoutinesApi } from "@/api/routines";
 
 export default {
     name: "Exercise",
@@ -81,6 +78,9 @@ export default {
     props: {
         exercise: {
             type: Object
+        },
+        ids: {
+            type: Array
         }
     },
     data: () => ({
@@ -88,7 +88,8 @@ export default {
         cycles: routineStore.getCycles(),
         cycleDialog: false,
         cycle: "",
-        store: routineStore
+        store: routineStore,
+        image: ""
     }),
 
     methods: {
@@ -101,6 +102,34 @@ export default {
         },
         closeCycleDialog() {
             this.cycleDialog = false;
+        }
+    },
+    async created() {
+        let res = await RoutinesApi.getImages(
+            parseInt(this.ids[0]),
+            parseInt(this.ids[1]),
+            this.exercise.id
+        );
+        if (res.totalCount != 0) {
+            res = res.results[0];
+            this.image = res.url;
+        } else {
+            this.image = "https://i.imgur.com/qsTg7xl.png";
+        }
+    },
+    watch: {
+        exercise: async function() {
+            let res = await RoutinesApi.getImages(
+                parseInt(this.ids[0]),
+                parseInt(this.ids[1]),
+                this.exercise.id
+            );
+            if (res.totalCount != 0) {
+                res = res.results[0];
+                this.image = res.url;
+            } else {
+                this.image = "https://i.imgur.com/qsTg7xl.png";
+            }
         }
     }
 };

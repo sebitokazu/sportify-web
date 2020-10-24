@@ -23,7 +23,7 @@
                 <v-checkbox color="primary" v-model="routine.isPublic">
                     <template v-slot:label>
                         <div>
-                            Private
+                            Public
                         </div>
                     </template>
                 </v-checkbox>
@@ -47,7 +47,7 @@
             </v-col>
             <v-col>
                 <v-select
-                    :items="categories"
+                    :items="categoriesName"
                     label="Category"
                     v-model="category"
                     dense
@@ -60,18 +60,25 @@
 
 <script>
 import routineStore from "@/store/routineStore";
+import { CategoriesApi } from "@/api/categories";
 export default {
     name: "EditRoutine.vue",
     props: {},
     data: () => ({
         categories: [],
+        categoriesName: [],
         category: "",
-        difficulty: "",
+        difficulty: routineStore.getRoutine().difficulty,
         routine: routineStore.getRoutine(),
         store: routineStore
     }),
+    async created() {
+        const response = await CategoriesApi.retrieveAllCategories();
+        this.categories = response.results;
+        this.categoriesName = response.results.map(el => el.name);
+    },
     watch: {
-        rating: function(val) {
+        difficulty: function(val) {
             switch (val) {
                 case 1:
                     this.routine.difficulty = "rookie";
@@ -91,7 +98,10 @@ export default {
             }
         },
         category: function(val) {
-            this.routine.id = val;
+            const cat = this.categories.map(cat => {
+                if (cat.name === val) return cat;
+            });
+            this.routine.category.id = cat[0].id;
         }
     },
     computed: {

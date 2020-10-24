@@ -16,8 +16,12 @@
                     </v-row>
                 </template>
                 <v-row>
-                    <v-col cols="4" v-for="k in exercisesList" :key="k">
-                        <Exercise :exercise="k" />
+                    <v-col
+                        cols="4"
+                        v-for="(exercise, i) in exercisesList"
+                        :key="i"
+                    >
+                        <Exercise :exercise="exercise" :ids="getIds(i)" />
                     </v-col>
                 </v-row>
             </v-container>
@@ -36,6 +40,7 @@ export default {
     components: { Exercise, FormAddExercise },
     data: () => ({
         exercisesList: [],
+        exercisesListGodsId: [],
         godRoutineId: 1,
         godCycleId: 1,
         loader: false
@@ -59,9 +64,21 @@ export default {
             let exercisesForAll = response.results;
             let exercisesForMe = responseGod.results;
             this.exercisesList = [];
-            exercisesForAll.forEach((exercise) => this.exercisesList.push(exercise));
-            exercisesForMe.forEach((exercise) => this.exercisesList.push(exercise));
+            exercisesForAll.forEach(exercise => {
+                this.exercisesList.push(exercise);
+                this.exercisesListGodsId.push([1, 1]);
+            });
+            exercisesForMe.forEach(exercise => {
+                this.exercisesList.push(exercise);
+                this.exercisesListGodsId.push([
+                    this.godRoutineId,
+                    this.godCycleId
+                ]);
+            });
             this.loader = false;
+        },
+        getIds(idx) {
+            return this.exercisesListGodsId[idx];
         }
     }
 };

@@ -28,6 +28,10 @@
                         v-model="detail"
                         class="mb-3"
                     ></v-textarea>
+                    <v-text-field
+                        label="Image URL"
+                        v-model="imgSrc"
+                    ></v-text-field>
                     <v-slider
                         label="Repetitions"
                         v-model="repetitions"
@@ -52,9 +56,7 @@
                     ></v-select>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn class="error" @click="dialog = false"
-                            >Cancel</v-btn
-                        >
+                        <v-btn class="error" @click="reset">Cancel</v-btn>
                         <v-btn @click="addExercise" class="success"
                             >Add exercise</v-btn
                         >
@@ -82,7 +84,8 @@ export default {
             dialog: false,
             items: ["exercise", "rest"],
             godRoutineId: 1,
-            godCycleId: 1
+            godCycleId: 1,
+            imgSrc: ""
         };
     },
     async beforeMount() {
@@ -92,7 +95,6 @@ export default {
     },
     methods: {
         async addExercise() {
-            this.dialog = false;
             let exercise = {
                 name: this.name,
                 detail: this.detail,
@@ -100,12 +102,32 @@ export default {
                 duration: this.duration,
                 repetitions: this.repetitions
             };
+            if (this.imgSrc === "") {
+                this.imgSrc = "https://i.imgur.com/qsTg7xl.png";
+            }
             await RoutinesApi.addExercise(
                 this.godRoutineId,
                 this.godCycleId,
                 exercise
+            ).then(res =>
+                RoutinesApi.addImage(
+                    this.godRoutineId,
+                    this.godCycleId,
+                    res.id,
+                    { number: 1, url: this.imgSrc }
+                )
             );
             this.$emit("confirm");
+            this.reset();
+        },
+        reset() {
+            this.name = "";
+            this.detail = "";
+            this.repetitions = "";
+            this.duration = "";
+            this.type = "";
+            this.imgSrc = "";
+            this.dialog = false;
         }
     }
 };

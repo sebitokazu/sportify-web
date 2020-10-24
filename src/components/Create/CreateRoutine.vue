@@ -115,7 +115,7 @@ export default {
         async createRoutine() {
             const cycles = this.store.getCycles();
             let routine = this.store.getRoutine();
-            routine.isPublic = !routine.isPublic;
+            //routine.isPublic = !routine.isPublic;
             const res = await RoutinesApi.addRoutine(routine);
             const routineId = res.id;
             await Promise.all(
@@ -139,6 +139,8 @@ export default {
             );
         },
         async createExercise(routineId, cycleId, exercise) {
+            exercise.duration = parseInt(exercise.duration);
+            exercise.repetitions = parseInt(exercise.repetitions);
             await RoutinesApi.addExercise(routineId, cycleId, exercise);
         },
         deleteCycle(cycle) {

@@ -10,15 +10,10 @@
         <template v-slot:top>
             <v-dialog v-model="dialog" max-width="500px">
                 <v-card>
+                    <v-card-title>{{ editedItem.name }}</v-card-title>
                     <v-card-text>
                         <v-container>
                             <v-row>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field
-                                        v-model="editedItem.name"
-                                        label="Exercise"
-                                    ></v-text-field>
-                                </v-col>
                                 <v-col cols="12" sm="6" md="4">
                                     <v-text-field
                                         v-model="editedItem.duration"
