@@ -7,6 +7,7 @@
                 color="primary"
                 class="background--text ml-4 mt-3"
                 elevation="2"
+                width="30%"
             >
                 <v-icon small class="mr-2"> add </v-icon>
                 New exercise
@@ -50,6 +51,7 @@
                         outlined
                     ></v-select>
                     <v-card-actions>
+                        <v-spacer></v-spacer>
                         <v-btn class="error" @click="dialog = false"
                             >Cancel</v-btn
                         >
@@ -103,6 +105,7 @@ export default {
                 this.godCycleId,
                 exercise
             );
+            this.$emit("confirm");
         }
     }
 };
