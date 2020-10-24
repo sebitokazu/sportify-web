@@ -65,7 +65,7 @@ export default {
             if (!this.store.isNewRoutine()) {
                 this.store.deleteRoutine();
             }
-            this.createRoutine();
+            await this.createRoutine();
             this.postLoader = false;
             this.store.saved();
         },
@@ -73,24 +73,28 @@ export default {
             const cycles = this.store.getCycles();
             const res = await RoutinesApi.addRoutine(this.store.getRoutine());
             const routineId = res.id;
-            Object.values(cycles).forEach(cycle => {
-                this.createCycle(routineId, cycle);
-            });
+            await Promise.all(
+                Object.values(cycles).map(async cycle => {
+                    await this.createCycle(routineId, cycle);
+                })
+            );
         },
         async createCycle(routineId, cycle) {
             const res = await RoutinesApi.addCycle(routineId, cycle);
             const cycleId = res.id;
-            this.store
-                .getCyclesExercisesByName(cycle.name)
-                .forEach((exercise, idx) => {
-                    exercise.order = idx;
-                    this.createExercise(routineId, cycleId, exercise);
-                });
+            console.log(this.store.getCyclesExercisesByName(res.name), "a");
+            await Promise.all(
+                this.store
+                    .getCyclesExercisesByName(res.name)
+                    .map(async (exercise, idx) => {
+                        exercise.order = idx;
+                        await this.createExercise(routineId, cycleId, exercise);
+                    })
+            );
         },
-        createExercise(routineId, cycleId, exercise) {
-            RoutinesApi.addExercise(routineId, cycleId, exercise);
-        },
-        async updateRoutine() {}
+        async createExercise(routineId, cycleId, exercise) {
+            await RoutinesApi.addExercise(routineId, cycleId, exercise);
+        }
     }
 };
 </script>

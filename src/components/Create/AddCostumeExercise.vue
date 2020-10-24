@@ -5,6 +5,16 @@
         </div>
         <v-responsive class="overflow-y-auto" max-height="800">
             <v-container>
+                <template v-if="loader">
+                    <v-row>
+                        <v-col cols="4" v-for="i in 6" :key="i">
+                            <v-skeleton-loader
+                                type="article,actions"
+                                max-height="200"
+                            ></v-skeleton-loader>
+                        </v-col>
+                    </v-row>
+                </template>
                 <v-row>
                     <v-col cols="4" v-for="k in exercisesList" :key="k">
                         <Exercise :exercise="k" />
@@ -27,7 +37,8 @@ export default {
     data: () => ({
         exercisesList: [],
         godRoutineId: 1,
-        godCycleId: 1
+        godCycleId: 1,
+        loader: false
     }),
     async beforeMount() {
         const ids = await UserApi.getCurrentUserGodIds();
@@ -39,13 +50,17 @@ export default {
     },
     methods: {
         async initialize() {
+            this.loader = true;
             let response = await RoutinesApi.getExercises(1, 1);
-            this.exercisesList = response.results;
-            response = await RoutinesApi.getExercises(
+            let responseGod = await RoutinesApi.getExercises(
                 this.godRoutineId,
                 this.godCycleId
             );
-            this.exercisesList = { ...this.exercisesList, ...response.results };
+            this.exercisesList = {
+                ...responseGod.results,
+                ...response.results
+            };
+            this.loader = false;
         }
     }
 };
