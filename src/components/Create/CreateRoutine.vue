@@ -87,6 +87,7 @@ import EditRoutine from "@/components/Create/EditRoutine";
 import routineStore from "@/store/routineStore";
 import FormAddCycle from "@/components/Create/FormAddCycle";
 import { RoutinesApi } from "@/api/routines";
+import router from "@/router";
 
 export default {
     name: "CreateRoutine",
@@ -108,6 +109,7 @@ export default {
             await this.createRoutine();
             this.postLoader = false;
             this.store.saved();
+            router.push("/myroutines");
         },
 
         async cancel() {},
