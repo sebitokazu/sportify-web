@@ -80,7 +80,7 @@
                                                 </template>
                                                 <ConfirmationDialog
                                                     :dialogTitle="title"
-                                                    :dialog="dialog"
+                                                    :dialog="notVerified"
                                                     :message="detail"
                                                 />
                                             </v-dialog>
@@ -122,6 +122,7 @@ export default {
     data: () => ({
         valid: false,
         dialog: false,
+        notVerified : false,
         invalidCredentials: false,
         verifyAccount: false,
         username: "",
@@ -130,16 +131,16 @@ export default {
         show: false,
         title: "User invalid!",
         detail: "You must validate your user first",
-        rulesPassword: [
-            value => !!value || "Password is required",
-            value => {
-                const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-                return (
-                    pattern.test(value) ||
-                    "Min. 8 characters with at least one capital letter, a number and a special character."
-                );
-            }
-        ]
+        // rulesPassword: [
+        //     value => !!value || "Password is required",
+        //     value => {
+        //         const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+        //         return (
+        //             pattern.test(value) ||
+        //             "Min. 8 characters with at least one capital letter, a number and a special character."
+        //         );
+        //     }
+        // ]
     }),
     components: { ConfirmationDialog },
     methods: {
@@ -150,9 +151,9 @@ export default {
                 await router.push('home');
             } catch (error) {
                 if (error.code === 4) this.invalidCredentials++;
-                    console.log(error);
+                console.log(error);
                 if(error.code === 8){
-                    await this.routeToToken();
+                    this.notVerified++;
                 }
             };
         },

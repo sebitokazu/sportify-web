@@ -77,7 +77,7 @@ class RoutinesApi {
 
     static async getCycles(routineId, controller) {
         return await Api.get(
-            `${RoutinesApi.url}/${routineId}/cycles`,
+            `${RoutinesApi.url}/${routineId}/cycles?page=0&size=999&orderBy=id&direction=asc`,
             true,
             controller
         );

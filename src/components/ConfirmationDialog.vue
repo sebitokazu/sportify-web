@@ -7,13 +7,17 @@
             <v-card-text>
                 <p>{{ message }}</p>
             </v-card-text>
+            <v-text-field
+                label="Email"
+                v-model="email"
+            ></v-text-field>
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="error" text @click="cancel">
                     Cancel
                 </v-btn>
                 <v-btn color="success" text @click="confirm">
-                    Ok
+                    Resend email
                 </v-btn>
             </v-card-actions>
         </v-card>
@@ -21,6 +25,9 @@
 </template>
 
 <script>
+import { UserApi } from "@/api/user";
+import router from "@/router";
+
 export default {
     name: "ConfirmationDialog",
     props: {
@@ -32,11 +39,19 @@ export default {
         },
         message: {
             type: String
-        }
+        },
     },
+    data: () => ({
+        email: ""
+    }),
     methods: {
-        confirm() {
-            this.$emit("confirm");
+        async confirm() {
+            let email = {
+                email: this.email
+            }
+            console.log(email);
+            await UserApi.resendMail(email);
+            await router.push('token');
         },
         cancel() {
             this.$emit("cancel");

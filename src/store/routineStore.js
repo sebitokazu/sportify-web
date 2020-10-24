@@ -15,7 +15,7 @@ const defaultRoutine = {
     name: "",
     detail: "",
     isPublic: false,
-    difficulty: "rookie",
+    difficulty: "expert",
     category: { id: 1 }
 };
 

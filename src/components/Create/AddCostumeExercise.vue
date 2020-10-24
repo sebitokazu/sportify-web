@@ -56,10 +56,11 @@ export default {
                 this.godRoutineId,
                 this.godCycleId
             );
-            this.exercisesList = {
-                ...responseGod.results,
-                ...response.results
-            };
+            let exercisesForAll = response.results;
+            let exercisesForMe = responseGod.results;
+            this.exercisesList = [];
+            exercisesForAll.forEach((exercise) => this.exercisesList.push(exercise));
+            exercisesForMe.forEach((exercise) => this.exercisesList.push(exercise));
             this.loader = false;
         }
     }

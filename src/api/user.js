@@ -18,18 +18,83 @@ class UserApi {
         );
         Api.token = result.token;
         localStorage.setItem("SavedToken", "Bearer " + Api.token);
+
+        let responseRoutines = await this.getCurrentUserRoutines(0, 10);
+
+        if(responseRoutines.results.length === 0) {
+            let user = await this.getCurrentUser();
+            await this.createGodRoutine(user);
+        }
+        responseRoutines = await this.getCurrentUserRoutines(0,10);
+        let routineId = responseRoutines.results[0].id;
+        responseRoutines = await RoutinesApi.getCycles(routineId);
+        let cycleId = responseRoutines.results[0].id;
+
+        console.log(routineId);
+        console.log(cycleId);
+        localStorage.setItem("godRoutine", routineId);
+        localStorage.setItem("godCycle", cycleId);
+
         return result;
     }
 
     static async logout(controller) {
         await Api.post(`${UserApi.url}/logout`, true, null, controller);
         Api.token = undefined;
-        console.log("paso por aca");
         localStorage.removeItem("SavedToken");
+        localStorage.removeItem("godRoutine");
+        localStorage.removeItem("godCycle");
     }
 
     static async register(userData) {
-        let user = await Api.post(this.url, false, userData);
+        return await Api.post(this.url, false, userData);
+    }
+
+    static async resendMail(mail){
+        return await Api.post(`${UserApi.url}/resend_verification`, false, mail);
+    }
+
+    static async validate(data) {
+        return await Api.post(`${UserApi.url}/verify_email`, false, data);
+    }
+
+    static async getCurrentUser() {
+        return await Api.get(`${UserApi.url}/current`, true);
+    }
+
+    static async updateCurrentUser(userData) {
+        return await Api.put(`${UserApi.url}/current`, true, userData);
+    }
+
+    static async getCurrentUserRoutines(page, size) {
+        return await Api.get(
+            `${UserApi.url}/current/routines/?page=${page}&size=${size}&orderBy=dateCreated&direction=asc`,
+            true
+        );
+    }
+
+    static async getCurrentUserGodIds() {
+        let ids = [];
+        let godId = localStorage.getItem("godRoutine");
+        let godCycle = localStorage.getItem("godCycle");
+        ids.push(godId);
+        ids.push(godCycle);
+        return ids;
+    }
+
+    static setUserLogged(userLogged) {
+        Cookies.set("userLogged", userLogged);
+    }
+
+    static getUserLogged() {
+        return Cookies.get("userLogged");
+    }
+
+    static deleteUserLogged() {
+        Cookies.remove("userLogged");
+    }
+
+    static async createGodRoutine(user){
         let routineRepository = {
             name: "MyRepository",
             detail: "Exercise Repository",
@@ -59,43 +124,6 @@ class UserApi {
         console.log(id, cycleid);
         console.log(user);
         await this.updateCurrentUser(user);
-    }
-
-    static async validate(data) {
-        return await Api.post(`${UserApi.url}/verify_email`, false, data);
-    }
-
-    static async getCurrentUser() {
-        return await Api.get(`${UserApi.url}/current`, true);
-    }
-
-    static async updateCurrentUser(userData) {
-        return await Api.put(`${UserApi.url}/current`, true, userData);
-    }
-
-    static async getCurrentUserRoutines(page, size) {
-        return await Api.get(
-            `${UserApi.url}/current/routines/?page=${page}&size=${size}&orderBy=dateCreated&direction=asc`,
-            true
-        );
-    }
-
-    static async getCurrentUserGodIds() {
-        let user = await this.getCurrentUser();
-        console.log(user.phone);
-        return user.phone.split("|");
-    }
-
-    static setUserLogged(userLogged) {
-        Cookies.set("userLogged", userLogged);
-    }
-
-    static getUserLogged() {
-        return Cookies.get("userLogged");
-    }
-
-    static deleteUserLogged() {
-        Cookies.remove("userLogged");
     }
 }
 
