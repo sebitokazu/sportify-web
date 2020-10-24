@@ -230,11 +230,11 @@ export default {
 
     methods: {
         getPublic(isPublic) {
-            if (isPublic == "Yes") return "done";
+            if (isPublic === "Yes") return "done";
             else return "clear";
         },
         getColor(isPublic) {
-            if (isPublic == "Yes") return "success";
+            if (isPublic === "Yes") return "success";
             else return "error";
         },
         async initialize() {
@@ -259,7 +259,7 @@ export default {
             const index = this.myRoutines.indexOf(item);
             const currentRoutineId = this.myRoutines[index].id;
             confirm("Are you sure you want to delete this item?") &&
-                (await this.store.deleteRoutineById(currentRoutineId));
+            (await this.store.deleteRoutineById(currentRoutineId));
             this.initialize();
         },
 
