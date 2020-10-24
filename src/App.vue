@@ -1,9 +1,11 @@
 <template>
-        <v-app>
-            <v-img src="@/assets/fondo1.jpg" class="bg">
-                <router-view></router-view>
-            </v-img>
-        </v-app>
+    <v-app class="bg">
+        <div class="bg">
+            <!-- <v-img src="@/assets/fondo1.jpg" class="bg"> -->
+            <router-view></router-view>
+        </div>
+        <!-- </v-img> -->
+    </v-app>
 </template>
 
 <script>
@@ -12,19 +14,15 @@ export default {
     components: {},
     data: () => ({})
 };
-
 </script>
 
 <style scoped>
 .bg {
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    background-image: url("./assets/fondo1.jpg");
     background-size: cover;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
 </style>
