@@ -93,16 +93,13 @@ export default {
 
     methods: {
         addExercise() {
-            console.log("aca 1");
-            console.log(this.exercise);
-            console.log(this.cycle);
-            this.store.addExercise(this.exercise, this.cycle);
+            this.store.addExercise({ ...this.exercise }, this.cycle);
             this.cycleDialog = false;
         },
         cyclesName() {
             return routineStore.getCyclesName();
         },
-        closeCycleDialog(){
+        closeCycleDialog() {
             this.cycleDialog = false;
         }
     }

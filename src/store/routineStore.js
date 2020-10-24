@@ -1,13 +1,27 @@
 import Vue from "vue";
 import { RoutinesApi } from "@/api/routines";
 
-const defaultCycleExercise = { Training: [] };
+const defaultCycleExercise = { Warmup: [], Training: [], Cooldown: [] };
 const defaultCycle = {
+    Warmup: {
+        name: "Warmup",
+        detail: "",
+        type: "warmup",
+        order: 1,
+        repetitions: 1
+    },
     Training: {
         name: "Training",
         detail: "",
         type: "exercise",
-        order: 1,
+        order: 2,
+        repetitions: 1
+    },
+    Cooldown: {
+        name: "Cooldown",
+        detail: "",
+        type: "cooldown",
+        order: 3,
         repetitions: 1
     }
 };
@@ -26,21 +40,19 @@ let exercisesCycleMap = { ...defaultCycleExercise };
 let isNew = true;
 let toDeleteCyclesId = [];
 let toDeleteExercisesId = {};
+//let cantCycles = 3;
 
 export default Vue.observable({
     openCyclePanel: 0,
     clearAll() {
         exercisesCycleMap = {};
-        Vue.set(exercisesCycleMap, "Training", []);
+        Object.assign(exercisesCycleMap, { ...defaultCycleExercise });
         cycles = {};
-        Vue.set(cycles, "Training", { ...defaultCycle.Training });
+        Object.assign(cycles, { ...defaultCycle });
         routine = {};
         Object.assign(routine, { ...defaultRoutine });
         modificated = false;
         isNew = true;
-        console.log(routine);
-        console.log(cycles);
-        console.log(exercisesCycleMap);
         console.log("Reset");
     },
     addExercise(exercise, cycle) {

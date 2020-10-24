@@ -64,11 +64,11 @@ export default {
     name: "EditRoutine.vue",
     props: {},
     data: () => ({
-        totalTime: "15",
         categories: [],
         category: "",
         difficulty: "",
-        routine: routineStore.getRoutine()
+        routine: routineStore.getRoutine(),
+        store: routineStore
     }),
     watch: {
         rating: function(val) {
@@ -86,6 +86,21 @@ export default {
         },
         category: function(val) {
             this.routine.id = val;
+        }
+    },
+    computed: {
+        totalTime: function() {
+            let secs = 0;
+            const cycles = this.store.getCycles();
+            Object.values(cycles).forEach(cycle => {
+                this.store
+                    .getCyclesExercisesByName(cycle.name)
+                    .forEach(exercise => {
+                        secs += exercise.duration * exercise.repetitions;
+                    });
+                secs *= cycle.repetitions;
+            });
+            return secs;
         }
     }
 };
