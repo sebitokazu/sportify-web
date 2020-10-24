@@ -9,15 +9,18 @@
                     dense
                 ></v-text-field>
             </v-col>
-            <v-col>
-                <v-icon align>
-                    alarm
-                </v-icon>
-                {{ totalTime }}
-                mins
+            <v-spacer></v-spacer>
+            <v-col class="mt-2">
+                <v-card flat color="background">
+                    <v-icon align color="primary">
+                        alarm
+                    </v-icon>
+                    {{ totalTime }}
+                    '
+                </v-card>
             </v-col>
-            <v-col>
-                <v-checkbox color="success" v-model="routine.isPublic">
+            <v-col class="py-0">
+                <v-checkbox color="primary" v-model="routine.isPublic">
                     <template v-slot:label>
                         <div>
                             Private
@@ -25,20 +28,22 @@
                     </template>
                 </v-checkbox>
             </v-col>
+        </v-row>
+        <v-row class="pt-0">
             <v-col>
-                <v-chip-group>
+                <v-card color="background" flat>
                     Difficulty:
                     <v-rating
-                        color="rating"
+                        color="primary"
                         background-color="grey"
                         empty-icon="local_fire_department"
                         full-icon="local_fire_department"
                         hover
-                        length="3"
+                        length="5"
                         value="3"
                         v-model="difficulty"
                     ></v-rating>
-                </v-chip-group>
+                </v-card>
             </v-col>
             <v-col>
                 <v-select

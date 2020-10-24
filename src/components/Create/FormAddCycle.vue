@@ -1,7 +1,9 @@
 <template>
     <v-dialog v-model="dialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn dark v-on="on" v-bind="attrs"> Add cycle</v-btn>
+            <v-col align="center">
+                <v-btn align="center" color="primary" v-on="on" v-bind="attrs" block> Add cycle</v-btn>
+            </v-col>
         </template>
         <v-card class="ma-auto">
             <v-card-title>
@@ -37,7 +39,9 @@
                 ></v-slider>
             </v-card-text>
             <v-card-actions>
-                <v-btn @click="addCycle">Confirm</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn @click="close" color="error">Cancel</v-btn>
+                <v-btn @click="addCycle" color="success">Confirm</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -63,6 +67,9 @@ export default {
         addCycle() {
             this.dialog = false;
             this.store.addCycle(this.cycle.name, this.cycle);
+        },
+        close(){
+            this.dialog = false;
         }
     }
 };

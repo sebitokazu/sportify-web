@@ -2,8 +2,10 @@
     <v-container>
         <v-card color="background">
             <EditRoutine />
-            <FormAddCycle />
+
             <v-divider></v-divider>
+            <FormAddCycle />
+
             <v-expansion-panels hover flat>
                 <v-expansion-panel
                     v-for="(value, name, i) in cycles"
@@ -27,11 +29,11 @@
                 v-model="routine.detail"
             ></v-textarea>
             <v-card align="end" flat color="background">
-                <v-btn color="success" dark class="mb-2" @click="saveRoutine">
-                    Save
-                </v-btn>
-                <v-btn color="error" dark class="mb-2 mx-2">
+                <v-btn color="error" dark class="mb-2" @click="cancel">
                     Cancel
+                </v-btn>
+                <v-btn color="success" dark class="mb-2 mx-2" @click="saveRoutine">
+                    Save
                 </v-btn>
             </v-card>
         </v-card>
@@ -63,6 +65,11 @@ export default {
             */
             this.createRoutine();
         },
+
+        async cancel(){
+
+        },
+
         async createRoutine() {
             const cycles = this.store.getCycles();
             const res = await RoutinesApi.addRoutine(this.store.getRoutine());

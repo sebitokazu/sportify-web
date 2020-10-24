@@ -21,7 +21,7 @@
 
 <script>
 import Exercise from "@/components/Create/Exercise";
-import FormAddExercise from "@/components/FormAddExercise";
+import FormAddExercise from "@/components/Create/FormAddExercise";
 
 export default {
     name: "AddCostumeExercise.vue",

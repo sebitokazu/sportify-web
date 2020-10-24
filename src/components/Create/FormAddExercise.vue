@@ -50,10 +50,13 @@
                         outlined
                     ></v-select>
                     <v-card-actions>
-                        <v-btn class="error" @click="dialog = false">Cancel</v-btn>
-                        <v-btn @click="addExercise" class="success"
-                        >Add exercise</v-btn
-                        >
+                        <v-spacer></v-spacer>
+                        <v-btn class="error" @click="dialog = false">
+                            Cancel
+                        </v-btn>
+                        <v-btn @click="addExercise" class="success">
+                            Add exercise
+                        </v-btn>
                     </v-card-actions>
                 </v-form>
             </v-card-text>

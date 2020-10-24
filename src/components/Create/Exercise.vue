@@ -35,10 +35,14 @@
                                 v-model="cycle"
                                 dense
                                 outlined
+                                class="pt-3"
                             ></v-select>
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
+                            <v-btn color="error" @click="closeCycleDialog">
+                                Cancel
+                            </v-btn>
                             <v-btn color="success" @click="addExercise">
                                 Save
                             </v-btn>
@@ -94,6 +98,9 @@ export default {
         },
         cyclesName() {
             return routineStore.getCyclesName();
+        },
+        closeCycleDialog(){
+            this.cycleDialog = false;
         }
     }
 };
