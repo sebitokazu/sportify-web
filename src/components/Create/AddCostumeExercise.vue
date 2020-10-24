@@ -27,7 +27,7 @@
 
 <script>
 import Exercise from "@/components/Create/Exercise";
-import FormAddExercise from "@/components/FormAddExercise";
+import FormAddExercise from "@/components/Create/FormAddExercise";
 import { RoutinesApi } from "@/api/routines";
 import { UserApi } from "@/api/user";
 
