@@ -2,9 +2,18 @@
     <div>
         <NavBar />
         <v-main>
-            <v-container fluid>
-                <template>
+            <v-container class="mt-3">
+                <v-card color="background">
+                    <v-card-title>
+                        My Routines
+                    </v-card-title>
+                    <v-skeleton-loader
+                        v-if="firstLoad"
+                        class="px-2"
+                        type="table-row-divider@5,table-tfoot "
+                    ></v-skeleton-loader>
                     <v-data-table
+                        v-else
                         :headers="headers"
                         :items="myRoutines"
                         sort-by="routines"
@@ -27,16 +36,10 @@
                             </v-icon>
                         </template>
                         <template v-slot:item.category="{ item }">
-                            <p>{{item.category.name}}</p>
+                            <p>{{ item.category.name }}</p>
                         </template>
                         <template v-slot:top>
                             <v-toolbar flat color="background">
-                                <v-toolbar-title>My Routines</v-toolbar-title>
-                                <v-divider
-                                    class="mx-4"
-                                    inset
-                                    vertical
-                                ></v-divider>
                                 <v-spacer></v-spacer>
                                 <v-dialog v-model="dialog" max-width="500px">
                                     <template v-slot:activator="{ on, attrs }">
@@ -65,21 +68,20 @@
                             >
                                 mdi-delete
                             </v-icon>
+                            <v-icon small class="mr-2" @click="watchItem(item)">
+                                visibility
+                            </v-icon>
                             <v-dialog v-model="dialog2" :retain-focus="false">
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-icon small v-on="on" v-bind="attrs">
-                                        visibility
-                                    </v-icon>
-                                </template>
                                 <RoutineCardDetailed
-                                    :title="item.name"
-                                    :detail="item.detail"
+                                    :title="detailed.name"
+                                    :detail="detailed.detail"
+                                    :id="detailed.id"
                                     @dialog="dialog2 = false"
                                 />
                             </v-dialog>
                         </template>
                     </v-data-table>
-                </template>
+                </v-card>
             </v-container>
         </v-main>
     </div>
@@ -97,7 +99,7 @@ export default {
     name: "MyRoutines",
     components: { NavBar, RoutineCardDetailed },
     data: () => ({
-        firstLoad: true,
+        firstLoad: false,
         selectTime: [],
         dialog: false,
         dialog2: false,
@@ -127,7 +129,12 @@ export default {
             difficulty: 0,
             category: ""
         },
-        store: routineStore
+        store: routineStore,
+        detailed: {
+            name: "",
+            detail: "",
+            id: ""
+        }
     }),
 
     computed: {
@@ -173,19 +180,24 @@ export default {
             let response = await RoutinesApi.getRoutine(currentRoutineId);
             await this.store.toEditRoutine(response);
             await router.push("newroutines");
-            // this.editedIndex = this.myRoutines.indexOf(item);
-            // this.editedItem = Object.assign({}, item);
-            // this.dialog = true;
         },
 
         async deleteItem(item) {
             const index = this.myRoutines.indexOf(item);
             const currentRoutineId = this.myRoutines[index].id;
             confirm("Are you sure you want to delete this item?") &&
-            (await this.store.deleteRoutineById(currentRoutineId));
+                (await this.store.deleteRoutineById(currentRoutineId));
             this.initialize();
         },
 
+        watchItem(item) {
+            const index = this.myRoutines.indexOf(item);
+            const routine = this.myRoutines[index];
+            this.detailed.id = routine.id;
+            this.detailed.name = routine.name;
+            this.detailed.detail = routine.detail;
+            this.dialog2 = true;
+        },
         close() {
             this.dialog = false;
             this.$nextTick(() => {
@@ -205,21 +217,25 @@ export default {
             }
             this.close();
         },
-        calculateDifficulty(difficulty){
+        calculateDifficulty(difficulty) {
             console.log(difficulty);
-            switch(difficulty){
-                case 'rookie': return 1;
-                case 'begginer': return 2;
-                case 'intermediate': return 3;
-                case 'advanced': return 4;
-                case 'expert': return 5;
-
+            switch (difficulty) {
+                case "rookie":
+                    return 1;
+                case "begginer":
+                    return 2;
+                case "intermediate":
+                    return 3;
+                case "advanced":
+                    return 4;
+                case "expert":
+                    return 5;
             }
         },
-        goToCreate(){
-            router.push('newroutines');
+        goToCreate() {
+            router.push("newroutines");
         },
-        showItem(item){
+        showItem(item) {
             console.log(item);
         }
     }

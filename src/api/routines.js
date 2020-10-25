@@ -14,6 +14,14 @@ class RoutinesApi {
         );
     }
 
+    static async retrieveAllRoutinesSearch(query, controller) {
+        return await Api.get(
+            `${RoutinesApi.url}?search=${query}&page=0&size=999&orderBy=dateCreated&direction=asc`,
+            true,
+            controller
+        );
+    }
+
     static async retrieveRoutines(
         difficulty,
         page,

@@ -35,13 +35,6 @@
         </div>
 
         <v-spacer></v-spacer>
-        <v-text-field
-            class="rounded-pill mt-6 shrink background--text"
-            prepend-inner-icon="search"
-            label="Search"
-            outlined
-            dense="true"
-        ></v-text-field>
 
         <v-menu
             v-model="value"

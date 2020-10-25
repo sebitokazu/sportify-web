@@ -5,7 +5,13 @@
         min-width="150"
         color="background"
     >
-        <v-img class="white--text align-end" height="130px" :src="image">
+        <v-img
+            class="white--text align-end"
+            height="130px"
+            :src="image"
+            contain
+            alt="Exercise image"
+        >
             <v-card-title
                 class="primary--text py-1 pl-2"
                 style="background-color:rgba(253, 255, 242, 0.5);"

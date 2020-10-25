@@ -1,10 +1,8 @@
 <template>
     <v-app class="bg">
         <div class="bg">
-            <!-- <v-img src="@/assets/fondo1.jpg" class="bg"> -->
             <router-view></router-view>
         </div>
-        <!-- </v-img> -->
     </v-app>
 </template>
 
