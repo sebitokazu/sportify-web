@@ -1,19 +1,6 @@
 <template>
     <v-dialog v-model="dialog" max-width="600px">
-        <template v-slot:activator="{ on, attrs }">
-            <v-col align="center">
-                <v-btn
-                    align="center"
-                    color="primary"
-                    v-on="on"
-                    v-bind="attrs"
-                    block
-                    disabled
-                >
-                    Add cycle</v-btn
-                >
-            </v-col>
-        </template>
+
         <v-card class="ma-auto">
             <v-card-title>
                 New Cycle

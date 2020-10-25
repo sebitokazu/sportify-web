@@ -63,48 +63,48 @@ class Initializer{
     static async createExercises(){
         let exercisesList = [
                 {
-                    name: "Abdominales",
-                    detail: "Abdominales",
+                    name: "Abs",
+                    detail: "Abs",
                     type: "exercise",
                     duration: 30,
                     repetitions: 10,
                     order: 1
                 },
                 {
-                    name: "Flexiones",
-                    detail: "Flexiones",
+                    name: "Push-Ups",
+                    detail: "Push-Ups",
                     type: "exercise",
                     duration: 30,
                     repetitions: 10,
                     order: 2
                 },
                 {
-                    name: "Sentadillas",
-                    detail: "Sentadillas",
+                    name: "Squats",
+                    detail: "Squats",
                     type: "exercise",
                     duration: 30,
                     repetitions: 10,
                     order: 3
                 },
                 {
-                    name: "Estocadas",
-                    detail: "Estocadas",
+                    name: "Lunges",
+                    detail: "Lunges",
                     type: "exercise",
                     duration: 30,
                     repetitions: 10,
                     order: 4
                 },
                 {
-                    name: "Espinales",
-                    detail: "Espinales",
+                    name: "Spinal",
+                    detail: "Spinal",
                     type: "exercise",
                     duration: 30,
                     repetitions: 10,
                     order: 5
                 },
                 {
-                    name: "Elongacion",
-                    detail: "Elongacion",
+                    name: "Elongation",
+                    detail: "Elongation",
                     type: "exercise",
                     duration: 30,
                     repetitions: 10,
