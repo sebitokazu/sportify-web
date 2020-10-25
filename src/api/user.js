@@ -1,12 +1,26 @@
 import { Api } from "./api.js";
 import Cookies from "js-cookie";
 import { RoutinesApi } from "@/api/routines";
+import { Initializer } from "@/initializer/init";
 
 export { UserApi, Credentials };
 
 class UserApi {
     static get url() {
         return `${Api.baseUrl}/user`;
+    }
+
+    static async loginWithJohnDoe(){
+        let johnDoe = {
+            username: "johndoe",
+            password: "1234567890"
+        }
+        let result = await Api.post(
+            `${UserApi.url}/login`,
+            false,
+            johnDoe,
+        );
+        localStorage.setItem("SavedToken", "Bearer " + result.token);
     }
 
     static async login(credentials, controller) {
@@ -19,6 +33,17 @@ class UserApi {
         Api.token = result.token;
         localStorage.setItem("SavedToken", "Bearer " + Api.token);
 
+        console.log(credentials.username);
+        let initializer = await RoutinesApi.retrieveAllRoutines();
+        if(initializer.results.length === 0){
+            await UserApi.logout();
+            await Initializer.initializeEverything();
+            localStorage.clear();
+            await UserApi.login(credentials);
+        }
+
+
+
         let responseRoutines = await this.getCurrentUserRoutines(0, 10);
 
         if(responseRoutines.results.length === 0) {
@@ -29,6 +54,8 @@ class UserApi {
         let routineId = responseRoutines.results[0].id;
         responseRoutines = await RoutinesApi.getCycles(routineId);
         let cycleId = responseRoutines.results[0].id;
+
+
 
         console.log(routineId);
         console.log(cycleId);

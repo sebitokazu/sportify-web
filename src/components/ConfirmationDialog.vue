@@ -14,10 +14,10 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="error" text @click="cancel">
-                    Cancel
+                    Close
                 </v-btn>
                 <v-btn color="success" text @click="confirm">
-                    Resend email
+                    {{confirmMessage}}
                 </v-btn>
             </v-card-actions>
         </v-card>
@@ -40,6 +40,9 @@ export default {
         message: {
             type: String
         },
+        confirmMessage:{
+            type: String
+        }
     },
     data: () => ({
         email: ""

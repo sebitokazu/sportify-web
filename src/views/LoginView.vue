@@ -74,15 +74,11 @@
                                                         @click="login"
                                                         v-on="on"
                                                         v-bind="attrs"
+                                                        @keyup.enter="login"
                                                     >
                                                         Sign In
                                                     </v-btn>
                                                 </template>
-                                                <ConfirmationDialog
-                                                    :dialogTitle="title"
-                                                    :dialog="notVerified"
-                                                    :message="detail"
-                                                />
                                             </v-dialog>
                                         </template>
 
@@ -115,7 +111,6 @@
 <script>
 import { UserApi, Credentials } from "@/api/user";
 import router from "@/router";
-import ConfirmationDialog from "@/components/ConfirmationDialog";
 
 export default {
     name: "LoginView",
@@ -131,6 +126,7 @@ export default {
         show: false,
         title: "User invalid!",
         detail: "You must validate your user first",
+        confirmMessage: "Resend Email"
         // rulesPassword: [
         //     value => !!value || "Password is required",
         //     value => {
@@ -142,7 +138,7 @@ export default {
         //     }
         // ]
     }),
-    components: { ConfirmationDialog },
+    components: {  },
     methods: {
         async login() {
             let credentials = new Credentials(this.username, this.password);
