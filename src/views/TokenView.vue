@@ -78,7 +78,7 @@ export default {
             value => /./.test(value) || "Invalid validation code"
         ],
         code: "",
-        show: false,
+        show: false
     }),
     components: {},
     methods: {
@@ -93,15 +93,13 @@ export default {
                 console.log(validateData);
                 let response = await UserApi.validate(validateData);
                 console.log(response);
-                await router.push('login');
+                await router.push("login");
             } catch (error) {
                 console.log(error);
             }
         }
     }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

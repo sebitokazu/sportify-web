@@ -83,10 +83,8 @@
 
 <script>
 export default {
-name: "TokenConfirmationView.vue"
-}
+    name: "TokenConfirmationView.vue"
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -17,11 +17,7 @@
                         class="pb-6 background"
                     >
                         <v-card-title>Register</v-card-title>
-                        <v-form
-                            v-model="valid"
-                            ref="toke"
-                            class="px-4 "
-                        >
+                        <v-form v-model="valid" ref="toke" class="px-4 ">
                             <v-text-field
                                 v-model="email"
                                 label="Email"
@@ -130,8 +126,8 @@ export default {
                 console.log(response);
             } catch (error) {
                 console.log(error);
-            };
-            await router.push('token');
+            }
+            await router.push("token");
         }
     }
 };

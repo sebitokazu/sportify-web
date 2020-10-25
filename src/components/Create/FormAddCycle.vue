@@ -1,6 +1,5 @@
 <template>
     <v-dialog v-model="dialog" max-width="600px">
-
         <v-card class="ma-auto">
             <v-card-title>
                 New Cycle

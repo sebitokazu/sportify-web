@@ -2,7 +2,7 @@
     <div>
         <NavBar />
         <v-main class="staatliches">
-            <v-container fluid >
+            <v-container fluid>
                 <v-row class="mainButtons">
                     <v-col
                         cols="12"
@@ -27,11 +27,10 @@
     transform: scale(1.2);
 }
 
-.staatliches{
+.staatliches {
     font-family: "Poppins", sans-serif;
     font-weight: bold;
 }
-
 </style>
 
 <script>

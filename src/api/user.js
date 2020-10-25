@@ -10,16 +10,12 @@ class UserApi {
         return `${Api.baseUrl}/user`;
     }
 
-    static async loginWithJohnDoe(){
+    static async loginWithJohnDoe() {
         let johnDoe = {
             username: "johndoe",
             password: "1234567890"
-        }
-        let result = await Api.post(
-            `${UserApi.url}/login`,
-            false,
-            johnDoe,
-        );
+        };
+        let result = await Api.post(`${UserApi.url}/login`, false, johnDoe);
         localStorage.setItem("SavedToken", "Bearer " + result.token);
     }
 
@@ -35,27 +31,23 @@ class UserApi {
 
         console.log(credentials.username);
         let initializer = await RoutinesApi.retrieveAllRoutines();
-        if(initializer.results.length === 0){
+        if (initializer.results.length === 0) {
             await UserApi.logout();
             await Initializer.initializeEverything();
             localStorage.clear();
             await UserApi.login(credentials);
         }
 
-
-
         let responseRoutines = await this.getCurrentUserRoutines(0, 10);
 
-        if(responseRoutines.results.length === 0) {
+        if (responseRoutines.results.length === 0) {
             let user = await this.getCurrentUser();
             await this.createGodRoutine(user);
         }
-        responseRoutines = await this.getCurrentUserRoutines(0,10);
+        responseRoutines = await this.getCurrentUserRoutines(0, 10);
         let routineId = responseRoutines.results[0].id;
         responseRoutines = await RoutinesApi.getCycles(routineId);
         let cycleId = responseRoutines.results[0].id;
-
-
 
         console.log(routineId);
         console.log(cycleId);
@@ -77,8 +69,12 @@ class UserApi {
         return await Api.post(this.url, false, userData);
     }
 
-    static async resendMail(mail){
-        return await Api.post(`${UserApi.url}/resend_verification`, false, mail);
+    static async resendMail(mail) {
+        return await Api.post(
+            `${UserApi.url}/resend_verification`,
+            false,
+            mail
+        );
     }
 
     static async validate(data) {
@@ -121,7 +117,7 @@ class UserApi {
         Cookies.remove("userLogged");
     }
 
-    static async createGodRoutine(user){
+    static async createGodRoutine(user) {
         let routineRepository = {
             name: "MyRepository",
             detail: "Exercise Repository",

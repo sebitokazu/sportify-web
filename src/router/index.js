@@ -88,8 +88,13 @@ router.beforeEach((to, from, next) => {
     const publicPages = ["/", "/register", "/login", "/token"];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem("SavedToken");
-    if( (to.path === '/login' || to.path === '/register' || to.path === '/token') && loggedIn ){
-        next('/home');
+    if (
+        (to.path === "/login" ||
+            to.path === "/register" ||
+            to.path === "/token") &&
+        loggedIn
+    ) {
+        next("/home");
         return;
     }
 

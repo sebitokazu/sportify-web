@@ -46,20 +46,16 @@ export default {
         closeDialog() {
             this.$emit("dialog");
         },
-        sendEmail(){
-
-        }
+        sendEmail() {}
     },
     data: () => ({
         email: "",
         rulesEmail: [
             value => !!value || "Email is required",
             value => /.+@.+\..+/.test(value) || "Invalid email"
-        ],
+        ]
     })
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

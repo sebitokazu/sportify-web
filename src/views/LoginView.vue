@@ -64,8 +64,16 @@
                                 <v-container class="mt-n4">
                                     <v-row>
                                         <template>
-                                            <v-dialog v-model="dialog" width="500">
-                                                <template v-slot:activator="{ on, attrs }">
+                                            <v-dialog
+                                                v-model="dialog"
+                                                width="500"
+                                            >
+                                                <template
+                                                    v-slot:activator="{
+                                                        on,
+                                                        attrs
+                                                    }"
+                                                >
                                                     <v-btn
                                                         class="mx-auto"
                                                         color="purple lighten-2"
@@ -81,7 +89,6 @@
                                                 </template>
                                             </v-dialog>
                                         </template>
-
                                     </v-row>
                                     <v-row>
                                         <v-divider
@@ -117,7 +124,7 @@ export default {
     data: () => ({
         valid: false,
         dialog: false,
-        notVerified : false,
+        notVerified: false,
         invalidCredentials: false,
         verifyAccount: false,
         username: "",
@@ -138,24 +145,22 @@ export default {
         //     }
         // ]
     }),
-    components: {  },
+    components: {},
     methods: {
         async login() {
             let credentials = new Credentials(this.username, this.password);
             try {
                 await UserApi.login(credentials);
-                await router.push('home');
+                await router.push("home");
             } catch (error) {
                 if (error.code === 4) this.invalidCredentials++;
                 console.log(error);
-                if(error.code === 8){
+                if (error.code === 8) {
                     this.notVerified++;
                 }
-            };
+            }
         },
-        async routeToToken(){
-
-        }
+        async routeToToken() {}
     }
 };
 </script>
