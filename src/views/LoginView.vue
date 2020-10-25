@@ -9,6 +9,9 @@
                 </v-col>
             </v-row>
             <v-row justify="center">
+                <v-img src="@/assets/logo_botella2.png" min-width="260" max-width="360" />
+            </v-row>
+            <v-row justify="center">
                 <v-col cols="4">
                     <v-card min-width="250" max-width="350" elevation="3">
                         <v-card-title>Login</v-card-title>
