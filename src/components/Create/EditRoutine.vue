@@ -9,24 +9,15 @@
                     dense
                 ></v-text-field>
             </v-col>
-            <v-spacer></v-spacer>
-            <v-col class="mt-2">
-                <v-card flat color="background">
-                    <v-icon align color="primary">
-                        alarm
-                    </v-icon>
-                    {{ totalTime }}
-                    '
-                </v-card>
-            </v-col>
-            <v-col class="py-0">
-                <v-checkbox color="primary" v-model="routine.isPublic">
-                    <template v-slot:label>
-                        <div>
-                            Public
-                        </div>
-                    </template>
-                </v-checkbox>
+
+            <v-col>
+                <v-select
+                    :items="categoriesName"
+                    label="Category"
+                    v-model="category"
+                    dense
+                    outlined
+                ></v-select>
             </v-col>
         </v-row>
         <v-row class="pt-0">
@@ -46,14 +37,24 @@
                     ></v-rating>
                 </v-card>
             </v-col>
-            <v-col>
-                <v-select
-                    :items="categoriesName"
-                    label="Category"
-                    v-model="category"
-                    dense
-                    outlined
-                ></v-select>
+            <v-spacer></v-spacer>
+            <v-col class="mt-2">
+                <v-card flat color="background">
+                    <v-icon align color="primary">
+                        alarm
+                    </v-icon>
+                    {{ totalTime }}
+                    "
+                </v-card>
+            </v-col>
+            <v-col class="py-0">
+                <v-checkbox color="primary" v-model="routine.isPublic">
+                    <template v-slot:label>
+                        <div>
+                            Public
+                        </div>
+                    </template>
+                </v-checkbox>
             </v-col>
         </v-row>
     </v-container>

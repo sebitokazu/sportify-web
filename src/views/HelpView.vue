@@ -60,12 +60,40 @@ export default {
                 ]
             },
             {
-                title: "Can I see routines made by other people?",
-                description: ["Of course! Go to explore", "Have fun!"]
+                title: "How do I create an exercise?",
+                description: [
+                    "Go to CREATE",
+                    "Click on + NEW EXERCISE, on the right side",
+                    "Follow the steps",
+                    "The exercise created will apear on MY EXERCISES"
+                ]
             },
-            { title: "", description: "" },
-            { title: "", description: "" },
-            { title: "", description: "" }
+            {
+                title: "Can I see routines made by other people?",
+                description: ["Of course! Go to EXPLORE", "Have fun!"]
+            },
+            {
+                title: "Where can I see all my routines?",
+                description: [
+                    "Go to MY ROUTINES",
+                    "You will be able to edit and delete your routines!"
+                ]
+            },
+            {
+                title: "Where can I see all my exercises?",
+                description: [
+                    "Go to MY EXERCISES",
+                    "You will be able to edit and delete your exercises!"
+                ]
+            },
+            {
+                title: "How do I edit my profile information?",
+                description: [
+                    "Go to the profile icon on the top right side",
+                    "Then click on MY PROFILE",
+                    "You can edit your information by clicking on the edit button"
+                ]
+            }
         ]
     })
 };

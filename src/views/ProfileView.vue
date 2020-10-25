@@ -46,18 +46,6 @@
                                 :hint="readMode ? '' : 'Email cant be changed'"
                             ></v-text-field>
                             <v-text-field
-                                label="Password"
-                                outlined
-                                v-model="textFieldValues.password"
-                                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                                :rules="[rules.required, rules.min]"
-                                :type="show1 ? 'text' : 'password'"
-                                name="input-10-1"
-                                :hint="readMode ? '' : 'At least 8 characters'"
-                                :readonly="readMode"
-                                @click:append="show1 = !show1"
-                            ></v-text-field>
-                            <v-text-field
                                 label="Gender"
                                 outlined
                                 :readonly="readMode"

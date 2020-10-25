@@ -134,7 +134,7 @@ export default {
         async initialize() {
             let results = await RoutinesApi.retrieveAllRoutines();
             results = results.results;
-            this.listaRutinas = results;
+            this.listaRutinas = results.splice(1);
         },
         async searched() {
             if (this.searchText === "") {
